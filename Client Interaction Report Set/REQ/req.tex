@@ -27,8 +27,16 @@
 	\end{enumerate}
 	
 	\subsubsection{Payments}\begin{enumerate}
-		\item If the user selects to purchase a ticket, their stored credit card will be charged for the price of the train stop’s ticket. If the card does not process, an error message shall by display and the order shall not be accepted. If the transaction succeeds, the application shall create a virtual ticket.
-		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at $20\pm 5$ second intervals to open. If the application is unsuccessful on the 3rd attempt, an error message shall be displayed.
+		\item If the user selects to purchase a ticket, their stored credit card will be charged for the price of the train stop’s ticket.
+		\begin{enumerate}
+			\item If the card does not process, an error message shall by display and the order shall not be accepted.
+			\item If the transaction succeeds, the application shall create a virtual ticket.
+		\end{enumerate}
+		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at $20\pm 5$ second intervals to open.
+			\begin{enumerate}
+				\item If the application is unsuccessful on the 3rd attempt, an error message shall be displayed.
+				\item Otherwise, the turnstile is unlocked, permitting the user to pass through.
+			\end{enumerate}
 		\item The application shall store unused virtual tickets for at least 1 year.
 		\item The application shall store used virtual tickets for at least 30 days.
 		\item The application shall allow the user to change their email address.
