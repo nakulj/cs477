@@ -2,7 +2,7 @@
 \usepackage{fancyhdr}
 \usepackage{hyperref}
 \usepackage{tabularx}
-\title{Requirements Description}
+\title{Client Interaction Report}
 \author{
 	Andrew Borba\\ \emph{Prototyper}	\and
 	 Lizz Brooks\\ \emph{Project Manager}	\and
@@ -11,19 +11,19 @@
 	 Nakul Joshi\\ \emph{Software Architect}	\and
 	 Ian Malave\\ \emph{Requirements Engineer}	\and
 	 Rishi Mukhopadyay\\ \emph{Operational Concept Engineer}
-}%fill out student roles. Use \\ to add newlines if necessary.
+}
 \date{September 16\textsuperscript{th}, 2013}
 
 \begin{document}
 \pagestyle{fancy}
-\lhead{Requirements Description}
+\lhead{Client Interaction Report}
 \chead{}
 \rhead{Version 1.0.1}
 \lfoot{}
 \cfoot{\thepage}
 \rfoot{}
-\maketitle
 
+\maketitle
 \tableofcontents
 \newpage
 \section{Version History}
@@ -38,67 +38,7 @@
     \end{tabularx}
 \end{table}
 \newpage
-\section{Capability Requirements}
 
-	\subsection{Platform}\begin{enumerate}
-		\item The application shall be compatible with the iOS and Android mobile platforms.
-		\item The application shall support a web interface for other mobile devices.
-	\end{enumerate}
-	
-	\subsection{User Accounts}\begin{enumerate}
-		\item If it is a user’s first-time opening the application, the application shall prompt the user to enter an email address, password, and credit card information.
-		\begin{enumerate}
-			\item If the account is created successfully, the application shall send a confirmation to the user’s stored email address.
-			\item If the account creation is not successful, the application shall display an error message that prompts the user to reenter their information and will not be logged in.
-		\end{enumerate}
-		\item If a returning user opens the application, it shall prompt the user to enter their log-in information.
-			\begin{enumerate}
-				\item If the log-in attempt fails, the application will display an error message that prompts the user to reenter their log-in information.
-				\item If the log-in attempt succeeds, the user will be shown a transit management screen.
-			\end{enumerate}
-	\end{enumerate}
-	
-	\subsection{Usage}\begin{enumerate}
-		\item If the application loses connectivity, the application shall display an error message. 
-		\item The application shall retrieve the user’s location at intervals of $120\pm10$ seconds.
-		\item If the user is within 150 feet of a train-stop’s geo-location coordinates, the train-stop’s name, ticket price, and incoming train information shall be displayed on the user interface.
-		\item If train stop information is being displayed on the application’s user interface, the application shall update the train stop’s incoming train information at intervals of $30\pm 5$ seconds.
-	\end{enumerate}
-	
-	\subsection{Payments}\begin{enumerate}
-		\item If the user selects to purchase a ticket, their stored credit card will be charged for the price of the train stop’s ticket. If the card does not process, an error message shall by display and the order shall not be accepted. If the transaction succeeds, the application shall create a virtual ticket.
-		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at $20\pm 5$ second intervals to open. If the application is unsuccessful on the 3rd attempt, an error message shall be displayed.
-		\item The application shall store unused virtual tickets for at least 1 year.
-		\item The application shall store used virtual tickets for at least 30 days.
-		\item The application shall allow the user to change their email address.
-		\item The application shall allow the user to change their password.
-		\item The application shall allow the user to change their credit card information.
-	\end{enumerate}		
-\newpage	
-\section{Level of Service Requirements}
-
-\begin{table}[h]
-    \begin{tabularx}{\textwidth}{Xll}
-    \hline
-    LOS Requirements                                                                                          & Desired Level & Accepted Level \\ \hline
-    LOS-1: Concurrent Users                                                                                   & 10000         & 1000           \\
-    LOS-2: Start-up and user location time                                                                    & 7             & 25             \\
-    LOS-3: Ticket Purchase Transaction Time                                                                   & 5             & 20             \\
-    LOS-4: Update Account Information Time                                                                    & 10            & 30             \\
-    LOS-5: Tickets stored per user                                                                            & 1000          & 500            \\
-    LOS-6: \% first-time users able to purchase ticket without outside help                                    & 99            & 95             \\
-    LOS-7: \% first-time users able to use ticket without outside help                                         & 99            & 95             \\
-    LOS-8: \% users that ride metro at least once per week that would rate ease of use at 3 out of 5 or higher & 80            & 75             \\
-    LOS-9: Average Time for User to Create an Account                                                         & 45            & 60             \\
-    LOS-10: Failed Ticket Purchases per 1000                                                                  & 1             & 5              \\
-    LOS-11: Failed Ticket Uses per 1000                                                                       & 1             & 5              \\
-    LOS-12: Hours per day that app shall purchase tickets                                                     & 22            & 20             \\
-    LOS-13: Hours per day that app shall allow use of tickets                                                 & 22            & 20             \\
-    LOS-14: \# iOS generations app shall support                                                               & 3             & 2              \\
-    LOS-15: \# Android generations app shall support                                                           & 3             & 2              \\
-    LOS-16: \# versions of app that Metro system shall support                                                 & 3             & 2              \\
-    \hline
-    \end{tabularx}
-\end{table}
+\input{Requirements/requirements.tex}
 		
 \end{document}
