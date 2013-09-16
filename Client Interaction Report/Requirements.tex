@@ -77,9 +77,28 @@
 \newpage	
 \section{Level of Service Requirements}
 
-	\subsection{Subsection}\begin{enumerate}
-		\item Requirement
-		\item Requirement
-	\end{enumerate}
+\begin{table}[h]
+    \begin{tabularx}{\textwidth}{Xll}
+    \hline
+    LOS Requirements                                                                                          & Desired Level & Accepted Level \\ \hline
+    LOS-1: Concurrent Users                                                                                   & 10000         & 1000           \\
+    LOS-2: Start-up and user location time                                                                    & 7             & 25             \\
+    LOS-3: Ticket Purchase Transaction Time                                                                   & 5             & 20             \\
+    LOS-4: Update Account Information Time                                                                    & 10            & 30             \\
+    LOS-5: Tickets stored per user                                                                            & 1000          & 500            \\
+    LOS-6: \% first-time users able to purchase ticket without outside help                                    & 99            & 95             \\
+    LOS-7: \% first-time users able to use ticket without outside help                                         & 99            & 95             \\
+    LOS-8: \% users that ride metro at least once per week that would rate ease of use at 3 out of 5 or higher & 80            & 75             \\
+    LOS-9: Average Time for User to Create an Account                                                         & 45            & 60             \\
+    LOS-10: Failed Ticket Purchases per 1000                                                                  & 1             & 5              \\
+    LOS-11: Failed Ticket Uses per 1000                                                                       & 1             & 5              \\
+    LOS-12: Hours per day that app shall purchase tickets                                                     & 22            & 20             \\
+    LOS-13: Hours per day that app shall allow use of tickets                                                 & 22            & 20             \\
+    LOS-14: \# iOS generations app shall support                                                               & 3             & 2              \\
+    LOS-15: \# Android generations app shall support                                                           & 3             & 2              \\
+    LOS-16: \# versions of app that Metro system shall support                                                 & 3             & 2              \\
+    \hline
+    \end{tabularx}
+\end{table}
 		
 \end{document}
