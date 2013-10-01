@@ -7,15 +7,7 @@
 	
 	\subsection{User Accounts}\begin{frame}\begin{enumerate}
 		\item If it is a user’s first-time opening the application, the application shall prompt the user to enter an email address, password, and credit card information.
-		\begin{enumerate}
-			\item If the account is created successfully, the application shall send a confirmation to the user’s stored email address.
-			\item If the account creation is not successful, the application shall display an error message that prompts the user to reenter their information and will not be logged in.
-		\end{enumerate}
 		\item If a returning user opens the application, it shall prompt the user to enter their log-in information.
-			\begin{enumerate}
-				\item If the log-in attempt fails, the application will display an error message that prompts the user to reenter their log-in information.
-				\item If the log-in attempt succeeds, the user will be shown a transit management screen.
-			\end{enumerate}
 	\end{enumerate}\end{frame}
 	
 	\subsection{Usage}\begin{frame}\begin{enumerate}
@@ -27,20 +19,10 @@
 	
 	\subsection{Payments}\begin{frame}\begin{enumerate}
 		\item If the user selects to purchase a ticket, their stored credit card will be charged for the price of the train stop’s ticket.
-		\begin{enumerate}
-			\item If the card does not process, an error message shall be displayed and the order shall not be accepted.
-			\item If the transaction succeeds, the application shall create a virtual ticket.
-		\end{enumerate}
 		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at $20\pm 5$ second intervals to open.
-			\begin{enumerate}
-				\item If the application is unsuccessful on the 3rd attempt, an error message shall be displayed.
-				\item Otherwise, the turnstile is unlocked, permitting the user to pass through.
-			\end{enumerate}
 		\item The application shall store unused virtual tickets for at least 1 year.
 		\item The application shall store used virtual tickets for at least 30 days.
-		\item The application shall allow the user to change their email address.
-		\item The application shall allow the user to change their password.
-		\item The application shall allow the user to change their credit card information.
+		\item The application shall allow the user to edit payment information.
 	\end{enumerate}\end{frame}		
 \newpage	
 \section{Level of Service Requirements}
