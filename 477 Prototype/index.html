@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+	<head>
+
+		<link href='http://fonts.googleapis.com/css?family=Bubbler+One' rel='stylesheet' type='text/css'>
+
+		<style>
+		body{
+			background-image: url('images/aluminum.jpg');
+			background-repeat: repeat;
+			font-family: 'Bubbler One', sans-serif;
+		}
+		#wrapper{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+		}
+		#phone-body{
+			position: absolute;
+			left: 35%;
+			top: 20px;
+		}
+		#phone-screen{
+			position: absolute;
+			height: 588px;
+			width: 410px;
+			background: white;
+			left: 37%;
+			top: 164px;
+			background-color: rgba(0,0,0,0);
+		}
+		#home-screen{
+			display: none;
+		}
+		</style>
+
+		<script>
+		var state = 0;
+
+		var STATE_SPLASH 	= 0;
+		var STATE_HOME 		= 1;
+		var STATE_TICKETS	= 2;
+		var STATE_ACCOUNT	= 3;
+
+		if (state == STATE_SPLASH){
+
+		}
+		else if (state == STATE_HOME){
+
+		}
+		else if (state == STATE_TICKETS){
+
+		}
+		else if (state == STATE_ACCOUNT){
+
+		}
+		else alert("Error: Unknown State");
+
+		</script>
+	</head>
+
+	<body>
+		<div id = "wrapper">
+			<img id = "phone-body" src = "images/iphone-mock.png" height = "852px" width = "480px" />
+			<div id = "phone-screen" style = "font-size: 3em; margin: 5px 5px;">Hello World
+			</div>
+		</div>
+
+
+		<div id = "home-screen"></div>
+	</body>
+</html>
