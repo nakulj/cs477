@@ -88,12 +88,6 @@
 			if (state == STATE_LOG_IN){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span><div id = 'navBar'></div>";
 			}
-			else if (state == STATE_ACCOUNT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' /><div id = 'navBar'></div>";
-			}
-			else if (state == STATE_HOME){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div id = 'navBar'></div>";
-			}
 			else alert('Error: Unknown State');
 		}
 
@@ -102,7 +96,7 @@
 		}
 
 		function validateLogIn(){
-			changeState(STATE_HOME);
+			changeState(10);
 		}
 
 		</script>
@@ -112,15 +106,23 @@
 		<div id = 'wrapper'>
 			<img id = 'phone-body' src = 'images/iphone-mock.png' height = '852px' width = '480px' />
 			<div id = 'phone-screen' style = 'font-size: 3em; margin-top: 1%; text-align: center;'>
-				<div id = 'titleBar'>
-					metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span>
-				</div>
+				<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div>
+				<span style = 'font-size: 0.5em; line-height: 1em;'>
 				<br>
+				<span style = 'font-size: 1.1em;' >Account Creation</span>
 				<br>
-				<input class = 'button2' type = 'button' value = 'Log In' id = 'log-in' onclick = 'changeState(STATE_LOG_IN);' />
+				Username: <input type = 'text' id = 'username' placeholder = 'username' required />
 				<br>
-				<input class = 'button2' type = 'button' value = 'Create Account' id = 'create-account' onclick = 'changeState(STATE_ACCOUNT_CREATION );' />
-				<span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span>
+				Password: <input type = 'password' id = 'password' placeholder = 'password' required />
+				<br>
+				Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br>
+				<span style = 'font-size: 0.7em'>
+				Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br>
+				Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>
+			</span>
+				<span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span>
+				<input type = 'checkbox' id = 'checkConditions' required/><br>
+				<input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />
 				<div id = 'navBar'></div>
 			</span>
 			</div>
