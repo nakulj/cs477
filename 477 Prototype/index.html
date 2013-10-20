@@ -82,6 +82,11 @@
 		var STATE_ACCOUNT			= 3;
 		var STATE_ACCOUNT_CREATION 	= 4;
 		var STATE_LOG_IN			= 5;
+		var STATE_CREDIT_CREATION	= 6;
+		var STATE_TAP_LINK			= 7;
+
+		var createCredit = false;
+		var linkTap = false;
 
 		function changeState(state){
 			
@@ -89,7 +94,13 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span><div id = 'navBar'></div>";
 			}
 			else if (state == STATE_ACCOUNT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' /><div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' value = 'true' />Yes <input type = 'radio' id = 'tapNo' name = 'tap' value = 'false'/> No</br>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' /><div id = 'navBar'></div>";
+			}
+			else if (state == STATE_CREDIT_CREATION){
+
+			}
+			else if (state == STATE_TAP_LINK){
+				
 			}
 			else if (state == STATE_HOME){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div id = 'navBar'></div>";
@@ -98,7 +109,49 @@
 		}
 
 		function validateAccountCreation(){
-			changeState(STATE_LOG_IN);
+			var radios = document.getElementsByName('credit');
+
+			for (var i = 0, length = radios.length; i < length; i++) {
+			    if (radios[i].checked) {
+			       	
+			       	//if yes
+			        if (i == 0){
+			        	createCredit = true;
+			        }
+			        else if (i == 1){
+			        	createCredit = false;
+			        }
+
+			        // only one radio can be logically checked, don't check the rest
+			        break;
+			    }
+			}
+
+			var taps = document.getElementsByName('tap');
+
+			for (var i = 0, length = radios.length; i < length; i++) {
+			    if (radios[i].checked) {
+			       	
+			       	//if yes
+			        if (i == 0){
+			        	linkTap = true;
+			        }
+			        else if (i == 1){
+			        	linkTap = false;
+			        }
+
+			        // only one radio can be logically checked, don't check the rest
+			        break;
+			    }
+			}
+
+			if (createCredit){
+				changeState(STATE_CREDIT_CREATION);
+			}
+			else if (linkTap){
+				changeState(STATE_TAP_LINK);
+			}
+			else changeState(STATE_HOME);
 		}
 
 		function validateLogIn(){
