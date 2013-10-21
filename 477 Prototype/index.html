@@ -79,6 +79,10 @@
 			background-color: #ce401c;
 			background-image: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#FFF),color-stop(0.4, #AAA));
 		}
+		.tabSelected {
+			color: rgb(69, 173, 255);
+		}
+
 		</style>
 
 		<script>
@@ -121,10 +125,21 @@
 			}
 			else alert('Error: Unknown State');
 
-			// Build nav bar
+			/* Build nav bar */
 			var navBarEl = document.getElementById('navBar');
 			if (typeof(navBarEl) != 'undefined' && navBarEl != null) {
-				navBarEl.innerHTML = "<table style='width: 100%; background-color: black; text-align: center; border-collapse: collapse;'><tr'><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_HOME)'><h3>Home</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_TICKETS)'><h3>Tickets</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_ACCOUNT)'><h3>Account</h3></td></tr></table>";
+				navBarEl.innerHTML = "<table style='width: 100%; background-color: black; text-align: center; border-collapse: collapse;'><tr'><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_HOME)'><h3 id='tabHome'>Home</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_TICKETS)'><h3 id='tabTickets'>Tickets</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_ACCOUNT)'><h3 id='tabAccount'>Account</h3></td></tr></table>";
+			}
+
+			/* Highlight selected tab */
+			if (state == STATE_HOME){
+				addClass('tabSelected', document.getElementById('tabHome'));
+			}
+			else if (state == STATE_TICKETS){
+				addClass('tabSelected', document.getElementById('tabTickets'));
+			}
+			else if (state == STATE_ACCOUNT){
+				addClass('tabSelected', document.getElementById('tabAccount'));
 			}
 		}
 
@@ -174,6 +189,28 @@
 
 		function validateLogIn(){
 			changeState(STATE_HOME);
+		}
+
+		/* Utilities */
+
+		function addClass( classname, element ) {
+			var cn = element.className;
+			//test for existance
+			if( cn.indexOf( classname ) != -1 ) {
+				return;
+			}
+			//add a space if the element already has class
+			if( cn != '' ) {
+				classname = ' '+classname;
+			}
+			element.className = cn+classname;
+		}
+
+		function removeClass( classname, element ) {
+			var cn = element.className;
+			var rxp = new RegExp( "\\s?\\b"+classname+"\\b", "g" );
+			cn = cn.replace( rxp, '' );
+			element.className = cn;
 		}
 
 		</script>
