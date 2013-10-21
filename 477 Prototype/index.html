@@ -107,7 +107,7 @@
 			font-size: 0.5em;
 			text-align: left;
 			margin: 0;
-			padding: 5%;
+			padding: 20px;
 		}
 		.listViewTab{
 			border-bottom: 3px inset rgb(150, 150, 150);
@@ -171,7 +171,7 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class = 'listViewHeader'>Confirm Purchase</div><div id='purchaseMethods'><input type='radio' name='purchaseMethod' value='tap_balance' checked> TAP Balance: $15.50<br><input type='radio' name='purchaseMethod' value='card1'> Credit card ending in 1234<br><input type='radio' name='purchaseMethod' value='card2'> Credit card ending in 5678</div><input class='confirmButton' style='position: absolute; bottom: 4%; left: 0;' type = 'submit' value = 'Purchase Ticket' id = 'submit-purchase-ticket' onclick = 'validateTicketPurchase()'/>";
 			}
 			else if (state == STATE_TICKETS){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader'>My Tickets</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader' style='position: relative;'>My Tickets <span style='position: absolute; right: 20px; font-size: 0.75em; color: rgb(69, 173, 255);'>View History</span></div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div>";
 			}
 			else if (state == STATE_TICKETS_PASS){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView'><div class = 'listViewHeader'>This is your digital ticket</div><div class='listViewTab'>Date Purchased: 10/20/2013</div><div class='listViewTab'>Expiration Date: <span style='color: red;'>10/21/2013</span></div></div><div style='text-align: center;'><img style='width: 75%; height: 75%;' src='http://www.qrstuff.com/images/sample.png'></div>";
