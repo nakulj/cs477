@@ -12,6 +12,14 @@
 			font-family: 'Source Sans Pro', 'HelveticaNeue-Light', 'Bubbler One', sans-serif;
 			font-weight: lighter;
 		}
+		table, td, th {
+			padding: 0;
+			margin: 0;
+		}
+		h3 {
+			font-size: 12px;
+			color: white;
+		}
 		#wrapper{
 			position: absolute;
 			top: 0;
@@ -50,8 +58,8 @@
 			height: 5%;
 			width: 100%;
 			position: absolute;
-			top: 96%;
 			left: 0;
+			bottom: 0;
 			background: black;
 			color: rgb(219,219,219);
 			font-size: 0.5em;
@@ -91,21 +99,33 @@
 		function changeState(state){
 			
 			if (state == STATE_LOG_IN){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span><div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span>";
 			}
 			else if (state == STATE_ACCOUNT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' /><div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
 			}
 			else if (state == STATE_CREDIT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME);' /></span></span><div id = 'navBar'></div></span>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME);' /></span></span></span>";
 			}
 			else if (state == STATE_TAP_LINK){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME)' /></span></span><div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME)' /></span></span>";
 			}
 			else if (state == STATE_HOME){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>HOME<div id = 'navBar'></div>";
 			}
+			else if (state == STATE_TICKETS){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>TICKETS<div id = 'navBar'></div>";
+			}
+			else if (state == STATE_ACCOUNT){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>ACCOUNT<div id = 'navBar'></div>";
+			}
 			else alert('Error: Unknown State');
+
+			// Build nav bar
+			var navBarEl = document.getElementById('navBar');
+			if (typeof(navBarEl) != 'undefined' && navBarEl != null) {
+				navBarEl.innerHTML = "<table style='width: 100%; background-color: black; text-align: center; border-collapse: collapse;'><tr'><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_HOME)'><h3>Home</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_TICKETS)'><h3>Tickets</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_ACCOUNT)'><h3>Account</h3></td></tr></table>";
+			}
 		}
 
 		function validateAccountCreation(){
