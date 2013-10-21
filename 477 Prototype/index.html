@@ -46,9 +46,9 @@
 			width: 100%;
 			background-color: black;
 			height: 10%;
-			position: absolute;
+			/*position: absolute;
 			left: 0;
-			top: 0;
+			top: 0;*/
 			color: rgb(219,219,219);
 			font-size: 0.5em;
 			line-height: 50px;
@@ -82,23 +82,36 @@
 		.tabSelected {
 			color: rgb(69, 173, 255);
 		}
-		#tab{
-			width: 100%;
-			height: 10%;
-			background-color: #AAA;
-			position: relative;
-			top: 0;
-			left: 0;
-			font-size: 0.5em;
+		.listView {
 		}
-		#tab_alt{
-			width: 100%;
-			height: 10%;
+		.listViewHeader{
+			border-bottom: 3px inset rgb(150, 150, 150);
+			width: 90%;
+			height: 30px;
 			background-color: #666;
 			position: relative;
 			top: 0;
 			left: 0;
 			font-size: 0.5em;
+			text-align: left;
+			padding: 5%;
+		}
+		.listViewTab{
+			border-bottom: 3px inset rgb(150, 150, 150);
+			width: 90%;
+			height: 15px;
+			background-color: #AAA;
+			position: relative;
+			top: 0;
+			left: 0;
+			font-size: 0.5em;
+			text-align: left;
+			padding: 5%;
+		}
+		#purchaseMethods {
+			text-align: left;
+			font-size: 0.5em;
+			margin: 1em;
 		}
 
 		</style>
@@ -107,13 +120,16 @@
 		var state = 0;
 
 		var STATE_SPLASH 			= 0;
-		var STATE_HOME 				= 1;
-		var STATE_TICKETS			= 2;
-		var STATE_ACCOUNT			= 3;
-		var STATE_ACCOUNT_CREATION 	= 4;
-		var STATE_LOG_IN			= 5;
-		var STATE_CREDIT_CREATION	= 6;
-		var STATE_TAP_LINK			= 7;
+		var STATE_HOME_LOC 			= 1;
+		var STATE_HOME_TICKETS		= 2;
+		var STATE_HOME_PURCHASE		= 3;
+		var STATE_TICKETS			= 4;
+		var STATE_TICKETS_PASS		= 5;
+		var STATE_ACCOUNT			= 6;
+		var STATE_ACCOUNT_CREATION 	= 7;
+		var STATE_LOG_IN			= 8;
+		var STATE_CREDIT_CREATION	= 9;
+		var STATE_TAP_LINK			= 10;
 
 		var createCredit = false;
 		var linkTap = false;
@@ -127,16 +143,25 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
 			}
 			else if (state == STATE_CREDIT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME);' /></span></span></span>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME_LOC);' /></span></span></span>";
 			}
 			else if (state == STATE_TAP_LINK){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME)' /></span></span>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME_LOC)' /></span></span>";
 			}
-			else if (state == STATE_HOME){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br><div id = 'tab'>Tab 1</div><div id = 'tab_alt'>Tab 2</div><div id = 'tab'>Tab 3</div><div id = 'tab_alt'>Tab 4</div><div id = 'tab'>Tab 5</div><div id = 'tab_alt'>Tab 6</div><div id = 'navBar'></div>";
+			else if (state == STATE_HOME_LOC){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_HOME_TICKETS)'><div class = 'listViewHeader'>Set your location</div><div class = 'listViewTab'>Antelope Valley</div><div class = 'listViewTab'>Foothill</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Santa Clarita</div><div class = 'listViewTab'>LADOT</div></div><div id = 'navBar'></div>";
+			}
+			else if (state == STATE_HOME_TICKETS){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_HOME_PURCHASE)'><div class = 'listViewHeader'>Available Passes</div><div class = 'listViewTab'>Metro 30 Day Full Fare</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 2 Zones</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Full Fare Day Pass</div></div><div id = 'navBar'></div>";
+			}
+			else if (state == STATE_HOME_PURCHASE){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class = 'listViewHeader'>Confirm Purchase</div><div id='purchaseMethods'><input type='radio' name='purchaseMethod' value='tap_balance' checked> TAP Balance: $15.50<br><input type='radio' name='purchaseMethod' value='card1'> Credit card ending in 1234<br><input type='radio' name='purchaseMethod' value='card2'> Credit card ending in 5678</div><div id = 'navBar'></div>";
 			}
 			else if (state == STATE_TICKETS){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>TICKETS<div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader'>My Tickets</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div><div id = 'navBar'></div>";
+			}
+			else if (state == STATE_TICKETS_PASS){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class = 'listViewHeader'>This is your digital ticket</div><div style='text-align: center;'><img style='width: 75%; height: 75%; position: relative; top: 70px;' src='http://www.qrstuff.com/images/sample.png'></div><div id = 'navBar'></div>";
 			}
 			else if (state == STATE_ACCOUNT){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>ACCOUNT<div id = 'navBar'></div>";
@@ -146,14 +171,14 @@
 			/* Build nav bar */
 			var navBarEl = document.getElementById('navBar');
 			if (typeof(navBarEl) != 'undefined' && navBarEl != null) {
-				navBarEl.innerHTML = "<table style='width: 100%; background-color: black; text-align: center; border-collapse: collapse;'><tr'><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_HOME)'><h3 id='tabHome'>Home</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_TICKETS)'><h3 id='tabTickets'>Tickets</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_ACCOUNT)'><h3 id='tabAccount'>Account</h3></td></tr></table>";
+				navBarEl.innerHTML = "<table style='width: 100%; background-color: black; text-align: center; border-collapse: collapse;'><tr'><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_HOME_LOC)'><h3 id='tabHome'>Home</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_TICKETS)'><h3 id='tabTickets'>Tickets</h3></td><td style='width: 33%; border: 2px solid white;' onclick='changeState(STATE_ACCOUNT)'><h3 id='tabAccount'>Account</h3></td></tr></table>";
 			}
 
 			/* Highlight selected tab */
-			if (state == STATE_HOME){
+			if (state == STATE_HOME_LOC || state == STATE_HOME_TICKETS || state == STATE_HOME_PURCHASE) {
 				addClass('tabSelected', document.getElementById('tabHome'));
 			}
-			else if (state == STATE_TICKETS){
+			else if (state == STATE_TICKETS || state == STATE_TICKETS_PASS){
 				addClass('tabSelected', document.getElementById('tabTickets'));
 			}
 			else if (state == STATE_ACCOUNT){
@@ -202,11 +227,11 @@
 			else if (linkTap){
 				changeState(STATE_TAP_LINK);
 			}
-			else changeState(STATE_HOME);
+			else changeState(STATE_HOME_LOC);
 		}
 
 		function validateLogIn(){
-			changeState(STATE_HOME);
+			changeState(STATE_HOME_LOC);
 		}
 
 		/* Utilities */
