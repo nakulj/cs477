@@ -117,7 +117,7 @@
 			position: relative;
 			top: 0;
 			left: 0;
-			font-size: 0.5em;
+			font-size: 0.3em;
 			text-align: left;
 			padding: 5%;
 		}
@@ -174,7 +174,7 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader'>My Tickets</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div>";
 			}
 			else if (state == STATE_TICKETS_PASS){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class = 'listViewHeader'>This is your digital ticket</div><div style='text-align: center;'><img style='width: 75%; height: 75%; position: relative; top: 70px;' src='http://www.qrstuff.com/images/sample.png'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView'><div class = 'listViewHeader'>This is your digital ticket</div><div class='listViewTab'>Date Purchased: 10/20/2013</div><div class='listViewTab'>Expiration Date: <span style='color: red;'>10/21/2013</span></div></div><div style='text-align: center;'><img style='width: 75%; height: 75%;' src='http://www.qrstuff.com/images/sample.png'></div>";
 			}
 			else if (state == STATE_ACCOUNT){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listViewHeader' style='line-height: 1em;'>Update Account Information</div><div style='text-align: left; padding: 1em;'><span style='font-size: 0.3em;'><h2 style='border-bottom: 2px solid #ccc; margin-top: -30px;'>New Password</h2>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Confirm Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><h2 style='border-bottom: 2px solid #ccc;'>TAP Account</h2>Account: <span style='font-style: italic;'>Not linked</span><br>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><input class = 'button2' type = 'submit' value = 'Link TAP' id = 'submit-tapinfo' /><h2 style='border-bottom: 2px solid #ccc;'>Credit Card Information</h2>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><input class = 'button2' type = 'submit' value = 'Update' id = 'submit-creditcard' /></div></span>";
