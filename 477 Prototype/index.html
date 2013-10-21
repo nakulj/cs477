@@ -103,25 +103,25 @@
 		function changeState(state){
 			
 			if (state == STATE_LOG_IN){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span>";
 			}
 			else if (state == STATE_ACCOUNT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Username: <input type = 'text' id = 'username' placeholder = 'username' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
 			}
 			else if (state == STATE_CREDIT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME);' /></span></span></span>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME);' /></span></span></span>";
 			}
 			else if (state == STATE_TAP_LINK){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME)' /></span></span>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME)' /></span></span>";
 			}
 			else if (state == STATE_HOME){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>HOME<div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>HOME<div id = 'navBar'></div>";
 			}
 			else if (state == STATE_TICKETS){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>TICKETS<div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>TICKETS<div id = 'navBar'></div>";
 			}
 			else if (state == STATE_ACCOUNT){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>ACCOUNT<div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><br>ACCOUNT<div id = 'navBar'></div>";
 			}
 			else alert('Error: Unknown State');
 
@@ -221,7 +221,7 @@
 			<img id = 'phone-body' src = 'images/iphone-mock.png' height = '852px' width = '480px' />
 			<div id = 'phone-screen' style = 'font-size: 3em; margin-top: 1%; text-align: center;'>
 				<div id = 'titleBar'>
-					metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span>
+					mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span>
 				</div>
 				<br>
 				<br>
