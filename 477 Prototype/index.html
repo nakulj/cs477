@@ -79,6 +79,15 @@
 			background-color: #ce401c;
 			background-image: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#FFF),color-stop(0.4, #AAA));
 		}
+		.confirmButton {
+			border: 0;
+			padding: 0;
+			width: 100%;
+			height: 4em;
+			font-size: 0.3em;
+			color: #2d97c1;
+			background-color: #ddd;
+		}
 		.tabSelected {
 			color: rgb(69, 173, 255);
 		}
@@ -155,7 +164,7 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_HOME_PURCHASE)'><div class = 'listViewHeader'>Available Passes</div><div class = 'listViewTab'>Metro 30 Day Full Fare</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 2 Zones</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Full Fare Day Pass</div></div><div id = 'navBar'></div>";
 			}
 			else if (state == STATE_HOME_PURCHASE){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class = 'listViewHeader'>Confirm Purchase</div><div id='purchaseMethods'><input type='radio' name='purchaseMethod' value='tap_balance' checked> TAP Balance: $15.50<br><input type='radio' name='purchaseMethod' value='card1'> Credit card ending in 1234<br><input type='radio' name='purchaseMethod' value='card2'> Credit card ending in 5678</div><div id = 'navBar'></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class = 'listViewHeader'>Confirm Purchase</div><div id='purchaseMethods'><input type='radio' name='purchaseMethod' value='tap_balance' checked> TAP Balance: $15.50<br><input type='radio' name='purchaseMethod' value='card1'> Credit card ending in 1234<br><input type='radio' name='purchaseMethod' value='card2'> Credit card ending in 5678</div><input class='confirmButton' style='position: absolute; bottom: 5%; left: 0;' type = 'submit' value = 'Purchase Ticket' id = 'submit-purchase-ticket' onclick = 'validateTicketPurchase()'/><div id = 'navBar'></div>";
 			}
 			else if (state == STATE_TICKETS){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>mobile<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader'>My Tickets</div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div><div id = 'navBar'></div>";
@@ -232,6 +241,10 @@
 
 		function validateLogIn(){
 			changeState(STATE_HOME_LOC);
+		}
+
+		function validateTicketPurchase() {
+			changeState(STATE_TICKETS);
 		}
 
 		/* Utilities */
