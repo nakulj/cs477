@@ -163,7 +163,6 @@
 		var STATE_TAP_LINK			= 10;
 
 		var createCredit = false;
-		var linkTap = false;
 
 		function changeState(state){
 			
@@ -174,10 +173,10 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><p style = 'font-size: 0.7em;'>Your Mobile <br> Pass Awaits!</p>";
 			}
 			else if (state == STATE_ACCOUNT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Email: <input type = 'text' id = 'email' placeholder = 'email@domain.com' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Email: <input type = 'text' id = 'email' placeholder = 'email@domain.com' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
 			}
 			else if (state == STATE_CREDIT_CREATION){
-				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'if (linkTap) changeState(STATE_TAP_LINK); else changeState(STATE_HOME_LOC);' /></span></span></span>";
+				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter Credit Card Information:<br><span style = 'font-size: 0.7em'>Name on Card <input type = 'text' id = 'creditcardname' /><br>Credit Card # <input type = 'text' id = 'creditcardnumber' /><br>Security Code <input type = 'text' id = 'creditcardsecurity' /><br>Card Expiration <input type = 'date' id ='creditcardexp' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-creditcard' onclick = 'changeState(STATE_TAP_LINK);' /></span></span></span>";
 			}
 			else if (state == STATE_TAP_LINK){
 				document.getElementById('phone-screen').innerHTML = "	<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><br><span style = 'font-size: 0.5em; line-height: 1em;'>Enter TAP Login:<br><span style = 'font-size: 0.7em'>Username: <input type = 'text' id = 'tapusername' /><br>Password: <input type = 'password' id = 'tappassword' /><br><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-tapinfo' onclick = 'changeState(STATE_HOME_LOC)' /></span></span>";
@@ -192,7 +191,7 @@
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><div class = 'listViewHeader'>Confirm Purchase</div><div id='purchaseMethods'><input type='radio' name='purchaseMethod' value='tap_balance' checked> TAP Balance: $15.50<br><input type='radio' name='purchaseMethod' value='card1'> Credit card ending in 1234<br><input type='radio' name='purchaseMethod' value='card2'> Credit card ending in 5678</div><input class='confirmButton' style='position: absolute; bottom: 4%; left: 0;' type = 'submit' value = 'Purchase Ticket' id = 'submit-purchase-ticket' onclick = 'validateTicketPurchase()'/>";
 			}
 			else if (state == STATE_TICKETS){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader' style='position: relative;'>My Tickets <span style='position: absolute; right: 20px; font-size: 0.75em; color: rgb(69, 173, 255);'>View History</span></div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><div class='listView' onclick='changeState(STATE_TICKETS_PASS)'><div class = 'listViewHeader' style='position: relative;'>My Tickets <span style='position: absolute; right: 20px; font-size: 0.75em; color: rgb(255, 255, 255);'>View History</span></div><div class = 'listViewTab'>Metro Full 30-Day Pass with 1 Zone</div><div class = 'listViewTab'>Metro 7- Day Pass</div><div class = 'listViewTab'>Metro</div><div class = 'listViewTab'>Full Fare Day Pass</div></div>";
 			}
 			else if (state == STATE_TICKETS_PASS){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><div class='listView'><div class = 'listViewHeader'>This is your digital ticket</div><div class='listViewTab'>Date Purchased: 10/20/2013</div><div class='listViewTab'>Expiration Date: <span style='color: red;'>10/21/2013</span></div></div><div style='text-align: center;'><img style='width: 75%; height: 75%;' src='http://www.qrstuff.com/images/sample.png'></div>";
@@ -251,29 +250,10 @@
 			    }
 			}
 
-			var taps = document.getElementsByName('tap');
-			for (var i = 0, length = taps.length; i < length; i++) {
-			    if (taps[i].checked) {
-			       	//if yes
-			        if (i == 0){
-			        	linkTap = true;
-			        }
-			        else if (i == 1){
-			        	linkTap = false;
-			        }
-
-			        // only one radio can be logically checked, don't check the rest
-			        break;
-			    }
-			}
-
 			if (createCredit){
 				changeState(STATE_CREDIT_CREATION);
 			}
-			else if (linkTap){
-				changeState(STATE_TAP_LINK);
-			}
-			else changeState(STATE_HOME_LOC);
+			else changeState(STATE_TAP_LINK);
 		}
 
 		function validateLogIn(){
