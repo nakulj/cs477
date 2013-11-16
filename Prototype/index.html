@@ -54,8 +54,8 @@
 			height: 586px;
 			width: 410px;
 			background: white;
-			left: 37%;
-			top: 147.8px;
+			left: 687px;
+			top: 146px;
 			color: black;
 			background-color: rgba(0,0,0,0.1);
 		}
@@ -170,7 +170,7 @@
 			currState = state;
 
 			if (state == STATE_LOG_IN){
-				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><p style = 'font-size: 0.7em;'>Your Mobile <br> Pass Awaits!</p>";
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div><span style='font-weight: bold;'>tap</span><span style = 'font-size: 1em; color: rgb(69, 173, 255); font-weight: bold;'>Mobile</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><p style = 'font-size: 0.7em;'>Your Mobile <br> Pass Awaits!</p>";
 			}
 			else if (state == STATE_ACCOUNT_CREATION){
 				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'><div id = 'backButton' onclick = 'backState();'><span id = 'backText'>Back</span></div>tap<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Mobile</span></div><span style = 'font-size: 0.5em; line-height: 1em;'><br><span style = 'font-size: 1.1em;' >Account Creation</span><br>Email: <input type = 'text' id = 'email' placeholder = 'email@domain.com' required /><br>Password: <input type = 'password' id = 'password' placeholder = 'password' required /><br>Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br><span style = 'font-size: 0.7em'>Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br></span><span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span><input type = 'checkbox' id = 'checkConditions' required/><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />";
