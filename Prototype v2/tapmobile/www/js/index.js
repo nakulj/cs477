@@ -46,6 +46,13 @@ var app = {
 $(function() {
     FastClick.attach(document.body);
 
+    /* Generate a select menu containing the next 10 years from now */
+    var yearSelect = $("#expiration-year");
+    var currentYear = new Date().getFullYear();
+    for (var year = currentYear; year < currentYear + 10; year++) {
+        yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
+    }
+
     /* Compile templates */
 
     /* X template */
