@@ -16,17 +16,21 @@
 				\item If the log-in attempt fails, the application will display an error message that prompts the user to reenter their log-in information.
 				\item If the log-in attempt succeeds, the user will be shown a transit management screen.
 			\end{enumerate}
+		\item The user shall be able to allow the application to automatically sign them in.!
+		\item The user shall be able to sign out of their account.!
 	\end{enumerate}
 	
 	\subsubsection{Usage}\begin{enumerate}
 		\item If the application loses connectivity, the application shall display an error message.
-		\item The application shall retrieve the user’s location at intervals of 120 ± 10 seconds.
+		\item The application shall retrieve the user’s location at intervals of 120 $\pm$ 10 seconds.
+		\item The application shall allow the user to manually refresh their location.
 		\item Upon updating the user’s location, the application shall update information for nearby Metro transportation.
-		\item The application shall be able to display a static map with Metro routes.
+		\item The user shall be able to select which bus or train lines is displayed first when the user is nearby a particular Metro station.
 		\item The application shall allow the user to change their email address.
 		\item The application shall allow the user to change their password.
 		\item The application shall allow the user to delete their account.
 		\item The user shall be able to link up to 5 dependents (name \& birthdate) to their account.
+		\item The user shall be able to link up to 5 dependents TAP accounts to their account.
 	\end{enumerate}
 	
 	\subsubsection{Payments}\begin{enumerate}
@@ -38,24 +42,22 @@
 				\item If the card does not process, an error message shall be displayed and the order shall not be accepted. 
 				\item If the transaction succeeds, the application shall create a virtual ticket. 
 			\end{enumerate}
+		\item If the user has more than one TAP unused pass, the application shall prompt the user to select which to use first.!
 		\item The user shall be able to select up to 2 dependents’ accounts to be attached to a virtual ticket.
 			\begin{enumerate}
 				\item If the dependent is over 5 years old, the application shall calculate the additional ticket fare.
 			\end{enumerate}
-		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at 20 ± 5 second intervals to accept.
+		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at 10 $\pm$ 5 second intervals to accept.
 			\begin{enumerate}
-				\item If the application is unsuccessful on the 3rd attempt, the application shall attempt to use bluetooth to signal the gate (see 4.5).
-				\item Otherwise, the gate is unlocked, permitting the user to pass through.
-			\end{enumerate}
-		\item If the application does not have connectivity when the user attempts to use a ticket, the application shall attempt to use bluetooth to use the ticket up to a maximum of 3 attempts at 20 ± 5 second intervals.
-			\begin{enumerate}
-				\item If the application is unsuccessful on the 3rd attempt, an error message shall be displayed.
+				\item If the application is unsuccessful on the 3rd attempt, the application shall display an error message.
 				\item Otherwise, the gate is unlocked, permitting the user to pass through.
 			\end{enumerate}
 		\item The application shall store unused virtual tickets for at least 1 year. 
 		\item The application shall store used virtual tickets for at least 30 days.
-		\item The application shall allow the user to change their credit card information. 
+		\item The application shall allow the user to change their credit card information.
+		\item The user shall be able to set up the application to generate a default ticket that auto-charges their stored credit card when used.
 		\item The application shall support remote adjustment of ticket prices (e.g., senior discount) by TAP id through a web interface.
+		\item If the user has an active TAP pass, the application shall display how much time is remaining on the pass.
 	\end{enumerate}		
 \newpage	
 \subsection{Level of Service Requirements}
