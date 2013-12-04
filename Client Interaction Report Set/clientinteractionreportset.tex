@@ -5,23 +5,23 @@
 \usepackage{tabularx}
 \usepackage{multicol}
 
-\title{Client Interaction Report Set}
+\title{DC Package}
 \author{
 	Andrew Borba\\ \emph{Prototyper}	\and
-	 Lizz Brooks\\ \emph{Project Manager}	\and
+	 Elisabeth Brooks\\ \emph{Project Manager}	\and
 	 Jorge Go\\ \emph{Feasability Analyst}	\and
 	 Katherine Hu\\ \emph{Lifecycle Planner}	\and
 	 Nakul Joshi\\ \emph{Software Architect}	\and
 	 Ian Malave\\ \emph{Requirements Engineer}	\and
 	 Rishi Mukhopadyay\\ \emph{Operational Concept Engineer}
 }
-\date{September 16\textsuperscript{th}, 2013}
+\date{December 6\textsuperscript{th}, 2013}
 
 \begin{document}
 \pagestyle{fancy}
-\lhead{Client Interaction Report Set}
+\lhead{DC Package}
 \chead{}
-\rhead{Version 1.0.1}
+\rhead{Version 2.1}
 \lfoot{}
 \cfoot{\thepage}
 \rfoot{}
@@ -32,21 +32,34 @@
 \section{Version History}
 \begin{table}[h]
 	\centering
-    \begin{tabularx}{\textwidth}{lllXX}
-    	\hline
-        Date       & Author & Version & Changes Made                                         & Rationale                    \\ \hline
-        08/20/2013 & SK     & 1.0     & Original for CS 477; Tailored from ICSM REQ Template & To fit CS 477 Course Content \\ 
-        09/14/2013 & Team 1 & 1.0.1   & First version                                                   & Project Requirements                          \\
+	\begin{tabularx}{\textwidth}{lllXX}
 		\hline
-    \end{tabularx}
+		Date		& Author	& Version	& Changes Made											& Rationale                    \\ \hline
+		08/20/2013	& SK		& 1.0		& Original for CS 477; Tailored from ICSM REQ Template	& To fit CS 477 Course Content \\ 
+		09/14/2013	& Team 1	& 1.1 		& First version											& Project Requirements			\\
+		10/15/2013	& Team 1	& 2.0 		& Shifted marketing focus from LA Metro to TAP			& Reassesment of stakeholder values\\
+		11/01/2013	& Team 1	& 2.1		& Fixed various design flaws											& Incorporated feedback from ARB review board
+	\end{tabularx}
 \end{table}
 \newpage
+
+\section{Team Members}
+\input{members.tex}
+\newpage
+
+\section{Client Interaction Report}
 \input{CIR/cir.tex}
 \newpage
+
+\section{Operational Concept Description}
 \input{OCD/ocd.tex}
 \newpage
+
+\section{Requirements}
 \input{REQ/req.tex}
 \newpage
+
+\section{Risk Lists}
 \input{Risks/risks.tex}
 		
 \end{document}

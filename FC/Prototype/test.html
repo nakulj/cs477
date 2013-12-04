@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+	<head>
+
+		<link href='http://fonts.googleapis.com/css?family=Bubbler+One' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>		
+
+		<style>
+		body{
+			background-image: url('images/aluminum.jpg');
+			background-repeat: repeat;
+			font-family: 'Source Sans Pro', 'HelveticaNeue-Light', 'Bubbler One', sans-serif;
+			font-weight: lighter;
+		}
+		#wrapper{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+		}
+		#phone-body{
+			position: absolute;
+			left: 35%;
+			top: 20px;
+		}
+		#phone-screen{
+			position: absolute;
+			height: 586px;
+			width: 410px;
+			background: white;
+			left: 37%;
+			top: 147.8px;
+			color: black;
+			background-color: rgba(0,0,0,0.1);
+		}
+		#titleBar{
+			width: 100%;
+			background-color: black;
+			height: 10%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			color: rgb(219,219,219);
+			font-size: 0.5em;
+			line-height: 50px;
+			font-family: 'Bubbler One';
+		}
+		#navBar{
+			height: 5%;
+			width: 100%;
+			position: absolute;
+			top: 96%;
+			left: 0;
+			background: black;
+			color: rgb(219,219,219);
+			font-size: 0.5em;
+		}
+		.button2 {
+			padding: .5em;
+			width: 17em;
+			height: 4em;
+			color: #222;
+			font-weight: 700;
+			border: solid thin #222;
+			-webkit-border-radius: .7em;
+			-moz-border-radius: .7em;
+			border-radius: .7em;
+			-webkit-box-shadow: 2px 2px 3px #999; 
+			box-shadow: 2px 2px 2px #bbb;
+			background-color: #ce401c;
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#FFF),color-stop(0.4, #AAA));
+		}
+		</style>
+
+		<script>
+		var state = 0;
+
+		var STATE_SPLASH 			= 0;
+		var STATE_HOME 				= 1;
+		var STATE_TICKETS			= 2;
+		var STATE_ACCOUNT			= 3;
+		var STATE_ACCOUNT_CREATION 	= 4;
+		var STATE_LOG_IN			= 5;
+
+		function changeState(state){
+			
+			if (state == STATE_LOG_IN){
+				document.getElementById('phone-screen').innerHTML = "<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div><br><span style = 'font-size: 0.7em;' >Log In</span><br><input type = 'text' id = 'username' placeholder = 'username' required /><br><input type = 'password' id = 'password' placeholder = 'password' required /><br><input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateLogIn();'/><span style = 'font-size: 0.7em; position: absolute; top: 65%; left: 50%;'>Your Mobile <br> Pass Awaits!</span><div id = 'navBar'></div>";
+			}
+			else alert('Error: Unknown State');
+		}
+
+		function validateAccountCreation(){
+			changeState(STATE_LOG_IN);
+		}
+
+		function validateLogIn(){
+			changeState(10);
+		}
+
+		</script>
+	</head>
+
+	<body>
+		<div id = 'wrapper'>
+			<img id = 'phone-body' src = 'images/iphone-mock.png' height = '852px' width = '480px' />
+			<div id = 'phone-screen' style = 'font-size: 3em; margin-top: 1%; text-align: center;'>
+				<div id = 'titleBar'>metro<span style = 'font-size: 1em; color: rgb(69, 173, 255);'>Tap</span></div>
+				<span style = 'font-size: 0.5em; line-height: 1em;'>
+				<br>
+				<span style = 'font-size: 1.1em;' >Account Creation</span>
+				<br>
+				Username: <input type = 'text' id = 'username' placeholder = 'username' required />
+				<br>
+				Password: <input type = 'password' id = 'password' placeholder = 'password' required />
+				<br>
+				Password: <input type = 'password' id = 'password' placeholder = 're-enter password' required /><br>
+				<span style = 'font-size: 0.7em'>
+				Do you have a TAP account? <input type ='radio' id = 'tapYes' name = 'tap' />Yes <input type = 'radio' id = 'tapNo' name = 'tap'/> No</br>
+				Want to add a credit card? <input type ='radio' id = 'creditYes' name = 'credit' />Yes <input type = 'radio' id = 'creditNo' name = 'credit' /> No<br>
+			</span>
+				<span style = 'font-size: 0.4em'>By checking this box you agree to the terms and conditions of use:</span>
+				<input type = 'checkbox' id = 'checkConditions' required/><br>
+				<input class = 'button2' type = 'submit' value = 'Submit' id = 'submit-log' onclick = 'validateAccountCreation();' />
+				<div id = 'navBar'></div>
+			</span>
+			</div>
+		</div>
+
+	</body>
+</html>
