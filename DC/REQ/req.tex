@@ -1,0 +1,88 @@
+\subsection{Capability Requirements}
+
+	\subsubsection{Platform}\begin{enumerate}
+		\item The application shall be compatible with the iOS mobile platform.
+		\item The application shall be compatible with the Android mobile platform.
+	\end{enumerate}
+	
+	\subsubsection{User Accounts}\begin{enumerate}
+		\item If it is a user’s first-time opening the application, the application shall prompt the user to enter an email address, password, credit card information, and to create or link to a TAP account.!
+		\begin{enumerate}
+			\item If the account is created successfully, the application shall send a confirmation to the user’s stored email address.
+			\item If the account creation is not successful, the application shall display an error message that prompts the user to reenter their information and will not be logged in.
+		\end{enumerate}
+		\item If a returning user opens the application, it shall prompt the user to enter their log-in information.
+			\begin{enumerate}
+				\item If the log-in attempt fails, the application will display an error message that prompts the user to reenter their log-in information.
+				\item If the log-in attempt succeeds, the user will be shown a transit management screen.
+			\end{enumerate}
+		\item The user shall be able to allow the application to automatically sign them in.!
+		\item The user shall be able to sign out of their account.!
+	\end{enumerate}
+	
+	\subsubsection{Usage}\begin{enumerate}
+		\item If the application loses connectivity, the application shall display an error message.
+		\item The application shall retrieve the user’s location at intervals of 120 $\pm$ 10 seconds.
+		\item The application shall allow the user to manually refresh their location.
+		\item Upon updating the user’s location, the application shall update information for nearby Metro transportation.
+		\item The user shall be able to select which bus or train line is displayed first when the user is nearby a particular Metro station.
+		\item The application shall allow the user to change their email address.
+		\item The application shall allow the user to change their password.
+		\item The application shall allow the user to delete their account.
+		\item The user shall be able to link up to 5 dependents (name \& birthdate) to their account.
+		\item The user shall be able to link up to 5 dependents TAP accounts to their account.
+	\end{enumerate}
+	
+	\subsubsection{Payments}\begin{enumerate}
+		\item The application shall allow users to purchase non-exclusive TAP passes.
+		\item If the user selects to purchase a ticket, the application shall check to see if the user has an applicable TAP pass.
+			\begin{enumerate}
+				\item If the user has an applicable TAP pass, the application shall generate the selected virtual ticket.
+				\item If the user does not have an applicable TAP pass, the application shall confirm with the user it will charge the stored credit card.
+				\item If the card does not process, an error message shall be displayed and the order shall not be accepted. 
+				\item If the transaction succeeds, the application shall create a virtual ticket. 
+			\end{enumerate}
+		\item If the user has more than one TAP unused pass, the application shall prompt the user to select which to use first.!
+		\item The user shall be able to select up to 2 dependents’ accounts to be attached to a virtual ticket.
+			\begin{enumerate}
+				\item If the dependent is over 5 years old, the application shall calculate the additional ticket fare.
+			\end{enumerate}
+		\item If the user selects to use their ticket, the application shall signal the gate up to a maximum of 3 attempts at 10 $\pm$ 5 second intervals to accept.
+			\begin{enumerate}
+				\item If the application is unsuccessful on the 3rd attempt, the application shall display an error message.
+				\item Otherwise, the gate is unlocked, permitting the user to pass through.
+			\end{enumerate}
+		\item The application shall store unused virtual tickets for at least 1 year. 
+		\item The application shall store used virtual tickets for at least 30 days.
+		\item The application shall allow the user to change their credit card information.
+		\item The user shall be able to set up the application to generate a default ticket that auto-charges their stored credit card when used.
+		\item The application shall support remote adjustment of ticket prices (e.g., senior discount) by TAP id through a web interface.
+		\item If the user has an active TAP pass, the application shall display how much time is remaining on the pass.
+	\end{enumerate}		
+\newpage	
+\subsection{Level of Service Requirements}
+
+\begin{table}[h]
+    \begin{tabularx}{\textwidth}{Xrr}
+    \hline
+    LOS Requirements                                                                                          									& Desired Level & Accepted Level \\ \hline
+    LOS-1: Concurrent Users														& $150000$		& $75000$           \\
+    LOS-2: Start-up and user location time 										& 7 s  			& 15 s           \\
+    LOS-3: Ticket Purchase Transaction Time										& 5 s 			& 20 s            \\
+    LOS-4: Update Account Information Time										& 10 s 			& 30 s            \\
+    LOS-5: Tickets stored per User												& 1500 			& 500            \\
+    LOS-6: \% first-time users able to purchase ticket without outside help		& 80  			& 75             \\
+    LOS-7: \% first-time users able to use ticket without outside help			& 85 			& 80             \\
+    LOS-8: \% users that ride metro at least once per week that would rate 
+    ease of use at 3 out of 5 or higher											& 90  			& 80             \\
+    LOS-9: Average Time for User to Create an Account							& 45 s			& 60 s            \\
+    LOS-10: Failed Ticket Purchases per 1000 									& 0.25  		& 1              \\
+    LOS-11: Failed Ticket Uses per 1000  										& 0.25  		& 1              \\
+    LOS-12: Hours per day that app shall purchase tickets 						& 20  			& 19.5             \\
+    LOS-13: Hours per day that app shall allow use of tickets   				& 20 			& 19.5             \\
+    LOS-14: \# iOS generations app shall support 								& 3  			& 2              \\
+    LOS-15: \# Android generations app shall support   							& 3  			& 2              \\
+    LOS-16: \# versions of app that Metro system shall support  				& 3    			& 2              \\
+    \hline
+    \end{tabularx}
+\end{table}
