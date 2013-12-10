@@ -1,0 +1,30 @@
+\subsection{Use Cases}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{arch/usecase.pdf}
+\end{figure}
+
+The basic use scenarios are:\begin{description}
+\item[Account creation] The user can create accounts from within the app.
+\item[View routes] Upon locating the user via GPS, the app presents a list of nearby routes.
+\item[Purchase of tickets/passes	] The user may purchase a pass, or simply add money to their TAP funds.
+\item[Record boarding] Upon boarding the train/bus, the user must record this by presenting the QR code to the turnstile/bus driver.
+\item[Ticket verification] A ticket agent aboard a train/bus may ask passengers to present proof of payment at any time. This is again verified by a QR code.
+\end{description}
+
+\clearpage
+
+\subsection{Class Hierarchy}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{arch/classdiagram.pdf}
+\end{figure}
+
+The important classes to be maintained are:\begin{description}
+\item[Passenger] Maintains passenger data such as login info and payment history.
+\item[Login] Holds a username paired with a password that is hashed for security.
+\item[Passes] Maintains the list of fare payment methods available to the passenger. Also selects the most appropriate one for each journey (Eg. If a passenger has a day pass then fare will not be deducted from TAP funds.)
+\item[Payment Methods] An abstraction for various payment methods. This layer allows addition of functionality in the future, eg. Google Wallet and Paypal.
+\end{description}
+
+\subsection{Software Choices}

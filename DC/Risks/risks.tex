@@ -1,71 +1,101 @@
-\newcommand{\risk}[5]{
+\newcommand{\risk}[6]{
 	\rule{\textwidth}{.1pt}
-	\textbf{ Risk\# #1}(Last week: #2)\\
-	\textbf{Weeks Active} #3
+	\textbf{#1} \textit{Current Rank:} #2 \textit{Previous Rank:} #3 \\
+	\paragraph{Risk Description} #4
+	\paragraph{Risk Exposure} #5
+	\paragraph{Mitigation Action Items} #6\\
+}
+
+\newcommand{\nrisk}[5]{
+	\rule{\textwidth}{.1pt}
+	\textbf{#1} \textit{Current Rank:} #2 \textit{Previous Rank:} #3 \\
 	\paragraph{Risk Description} #4
 	\paragraph{Mitigation Action Items} #5\\
 }
 
+\subsection{Major Risks}
 
-
-\subsection{Technical Risks}
-
-\risk{1}{1}{7}{
-An unsecure platform might be exploited or easily manipulated (e.g. people finding loopholes to avoid fees), which can result in the LA Metro losing profits.
+\risk{Network Risk}{1}{N/A}{
+Since our app will require a live connection to TAP/LA Metro infrastructure to access ticket prices, and send, receive, and verify data, a weak internet signal can cripple the app's functionality. This can result in lost revenue from users who cannot use the app because of weak network connectivity. This is largely an “external” risk beyond our control.
 }{
-Our group’s architect will develop a cryptosystem for our application that will be tested until it meets the client’s requirements and security standards.
-}
-\risk{3}{3}{7}{
-A technical malfunction of our platform might cause boarding delays for passengers and cause inefficiencies in LA Metro operations.
+As presented in the group’s ARB session, below is a risk exposure calculation to estimate revenue loss per month from network connectivity risks.
+\input{Risks/network.tex}
 }{
-A back-up system will be designed in a later stage of the project. Also, we will advise passengers who are particularly sensitive to delays to have a back-up physical tap card.
-}
-\risk{4}{4}{7}{
-Not enough end users (passengers) might not have phones on iOS and Android systems that are compatible with our app.
-}{
-A feasibility study will be conducted to verify iOS/Android penetration rates within the LA Metro passenger base, and if needed, we can tailor our platform to target only a certain segment of the customer base that has access to the required technology.
-}
-\risk{8}{8}{7}{
-We will be using PhoneGap to implement the mobile application with standard web technologies like HTML/CSS/Javascript which makes the application subject to device-specific mobile browser display discrepencies.
-}{
-Test on a wide variety of devices within iOS/Android space (different iPhone versions and various Android phones) to ensure the application is rendered properly on all screen sizes and OS versions.
+The app will inform the user of connectivity errors and show a streamlined version of the app that does not require connectivity. For example, it will show ticket price quotes from the last update, main route availabilities, and transaction history. If possible, the group will work with LA Metro to develop ticket checking systems and protocol on the app without using internet, or via alternative methods such as Bluetooth.
 }
 
-\subsection{Requirement Risks}
-\risk{2}{2}{7}{
-TAP might not be willing to implement our system or work with our group to test our platform on their systems/hardware.
+\risk{Technology Risk}{2}{3}{
+A technical malfunction of our platform might cause boarding delays for passengers and cause inefficiencies in LA Metro operations. For example, if the app fails to update prices or routes, passengers may seek alternative transportation, which translates to lost revenue for the LA Metro.
 }{
-Our project manager is currently in talks with TAP, but we could also do a proof of concept using similar hardware/systems or mock interfaces.
-}
-\risk{6}{6}{7}{
-After the platform has been implemented and integrated, the TAP requirements might change, or the technologies being used in relevant processes might change.
+As presented in the group’s ARB session, below is a risk exposure calculation to estimate revenue loss for an instance of realized technology risk.
+\input{Risks/tech.tex}
 }{
-If we are under a contract/agreement, the team will develop updates/patches that will adapt to new requirements. Otherwise, we will provide a copy of our comprehensive documentation for the software so that necessary changes can be handled in-house.
-}
-\risk{5}{5}{7}{
-To get the application fully working and integrated into TAP/LA Metro infrastructure, there will be a large set of evolving requirements. Two semesters might not be enough time to complete the project, especially if there are unexpected risks (e.g. another developer completes the same project before we do, bureaucratic risks, etc.)
-}{
-We will develop a running list of unexpected risks as they come up and develop strategies to approach them. For example, we would explicitly ask TAP for their timeline and ask for an exclusive partnership.
+The group will implement non-normative functionality for certain “big” cases of technology risk. For example, if ticket price update functions are inhibited, the app will charge the user a pre-set fare that is lower than the average rate to compensate for the technology malfunction. Also, there will be a disclaimer advising time-sensitive passengers to have a back-up physical TAP card.
 }
 
-\subsection{Human Resources Risks}
+\risk{Security Risk}{3}{1}{
+An unsecure platform can be exploited (e.g. loopholes to avoid fees, reusing tickets, etc.). An unsecure payment process might compromise user accounts, user information, or LA Metro information. These problems can cut into LA Metro revenue.
+}{
+As presented in the group’s ARB session, below is a risk exposure calculation to estimate revenue loss for an instance of realized security risk.
+\input{Risks/security.tex}
+}{
+Our group’s architect will choose an existing encryption system for our application that will be tested on our app until it meets the client’s requirements and security standards.
+}
 
-\risk{7}{7}{7}{
-Due to rapid formation of teams without proper analysis of required skill sets needed for this project we may lack the technical skills to complete this project in a professionally acceptable manner.
+\risk{Platform Compatibility Risk}{4}{8}{
+The group will be using PhoneGap to implement the mobile application with standard web technologies such as HTML/CSS/JavaScript which makes the application subject to device-specific mobile browser display discrepancies. Performance inconsistencies may require additional costs to fix.
 }{
-Identify team member skills and project requirements so we can individually prepare ourselves for technologies that we will be implementing next semester.
-}
-\risk{9}{9}{7}{
-The statically defined list of team roles may not fit our specific project requirements.
+As presented in the group’s ARB session, below is a risk exposure calculation to estimate the cost to LA Metro/TAP to fix an escalated instance of realized platform risk.
+\input{Risks/compatibility.tex}
 }{
-Dynamically reassign team roles as the project and its requirements mature.  Also the team shall be aware that responsibilities will be very flexible and we may need to step outside the scope of our assigned position
+The app will be tested on a wide variety of devices (different iPhone versions, windows phone and various Android phones) to ensure the application is rendered properly on all screen sizes and OS versions.
+
+The group has researched the option of developing natively for each platform but it is not feasible given time, costs, and expertise constraints. The group has tested simpler PhoneGap apps on various phones, which ran better and more smoothly than expected, resulting in lower Platform compatibility risk exposure (from first ARB). 
 }
-\risk{10}{10}{7}{
-The amount of cooperation needed between our team and TAP may be more than expected which could make this project unfeasible for them.}
-{
-Come up with a plan focused around the idea that TAP should have to do as little as possible.  Extensive testing should be done internally before our software can be ready for beta testing with TAP.  The goal should be to get it right the first time.
+
+\risk{Changing Requirements Risk}{5}{6}{
+After the platform has been implemented and integrated, the LA Metro/TAP requirements might change, or the technologies being used in relevant processes might change. Such scenarios may require additional costs to modify the app.
+}{
+As presented in the group’s ARB session, below is a risk exposure calculation to estimate the cost to LA Metro/TAP to fix an instance of realized changing requirements risk.
+\input{Risks/requirements.tex}
+}{
+If the team is under a contract/agreement, the team will develop updates/patches that will adapt to new requirements. Otherwise, we will give the LA Metro a copy of our comprehensive documentation for the software so that necessary changes can be handled in-house or outsourced to another contractor.
+
+The group has conducted a survey to evaluate currently prototyped features. Good feedback was received from a representative sample size of LA Metro users, which should lower requirements risk exposure (relative to first ARB).
 }
-\rule{\textwidth}{.1pt}
-%\begin{landscape}
-%\input{Risks/table.tex}
-%\end{landscape}
+
+\clearpage
+\subsection{Minor Risks}
+
+\nrisk{Partnership Risks}{6}{6}{
+LA Metro might not be willing to implement our app with their system, or allow us to test compatibility with their system.
+}{
+Our project manager is currently in talks with the LA Metro authorities, but we could also potentially do a proof of concept using similar hardware/systems. TAP could also be considered a potential partner, as LA Metro outsources projects such as these to TAP.
+
+	Shifted targeting focus to TAP instead of LA Metro. E-mailed TAP to discuss plans moving forward.
+}
+
+\nrisk{Estimation Risks}{7}{5}{
+The estimated mount of work might not be completed in two semesters, or another developer might implement the system first.
+}{
+We will develop a running list of unexpected risks as they come up and develop strategies to approach them. For example, we would explicitly ask LA Metro for their timeline and ask for an exclusive partnership.
+
+Utilized Asana as project planning tool to plan advanced deadlines, deliverables, and responsibilities.
+}
+
+\nrisk{Expertise Risks}{8}{7}{
+Team members might lack necessary expertise in certain development requirements.
+}{
+Identify team member skills and project requirements so we can individually prepare ourselves for technologies that we will be implementing next semester
+
+Researched and found software tools such as PhoneGap that can help us create a functional app more easily.
+}
+
+\nrisk{Organizational Risks}{9}{9}{
+Statically defined team roles might not fit specific project requirements.
+}{
+Dynamically reassign team roles as the project and its requirements mature.  Also the team shall be aware that responsibilities will be very flexible and we may need to step outside the scope of our assigned position.
+
+Assigned responsibilities dynamically via Asana and scheduled more frequent group meetings.
+}
+

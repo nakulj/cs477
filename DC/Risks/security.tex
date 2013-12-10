@@ -1,0 +1,20 @@
+% Please remember to add \use{multirow} to your document preamble in order to suppor multirow cells
+% Booktabs require to add \usepackage{booktabs} to your document preamble
+\begin{table}[h]
+\begin{tabularx}{\textwidth}{@{}lXrrr@{}}
+\toprule
+\multirow{2}{*}{} & \multirow{2}{*}{Item}                         & \multicolumn{3}{c}{Exposure}                                                                               \\ \cmidrule(l){3-5} 
+                  &                                               & \multicolumn{1}{l}{High Case + 20\%} & \multicolumn{1}{l}{Normative} & \multicolumn{1}{l}{Low Case - 20\%} \\ \midrule
+A                 & Avg. Number of Passengers/ Day                & 162,333                              & 135,278                       & 108,222                             \\
+B                 & Avg. Ticket Price                             & \multicolumn{3}{c}{\$2.0}                                                                                  \\
+C                 & Estimated \% of Passengers involved           & 24.0\%                               & 20.0\%                        & 16.0\%                              \\
+D                 & Estimated Number of Passengers involved (A*C) & 38,960                               & 27,056                        & 17,316                              \\
+E                 & Estimated Revenue Loss/ Day (B*D)             & \$77,920.0                           & \$54,111.1                    & \$34,631.1                          \\
+F                 & Estimated number of days to fix problem       & 12                                   & 10                            & 8                                   \\
+\textbf{G}        & \textbf{Total Expected Loss (E*F)}            & \textbf{\$935,040}                   & \textbf{\$541,111}            & \textbf{\$277,049}                  \\
+H                 & Probablity of Security issue                  & 1.2\%                                & 1.0\%                         & 0.8\%                               \\
+\textbf{}         & \textbf{Total Risk Exposure (G*H)}            & \textbf{\$11,220}                    & \textbf{\$5,411}              & \textbf{\$2,216}                 
+\\ \bottomrule  
+\end{tabularx}
+
+\end{table}

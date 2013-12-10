@@ -1,0 +1,17 @@
+% Please remember to add \use{multirow} to your document preamble in order to suppor multirow cells
+% Booktabs require to add \usepackage{booktabs} to your document preamble
+\begin{table}[h]
+\begin{tabularx}{\textwidth}{@{}lXrrr@{}}
+\toprule
+\multirow{2}{*}{} & \multirow{2}{*}{Item}                           & \multicolumn{3}{c}{Exposure}                                                                               \\ \cmidrule(l){3-5} 
+                  &                                                 & \multicolumn{1}{l}{High Case + 20\%} & \multicolumn{1}{l}{Normative} & \multicolumn{1}{l}{Low Case - 20\%} \\ \midrule
+A                 & Estmated Hourly Rate for IT contractor          & \$42.0                               & \$35.0                        & \$28.0                              \\
+B                 & Estimated Team Size                             & 4                                    & 3                             & 2                                   \\
+C                 & Estimated Fees for 8 hour day (8*A*B)           & \$1,209.6                            & \$840.0                       & \$537.6                             \\
+D                 & Estimated number of days to tweak compatibility & 10                                   & 8                             & 6                                   \\
+\textbf{E}        & \textbf{Total Expected Loss (C*D)}              & \textbf{\$11,612}                    & \textbf{\$6,720}              & \textbf{\$3,441}                    \\
+F                 & Probablity of compatibility issues              & 12.0\%                               & 10.0\%                        & 8.0\%                               \\
+\textbf{}         & \textbf{Total Risk Exposure (E*F)}              & \textbf{\$1,393}                     & \textbf{\$672}                & \textbf{\$275}              
+\\ \bottomrule       
+\end{tabularx}
+\end{table}

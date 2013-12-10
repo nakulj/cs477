@@ -1,9 +1,13 @@
 \documentclass[titlepage]{article}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{multicol}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{todonotes}
 
 \title{DC Package}
 \author{
@@ -21,45 +25,50 @@
 \pagestyle{fancy}
 \lhead{DC Package}
 \chead{}
-\rhead{Version 2.1}
+\rhead{Version 2.2}
 \lfoot{}
 \cfoot{\thepage}
 \rfoot{}
 
 \maketitle
 \tableofcontents
-\newpage
+
+
+\clearpage
+
 \section{Version History}
-\begin{table}[h]
-	\centering
-	\begin{tabularx}{\textwidth}{lllXX}
-		\hline
-		Date		& Author	& Version	& Changes Made											& Rationale                    \\ \hline
-		08/20/2013	& SK		& 1.0		& Original for CS 477; Tailored from ICSM REQ Template	& To fit CS 477 Course Content \\ 
-		09/14/2013	& Team 1	& 1.1 		& First version											& Project Requirements			\\
-		10/15/2013	& Team 1	& 2.0 		& Shifted marketing focus from LA Metro to TAP			& Reassesment of stakeholder values\\
-		11/01/2013	& Team 1	& 2.1		& Fixed various design flaws											& Incorporated feedback from ARB review board
-	\end{tabularx}
-\end{table}
-\newpage
+\input{tables/versionhistory.tex}
 
-\section{Team Members}
+\clearpage
+
+\section{Project Plan}
 \input{members.tex}
-\newpage
+\clearpage
 
-\section{Client Interaction Report}
-\input{CIR/cir.tex}
-\newpage
+%\section{Client Interaction Report}
+%\input{CIR/cir.tex}
+%\newpage
 
 \section{Operational Concept Description}
 \input{OCD/ocd.tex}
-\newpage
+
+\clearpage
 
 \section{Requirements}
 \input{REQ/req.tex}
-\newpage
+\clearpage
 
 \section{Risk Lists}
 \input{Risks/risks.tex}
+
+\clearpage
+
+\section{Architecture}
+\input{Arch/arch.tex}
+
+\clearpage
+
+\section{Prototype}
+\input{Prototype/prototype.tex}
 		
 \end{document}
