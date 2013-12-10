@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <title>tapMobile</title>
+
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="css/tapMobile.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
+    <link rel="stylesheet" href="http://i.icomoon.io/public/temp/37cb048430/TapMobile/style.css">
+    <link rel="stylesheet" href="css/style.css" />
+
+</head>
+
+<body>
+    <div data-role="page" id="home">
+        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
+            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1>tapMobile</h1>
+        </div>
+
+        <div data-role="content">
+            <div data-role="controlgroup">
+                <a href="#" data-role="button">Destination A</a>
+                <a href="#" data-role="button">Destination B</a>
+                <img style='width: 70%; height: 70%; margin-left: 15%; margin-top: 30px;' src='css/images/qr-code.png'>
+                <center>Metro 7 Day Full Fare <br /> 11/13/2013</center>
+            </div>
+
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="right">
+                <ul>
+                    <li><a href="#my-tickets" data-icon="arrow-u" data-transition="slideup">My Tickets</a></li>
+                </ul>
+            </div>
+
+        </div><!-- /footer -->
+    </div>
+
+    <div data-role="page" id="my-tickets">
+        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
+            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1>tapMobile</h1>
+            <div data-role="navbar" data-iconpos="right">
+                <ul>
+                    <li><a href="#home" data-icon="arrow-d" data-transition="slidedown">My Tickets</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-icon="false" >
+                <li><a href="#home" data-transition="slidedown">Metro 30 Day Full Fare - $65</a></li>
+                <li><a href="#home" data-transition="slidedown">Metro 30 Day Pass with 1 Zone - $55</a></li>
+                <li><a href="#home" data-transition="slidedown">Metro 7 Day Pass - $20</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="payment-history">
+        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
+            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1>tapMobile</h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview">
+                <li data-role="list-divider">Purchase History</li>
+                <li><a href="">30 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">11/12/13</span></a></li>
+                <li><a href="">Full Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/31/13</span></a></li>
+                <li><a href="">7 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/18/13</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="dependents">
+        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
+            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1>tapMobile</h1>
+        </div>
+
+        <div data-role="content">
+            <center><p>Link additional TAP accounts here to share funds and tickets</p></center>
+            <h3>Linked Dependents</h3>
+            <ul data-role="listview" data-split-theme="a" data-split-icon="delete">
+                <li>
+                    <a href="#">tammytrojan</a>
+                    <a href="#">Delete</a>
+                </li>
+            </ul>
+            <br />
+            <h3>Link New Account</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-dependent-username">Username:</label>
+                    <input type="text" name="new-dependent-username" id="new-dependent-username" value="" data-clear-btn="true">
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-dependent-password">Password:</label>
+                    <input type="password" name="new-dependent-password" id="new-dependent-password" value="" data-clear-btn="true">
+                </li>
+                <li>
+                    <button type="submit">Add Dependent</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="account-settings">
+        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
+            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1>tapMobile</h1>
+        </div>
+
+        <div data-role="content">
+            <h3>Password</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-password-confirm">Confirm New Password:</label>
+                    <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
+                </li>
+                <li>
+                    <button type="submit">Update Password</button>
+                </li>
+            </ul>
+            <br />
+            <h3>Payment Information</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="card-type">Type:</label>
+                    <select name="card-type" id="card-type">
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">MasterCard</option>
+                        <option value="american-express">American Express</option>
+                    </select>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="card-number">Number:</label>
+                    <input type="text" name="card-number" id="card-number" value="" data-clear-btn="true">
+                </li>
+                <li>
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Expiration Date:</legend>
+                        <label for="expiration-month">Test</label>
+                        <select name="expiration-month" id="expiration-month">
+                            <option value="jan">January</option>
+                            <option value="feb">February</option>
+                            <option value="mar">March</option>
+                            <option value="apr">April</option>
+                            <option value="may">May</option>
+                            <option value="jun">June</option>
+                            <option value="jul">July</option>
+                            <option value="aug">August</option>
+                            <option value="sept">September</option>
+                            <option value="oct">October</option>
+                            <option value="nov">November</option>
+                            <option value="dec">December</option>
+                        </select>
+                        <select name="expiration-year" id="expiration-year">
+                        </select>   
+                    </fieldset>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="cardholder-name">Cardholder Name:</label>
+                    <input type="text" name="cardholder-name" id="cardholder-name" value="" data-clear-btn="true">
+                </li>
+                <li>
+                    <button type="submit">Update Payment Information</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="about">
+        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
+            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1>tapMobile</h1>
+        </div>
+
+        <div data-role="content">
+            The Tap Mobile team has worked around the clock to deliver a quality product to our customers.  Enjoy!
+        </div>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/jquery.mobile-1.3.2.js"></script>
+    <script type="text/javascript" src="lib/fastclick.js"></script>
+    <script type="text/javascript" src="lib/handlebars.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        /* this way we are sure that both jquery and phonegap are available before initialization */
+        $(document).ready(function() {
+            app.initialize();
+        });
+    </script>
+</body>
+</html>
