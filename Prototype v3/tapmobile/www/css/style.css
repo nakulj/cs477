@@ -29,3 +29,8 @@
 .icon-list:before {
 	content: "\e601";
 }
+
+.hiddenErrorLabel {
+	display: none;
+    color: red;
+}

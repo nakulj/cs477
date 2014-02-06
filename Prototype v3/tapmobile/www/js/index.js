@@ -62,3 +62,22 @@ $(function() {
 
 $("#intro").on("pageinit", function() {
 });
+
+$("#update-password").click(function() {
+    var newPassword = $("#new-password").val();
+    var newPasswordConfirm = $("#new-password-confirm").val();
+
+    // Empty fields
+    if (newPassword == "" && newPasswordConfirm == "") {
+        $("#password-empty-label").show("fold");
+    } else {
+        $("#password-empty-label").hide("fold");
+    }
+
+    // Mismatched passwords
+    if (newPassword != newPasswordConfirm) {
+        $("#password-mismatch-label").show("fold");
+    } else {
+        $("#password-mismatch-label").hide("fold");
+    }
+});
