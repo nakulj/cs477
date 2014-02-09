@@ -60,11 +60,11 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
-$("#intro").on("pageinit", function() {
-});
-
+/* Affects all pages with panels in the application */
 $(".sidePanelAccessible").on( "pageinit", function() {
     var pageId = $(this).attr("id");
+
+    /* Find the settings panel this page and set it to open if the user swipes right */
     $(this).on( "swiperight", function( e ) {
         // Check if panel is open already
         if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
@@ -72,6 +72,64 @@ $(".sidePanelAccessible").on( "pageinit", function() {
         }
     });
 });
+
+// ========================================================================================================================
+// HOME PAGE
+// ========================================================================================================================
+
+// ----------------------------------------------------------------------
+// API
+// ----------------------------------------------------------------------
+
+/* Define ticket object prototype */
+/*
+ * TODO
+ */
+
+/*
+ * Description: Define a list of ticket objects to make available in the "Buy Tickets" tab on the home screen.
+ * Input: A list of ticket objects to make available on the front end.
+ * Output: N/A
+ * Error: Fails if any ticket in list is invalid.
+ */
+function setAvailableTickets(ticketList)
+{
+
+}
+
+/*
+ * Description: Append a ticket to the "Buy Tickets" tab on the home screen.
+ * Input: A ticket object.
+ * Output: N/A
+ * Error: Fails if given invalid ticket object.
+ */
+function addTicket()
+{
+    
+}
+
+// ----------------------------------------------------------------------
+// Private functions
+// ----------------------------------------------------------------------
+
+/* Toggle ticket panel */
+$("#mytickets").click(function() {
+    $("#mytickets-list").toggle({
+        effect:"slide",
+        duration: 200
+    });
+});
+
+
+
+// ========================================================================================================================
+// ACCOUNT SETTINGS PAGE
+// ========================================================================================================================
+
+
+// ----------------------------------------------------------------------
+// Private functions
+// ----------------------------------------------------------------------
 
 $("#update-password").click(function() {
     var newPassword = $("#new-password").val();
@@ -90,11 +148,4 @@ $("#update-password").click(function() {
     } else {
         $("#password-mismatch-label").hide("fold");
     }
-});
-
-$("#mytickets").click(function() {
-    $("#mytickets-list").toggle({
-        effect:"slide",
-        duration: 200
-    });
 });
