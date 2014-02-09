@@ -63,6 +63,16 @@ $(function() {
 $("#intro").on("pageinit", function() {
 });
 
+$(".sidePanelAccessible").on( "pageinit", function() {
+    var pageId = $(this).attr("id");
+    $(this).on( "swiperight", function( e ) {
+        // Check if panel is open already
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            $("#" + pageId + " .settings-panel").panel( "open" );
+        }
+    });
+});
+
 $("#update-password").click(function() {
     var newPassword = $("#new-password").val();
     var newPasswordConfirm = $("#new-password-confirm").val();
@@ -80,4 +90,11 @@ $("#update-password").click(function() {
     } else {
         $("#password-mismatch-label").hide("fold");
     }
+});
+
+$("#mytickets").click(function() {
+    $("#mytickets-list").toggle({
+        effect:"slide",
+        duration: 200
+    });
 });

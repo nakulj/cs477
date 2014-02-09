@@ -27,46 +27,14 @@
 
     <link rel="stylesheet" href="css/tapMobile.min.css" />
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
-    <link rel="stylesheet" href="http://i.icomoon.io/public/temp/37cb048430/TapMobile/style.css">
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/style.css" />
 
 </head>
 
 <body>
-    <!--
-    
-    Page Template
-
-    <div data-role="page" id="home">
-        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
-            <ul data-role="listview" data-icon="false">
-                <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
-                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
-                <li><a href="#about" data-transition="slide">About</a></li>
-            </ul>
-        </div>
-
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            
-        </div>
-
-        <div data-role="content">
-            
-        </div>
-
-        <div data-role="footer" data-position="fixed">
-
-        </div>
-    -->
-
-    </div>
-
-    <div data-role="page" id="home">
-        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+    <div data-role="page" id="home" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
@@ -77,8 +45,8 @@
             </ul>
         </div><!-- /panel -->
 
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+        <div data-role="header" data-position="fixed" id="tapHeader" data-id="tapHeader">
+            <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1>tapMobile</h1>
         </div>
 
@@ -87,43 +55,30 @@
                 <a href="#" data-role="button">Destination A</a>
                 <a href="#" data-role="button">Destination B</a>
                 <img style='width: 70%; height: 70%; margin-left: 15%; margin-top: 30px;' src='css/images/qr-code.png'>
-                <center>Metro 7 Day Full Fare <br /> 11/13/2013</center>
-            </div>
-
-        </div>
-
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar" data-iconpos="right">
-                <ul>
-                    <li><a href="#my-tickets" data-icon="arrow-u" data-transition="slideup">My Tickets</a></li>
-                </ul>
-            </div>
-
-        </div><!-- /footer -->
-    </div>
-
-    <div data-role="page" id="my-tickets">
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1>tapMobile</h1>
-            <div data-role="navbar" data-iconpos="right">
-                <ul>
-                    <li><a href="#home" data-icon="arrow-d" data-transition="slidedown">My Tickets</a></li>
-                </ul>
+                <p><center>Metro 7 Day Full Fare <br /> 11/13/2013</center></p>
             </div>
         </div>
 
-        <div data-role="content">
-            <ul data-role="listview" data-icon="false" >
-                <li><a href="#home" data-transition="slidedown">Metro 30 Day Full Fare - $65</a></li>
-                <li><a href="#home" data-transition="slidedown">Metro 30 Day Pass with 1 Zone - $55</a></li>
-                <li><a href="#home" data-transition="slidedown">Metro 7 Day Pass - $20</a></li>
+        <div data-role="footer" data-position="fixed" data-theme="b" id="mytickets">
+            <p id="mytickets-handle">Buy Pass</p>
+            <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list" style="display:none">
+                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 30 Day Full Fare - $65</a></li>
+                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 30 Day Pass with 1 Zone - $55</a></li>
+                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 7 Day Pass - $20</a></li>
             </ul>
         </div>
     </div>
 
-    <div data-role="page" id="payment-history">
-        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+    <div data-role="page" id="dialog-confirm-ticket">
+        <div data-role="content">
+            <p>Your credit card will be charged $X for this pass, continue?</p>
+            <a data-role="button" data-rel="back" id="button-confirm-ticket">Ok</a>
+            <a data-role="button" data-rel="back">Cancel</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="payment-history" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
@@ -134,8 +89,8 @@
             </ul>
         </div><!-- /panel -->
 
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+        <div data-role="header" data-position="fixed" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1>tapMobile</h1>
         </div>
 
@@ -149,8 +104,8 @@
         </div>
     </div>
 
-    <div data-role="page" id="dependents">
-        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+    <div data-role="page" id="dependents" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="dependents-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
@@ -161,8 +116,8 @@
             </ul>
         </div><!-- /panel -->
 
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+        <div data-role="header" data-position="fixed" id="tapHeader" data-id="tapHeader">
+            <a href="#dependents-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1>tapMobile</h1>
         </div>
 
@@ -193,8 +148,8 @@
         </div>
     </div>
 
-    <div data-role="page" id="account-settings">
-        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+    <div data-role="page" id="account-settings" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
@@ -205,8 +160,8 @@
             </ul>
         </div><!-- /panel -->
 
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+        <div data-role="header" data-position="fixed" id="tapHeader" data-id="tapHeader">
+            <a href="#account-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1>tapMobile</h1>
         </div>
 
@@ -273,8 +228,8 @@
         </div>
     </div>
 
-    <div data-role="page" id="about">
-        <div data-role="panel" data-position="left" data-display="reveal" id="settings-panel">
+    <div data-role="page" id="about" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
@@ -285,8 +240,8 @@
             </ul>
         </div><!-- /panel -->
 
-        <div data-role="header" style = "background: black; color: #45adff; text-shadow: none;">
-            <a href="#settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+        <div data-role="header" data-position="fixed" id="tapHeader" data-id="tapHeader">
+            <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1>tapMobile</h1>
         </div>
 

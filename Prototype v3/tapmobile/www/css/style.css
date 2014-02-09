@@ -30,7 +30,27 @@
 	content: "\e601";
 }
 
+#tapHeader {
+	background: black;
+	color: #45adff;
+	text-shadow: none;
+}
+
 .hiddenErrorLabel {
 	display: none;
     color: red;
+}
+
+#mytickets-handle {
+	text-align: center;
+}
+
+/* affects all dialog containers */
+.ui-dialog-contain {
+	width: 92.5%;
+	max-width: 500px;
+	margin: 20% auto 15px auto;
+	padding: 0;
+	position: relative;
+	top: -15px;
 }
