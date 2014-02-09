@@ -49,7 +49,8 @@ $(function() {
     /* Generate a select menu containing the next 10 years from now */
     var yearSelect = $("#expiration-year");
     var currentYear = new Date().getFullYear();
-    for (var year = currentYear; year < currentYear + 10; year++) {
+    var year;
+    for (year = currentYear; year < currentYear + 10; year++) {
         yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
     }
 
@@ -112,15 +113,55 @@ function addTicket()
 // Private functions
 // ----------------------------------------------------------------------
 
+var qrImgHeight;
+$("#home").on("pageshow", function(event) {
+    qrImgHeight = $("#qr-img").actual("height");
+    $("#qr-front").height(qrImgHeight);
+    $("#qr-img").height(qrImgHeight);
+    $("#qr-back").height(qrImgHeight);
+
+    resetCenterTile();
+});
+
 /* Toggle ticket panel */
 $("#mytickets").click(function() {
     $("#mytickets-list").toggle({
-        effect:"slide",
+        effect:"slideup",
         duration: 200
     });
 });
 
+$("#qr-front").click(function() {
+    $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
+        $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
+    });
 
+    $("#qr-front-caption").hide( "slide", { direction: "left" }, 300, function() {
+        $("#qr-back-caption").show("slide", { direction: "right" }, 300, function () {});
+    });
+});
+
+$("#qr-back-btn").button().click(function() {
+    $("#qr-back").hide( "clip", { direction: "horizontal" }, 300, function() {
+        $("#qr-front").show("clip", { direction: "horizontal" }, 300, function () {});
+    });
+    
+    $("#qr-back-caption").hide( "slide", { direction: "left" }, 300, function() {
+        $("#qr-front-caption").show("slide", { direction: "right" }, 300, function () {});
+    });
+});
+
+/* Apply to all buttons that transition to a new page. */
+$(".qrShortcutBtn").button().click(function() {
+    resetCenterTile();
+});
+
+function resetCenterTile() {
+    $("#qr-back").hide();
+    $("#qr-back-caption").hide();
+    $("#qr-front").show();
+    $("#qr-front-caption").show();
+}
 
 // ========================================================================================================================
 // ACCOUNT SETTINGS PAGE

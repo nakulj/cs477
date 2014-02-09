@@ -36,6 +36,36 @@
 	text-shadow: none;
 }
 
+.qrRotationSqr {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	height: 50%;
+	width: 50%;
+	left: 25%;
+	overflow: hidden;
+}
+
+#qr-back {
+}
+
+#qr-img {
+	height: initial;
+	width: 100%;
+}
+
+#qr-back-btn {
+
+}
+
+.qrCaption {
+	text-align: center;
+}
+
+#dependent-back-btn {
+	background-color: 
+}
+
 .hiddenErrorLabel {
 	display: none;
     color: red;
