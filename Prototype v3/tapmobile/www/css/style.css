@@ -36,7 +36,9 @@
 	text-shadow: none;
 }
 
-.qrRotationSqr {
+/* HOME SCREEN */
+
+.qrRotationTile {
 	margin: 0;
 	padding: 0;
 	position: relative;
@@ -46,7 +48,11 @@
 	overflow: hidden;
 }
 
+#qr-front {
+}
+
 #qr-back {
+	padding: 0;
 }
 
 #qr-img {
@@ -54,16 +60,8 @@
 	width: 100%;
 }
 
-#qr-back-btn {
-
-}
-
 .qrCaption {
 	text-align: center;
-}
-
-#dependent-back-btn {
-	background-color: 
 }
 
 .hiddenErrorLabel {
@@ -71,8 +69,24 @@
     color: red;
 }
 
-#mytickets-handle {
+#mytickets {
+}
+
+#mytickets-tab {
 	text-align: center;
+}
+
+#mytickets-list-container {
+	overflow-y: scroll;
+	height: auto;
+}
+
+#mytickets-list {
+	margin: 0;
+}
+
+.qrBtn {
+	
 }
 
 /* affects all dialog containers */

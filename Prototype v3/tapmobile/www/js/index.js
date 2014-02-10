@@ -83,18 +83,50 @@ $(".sidePanelAccessible").on( "pageinit", function() {
 // ----------------------------------------------------------------------
 
 /* Define ticket object prototype */
+var AvailableTicket = function(name, price) {
+    this.name = name;
+    this.price = price;
+};
+
+/* Define transit line object prototype */
+var TransitLine = function(name, time) {
+  this.name = name;
+  this.time = time;
+};
+
+/* Nearest transit lines */
+
 /*
- * TODO
+ * Description: Set the first nearest transit line.
+ * Input: A TransitLine object
+ * Output: N/A
+ * Error: N/A
  */
+function setClosestTransit1(transitLine) {
+
+}
+
+/*
+ * Description: Set the second nearest transit line.
+ * Input: A TransitLine object
+ * Output: N/A
+ * Error: N/A
+ */
+function setClosestTransit2(transitLine) {
+
+}
+
+/* QR/dependents */
+
+/* Available tickets */
 
 /*
  * Description: Define a list of ticket objects to make available in the "Buy Tickets" tab on the home screen.
  * Input: A list of ticket objects to make available on the front end.
  * Output: N/A
- * Error: Fails if any ticket in list is invalid.
+ * Error: N/A
  */
-function setAvailableTickets(ticketList)
-{
+function setAvailableTickets(ticketList) {
 
 }
 
@@ -102,35 +134,52 @@ function setAvailableTickets(ticketList)
  * Description: Append a ticket to the "Buy Tickets" tab on the home screen.
  * Input: A ticket object.
  * Output: N/A
- * Error: Fails if given invalid ticket object.
+ * Error: N/A
  */
-function addTicket()
-{
+function addTicket() {
     
 }
 
 // ----------------------------------------------------------------------
-// Private functions
+// Private
 // ----------------------------------------------------------------------
 
+// Public data
 var qrImgHeight;
+var ticketListHeight;
+
 $("#home").on("pageshow", function(event) {
+    /* Get the actual QR image height */
     qrImgHeight = $("#qr-img").actual("height");
+
+    /* Set the height of the QR divs and image to be uniform and properly animate */    
     $("#qr-front").height(qrImgHeight);
     $("#qr-img").height(qrImgHeight);
     $("#qr-back").height(qrImgHeight);
 
+    /* Always show QR code side when page loads */
     resetCenterTile();
+
+    /* Calculate the height of the Buy Tickets container. */
+    ticketListHeight = $("#mytickets-list li").actual("height") * 3;
+
+    /* Twitch the ticket tab to indicate its existence to user */
+    teaseTicketContainer(600);
+
+    /* Set the ticket container scrollbox height */
+    $("#mytickets-list-container").height(ticketListHeight);
+
+    /* Distribute buttons over the height of the QR image. */
+    $(".qrBtn").height(qrImgHeight/$(".qrBtn").length);
+    $(".qrBtn").css("line-height", (qrImgHeight/$(".qrBtn").length)/2 + "px"); // don't know why line height needs to be halved, but it works
 });
 
 /* Toggle ticket panel */
 $("#mytickets").click(function() {
-    $("#mytickets-list").toggle({
-        effect:"slideup",
-        duration: 200
-    });
+    toggleTicketContainer(400);
 });
 
+/* Flip QR code and show dependents. */
 $("#qr-front").click(function() {
     $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
         $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
@@ -141,6 +190,7 @@ $("#qr-front").click(function() {
     });
 });
 
+/* Flip dependents and show QR code. */
 $("#qr-back-btn").button().click(function() {
     $("#qr-back").hide( "clip", { direction: "horizontal" }, 300, function() {
         $("#qr-front").show("clip", { direction: "horizontal" }, 300, function () {});
@@ -153,6 +203,7 @@ $("#qr-back-btn").button().click(function() {
 
 /* Apply to all buttons that transition to a new page. */
 $(".qrShortcutBtn").button().click(function() {
+    /* Reset QR code immediately after navigating to a new page so it's in place when user returns. */
     resetCenterTile();
 });
 
@@ -163,13 +214,42 @@ function resetCenterTile() {
     $("#qr-front-caption").show();
 }
 
+function isTicketContainerExpanded() {
+    return $("#mytickets").data("containerCollapsed");
+}
+
+function collapseTicketContainer(duration) {
+    $("#mytickets").animate({bottom: -ticketListHeight}, duration);
+    $("#mytickets").data("containerCollapsed", true);
+}
+
+function expandTicketContainer(duration) {
+    $("#mytickets").animate({bottom: 0}, duration);
+    $("#mytickets").data("containerCollapsed", false);
+}
+
+function toggleTicketContainer(duration) {
+    if ($("#mytickets").data("containerCollapsed")) {
+        expandTicketContainer(duration);
+    } else {
+        collapseTicketContainer(duration);
+    }
+}
+
+/* Briefly show ticket container so user knows it exists */
+function teaseTicketContainer(duration) {
+    collapseTicketContainer(0);
+    $("#mytickets").animate({bottom: -ticketListHeight + ticketListHeight/5}, duration/2);
+    $("#mytickets").animate({bottom: -ticketListHeight}, duration/2).delay(duration/2);
+}
+
 // ========================================================================================================================
 // ACCOUNT SETTINGS PAGE
 // ========================================================================================================================
 
 
 // ----------------------------------------------------------------------
-// Private functions
+// Private
 // ----------------------------------------------------------------------
 
 $("#update-password").click(function() {
