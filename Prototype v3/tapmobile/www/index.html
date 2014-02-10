@@ -29,10 +29,32 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/style.css" />
-
 </head>
 
 <body>
+
+    <div data-role="page" id="log-in">
+       <div data-role = "content" id="log-in-content" style = "text-align: center;">
+            <span style = "font-size: 2.5em;">
+                tap<span style = "color: #eee;">Mobile</span>
+            </span>
+           
+               <form id = "log-in-form" style = "margin-top: 20px;"  method="post" action = "submit_login();" onsubmit="window.location.href = '#home'">
+                   <div style = "width: 75%; margin: auto auto;">
+                        <input type="text" name="email" id="basic" value=""  placeholder = "email"/>
+                        <input type="password" name="password" id="basic" value=""  placeholder = "password"/>
+                         <div style="text-align: center;">
+                            <input data-inline = "true" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log In&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
+                        </div>
+                    </div>
+                </form>
+           
+                <div id="log-in-submit">
+                <input data-inline = "true" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign Up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+                </div>
+        </div>
+    </div>
+
     <div data-role="page" id="home" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
             <ul data-role="listview" data-icon="false">
@@ -42,12 +64,13 @@
                 <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1>tapMobile</h1>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
         </div>
 
         <div data-role="content">
@@ -68,7 +91,7 @@
                 <a href="" id="qr-back-btn" class="qrBtn" data-role="button" data-theme="a">Back</a>
             </div>
 
-            <p id="qr-front-caption" class="qrCaption">Metro 7 Day Full Fare <br /> 11/13/2013</p>
+            <p id="qr-front-caption" class="qrCaption">Metro 7 Day Full Fare <br /> <span style="font-size: 0.8em;">Expires on 11/13/2014 at 7:05pm</span></p>
             <p id="qr-back-caption" class="qrCaption">Back caption</p>
         </div>
 
@@ -102,12 +125,13 @@
                 <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1>tapMobile</h1>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
         </div>
 
         <div data-role="content">
@@ -129,12 +153,13 @@
                 <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#dependents-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1>tapMobile</h1>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
         </div>
 
         <div data-role="content">
@@ -173,15 +198,28 @@
                 <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#account-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1>tapMobile</h1>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
         </div>
 
         <div data-role="content">
+            <h3>Email Address</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-password">New Email Address: <br /> <span id="password-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-password-confirm">Confirm New Email Address: <br /><span id="password-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
+                </li>
+            </ul>
+            <br />
             <h3>Password</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
@@ -191,9 +229,6 @@
                 <li data-role="fieldcontain">
                     <label for="new-password-confirm">Confirm New Password: <br /><span id="password-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
                     <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
-                </li>
-                <li>
-                    <button type="submit" id="update-password">Update Password</button>
                 </li>
             </ul>
             <br />
@@ -205,11 +240,15 @@
                         <option value="visa">Visa</option>
                         <option value="mastercard">MasterCard</option>
                         <option value="american-express">American Express</option>
+                        <option value="american-express">Discover</option>
                     </select>
                 </li>
                 <li data-role="fieldcontain">
                     <label for="card-number">Number:</label>
-                    <input type="text" name="card-number" id="card-number" value="" data-clear-btn="true">
+                    <input type="text" pattern="[0-9]*"  name="card-number" id="card-number" value="" data-clear-btn="true">
+                    <br><br>
+                    <label for="card-number">CVV:</label>
+                    <input type="text" pattern="[0-9]*" name="card-CVV" id="card-CVV" value="" data-clear-btn="true">
                 </li>
                 <li>
                     <fieldset data-role="controlgroup" data-type="horizontal">
@@ -237,10 +276,12 @@
                     <label for="cardholder-name">Cardholder Name:</label>
                     <input type="text" name="cardholder-name" id="cardholder-name" value="" data-clear-btn="true">
                 </li>
-                <li>
-                    <button type="submit">Update Payment Information</button>
-                </li>
             </ul>
+            <br><br>
+      
+            <button data-theme="g" type="submit">Update Account Information</button>
+            <button type="submit" id="update-password" data-theme="r">Delete Account</button>
+
         </div>
     </div>
 
@@ -253,12 +294,13 @@
                 <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1>tapMobile</h1>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
         </div>
 
         <div data-role="content">
@@ -279,6 +321,20 @@
         $(document).ready(function() {
             app.initialize();
         });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#log-in-content').css('margin-top', ($(window).height()/8));
+            $('#log-in-form').css('margin-top', ($(window).height()/8));
+            $('#log-in-submit').css('margin-top', ($(window).height()/5.5));
+        });
+
+        function submit_login(){
+            $('#log-in-content').css('margin-top', ($(window).height()/8));
+            $('#log-in-form').css('margin-top', ($(window).height()/8));
+            $('#log-in-submit').css('margin-top', ($(window).height()/5.5));
+        }
+     
     </script>
 </body>
 </html>
