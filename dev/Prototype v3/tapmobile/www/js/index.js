@@ -54,6 +54,25 @@ $(function() {
         yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
     }
 
+
+    // TODO: Add tickets dynamically to list (to be done by backend later)
+
+    var testInitTickets = [];
+
+    testInitTickets[0] = new AvailableTicket("Metro 30 Day Full Fare (API)", 65);
+    //addAvailableTicket(testInitTickets[0]);
+
+    testInitTickets[1] = new AvailableTicket("Metro 30 Day Pass with 1 Zone (API)", 55);
+    //addAvailableTicket(testInitTickets[1]);
+
+    testInitTickets[2] = new AvailableTicket("Metro 7 Day Pass (API)", 20);
+    //addAvailableTicket(testInitTickets[2]);
+
+    testInitTickets[3] = new AvailableTicket("Metro 3 Day Pass (API)", 10);
+    //addAvailableTicket(testInitTickets[3]);
+
+    setAvailableTickets(testInitTickets);
+
     /* Compile templates */
 
     /* X template */
@@ -72,6 +91,17 @@ $(".sidePanelAccessible").on( "pageinit", function() {
             $("#" + pageId + " .settings-panel").panel( "open" );
         }
     });
+});
+
+// ========================================================================================================================
+// LOGIN PAGE
+// ========================================================================================================================
+
+/* Called by log-in submit button */
+$("#log-in-form").on("submit", function(e) {
+    // TODO: For now just transition to home page regardless.
+    $.mobile.changePage("#home", {transition: "slideup"});
+    return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
 // ========================================================================================================================
@@ -127,7 +157,9 @@ function setClosestTransit2(transitLine) {
  * Error: N/A
  */
 function setAvailableTickets(ticketList) {
-
+    for (var i = 0; i < ticketList.length; i++) {
+        addAvailableTicket(ticketList[i]);
+    }
 }
 
 /*
@@ -136,8 +168,8 @@ function setAvailableTickets(ticketList) {
  * Output: N/A
  * Error: N/A
  */
-function addTicket() {
-    
+function addAvailableTicket(ticket) {
+    $("#mytickets-list").append("<li><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
 }
 
 // ----------------------------------------------------------------------

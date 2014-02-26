@@ -34,24 +34,25 @@
 <body>
 
     <div data-role="page" id="log-in">
-       <div data-role = "content" id="log-in-content" style = "text-align: center;">
-            <span style = "font-size: 2.5em;">
-                tap<span style = "color: #eee;">Mobile</span>
-            </span>
-           
-               <form id = "log-in-form" style = "margin-top: 20px;"  method="post" action = "submit_login();" onsubmit="window.location.href = '#home'">
-                   <div style = "width: 75%; margin: auto auto;">
-                        <input type="text" name="email" id="basic" value=""  placeholder = "email"/>
-                        <input type="password" name="password" id="basic" value=""  placeholder = "password"/>
-                         <div style="text-align: center;">
-                            <input data-inline = "true" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log In&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-                        </div>
-                    </div>
-                </form>
-           
-                <div id="log-in-submit">
-                <input data-inline = "true" type="submit" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sign Up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
+        <div data-role = "content" id="log-in-content" style = "text-align: center;">
+            <br />
+            <br />
+            <br />
+            <span style = "font-size: 2.5em;">tap<span style = "color: #eee;">Mobile</span></span>
+            <br />
+            <br />
+            <br />
+
+            <form id = "log-in-form" method="post" action="">
+                <div>
+                    <input type="text" name="email" id="basic" value=""  placeholder = "email"/>
+                    <input type="password" name="password" id="basic" value=""  placeholder = "password"/>
+                    <br />
+                    <input type="submit" value="Log In"/>
                 </div>
+            </form>
+
+            <a href="#home" data-role="button" data-transition="slideup">Sign Up</a>
         </div>
     </div>
 
@@ -98,12 +99,8 @@
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" id="mytickets">
             <p id="mytickets-tab">Buy Ticket</p>
             <div id="mytickets-list-container">
-            <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list">
-                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 30 Day Full Fare - $65</a></li>
-                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 30 Day Pass with 1 Zone - $55</a></li>
-                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 7 Day Pass - $20</a></li>
-                <li><a href="#dialog-confirm-ticket" data-rel="dialog" data-transition="slidedown">Metro 3 Day Pass - $10</a></li>
-            </ul>
+                <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list">
+                </ul>
             </div>
         </div>
     </div>
@@ -321,20 +318,6 @@
         $(document).ready(function() {
             app.initialize();
         });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('#log-in-content').css('margin-top', ($(window).height()/8));
-            $('#log-in-form').css('margin-top', ($(window).height()/8));
-            $('#log-in-submit').css('margin-top', ($(window).height()/5.5));
-        });
-
-        function submit_login(){
-            $('#log-in-content').css('margin-top', ($(window).height()/8));
-            $('#log-in-form').css('margin-top', ($(window).height()/8));
-            $('#log-in-submit').css('margin-top', ($(window).height()/5.5));
-        }
-     
     </script>
 </body>
 </html>
