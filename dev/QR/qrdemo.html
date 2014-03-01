@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Test</title>
+</head>
+
+<body>
+
+<div id="qrcode" style="width:300px; height:300px; margin-top:15px;"></div>
+
+<script src="lib/davidshimjs-qrcodejs-07f829d/qrcode.js"></script>
+<script type="text/javascript">
+	var message= "10000000004e26126c211ca4ac76ffbd47906cf6979fe98943";
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		width : 300,
+		height : 300
+	});
+	qrcode.makeCode(message);
+</script>
+
+</body>
+</html>
