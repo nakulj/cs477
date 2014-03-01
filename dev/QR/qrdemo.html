@@ -12,7 +12,8 @@
 	var message= "10000000004e26126c211ca4ac76ffbd47906cf6979fe98943";
 	var qrcode = new QRCode(document.getElementById("qrcode"), {
 		width : 300,
-		height : 300
+		height : 300,
+		correctLevel: QRCode.CorrectLevel.L
 	});
 	qrcode.makeCode(message);
 </script>
