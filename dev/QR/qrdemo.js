@@ -8,11 +8,13 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 	height : 100,
 	correctLevel: QRCode.CorrectLevel.L
 });
+
+var refreshTime=5;
 var countdown=-1;
 
 function updateTimeQR() {
-	countdown=(countdown+1)%5;
-	document.getElementById("countdown").innerHTML="Renew code in: "+(5-countdown);
+	countdown=(countdown+1)%refreshTime;
+	document.getElementById("countdown").innerHTML="Renew code in: "+(refreshTime-countdown);
 	if(countdown != 0) return;
 	qrcode.clear();
 	timestamp= Date.now();
