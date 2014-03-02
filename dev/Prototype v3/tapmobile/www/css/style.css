@@ -48,6 +48,18 @@
     text-shadow: 0 0;
 }
 
+/* ACCOUNT CREATION */
+.account-create{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyYWRpYWxHcmFkaWVudCBpZD0iZyI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmRhY2ZlIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWQ3MGRkIi8+PC9yYWRpYWxHcmFkaWVudD48cmVjdCB4PSIwJSIgeT0iMCUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxZDcwZGQiIC8+PHJlY3QgeD0iLTYuMTUwMSUiIHk9Ii01OS44OCUiIHdpZHRoPSIxMTIuMzAwMiUiIGhlaWdodD0iMjE5Ljc2JSIgZmlsbD0idXJsKCNnKSIgLz48L3N2Zz4=);
+    background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 127, color-stop(0%, #6dacfe), color-stop(100%, #1d70dd));
+    background-image: -webkit-radial-gradient(center center, farthest-corner circle, #6dacfe 0%, #1d70dd 100%);
+    background-image: -moz-radial-gradient(center center, farthest-corner circle, #6dacfe 0%, #1d70dd 100%);
+    background-image: -ms-radial-gradient(center center, farthest-corner circle, #6dacfe 0%, #1d70dd 100%);
+    background-image: -o-radial-gradient(center center, farthest-corner circle, #6dacfe 0%, #1d70dd 100%);
+    background-image: radial-gradient(farthest-corner circle at center center, #6dacfe 0%, #1d70dd 100%);
+    text-shadow: 0 0;  
+}
+
 /* HOME SCREEN */
 
 .qrRotationTile {

@@ -52,9 +52,182 @@
                 </div>
             </form>
 
-            <a href="#home" data-role="button" data-transition="slideup">Sign Up</a>
+            <a href="#account-create-1" data-role="button" data-transition="slideup">Sign Up</a>
         </div>
     </div>
+
+    <div data-role="page" id="account-create-1" class="account-create">
+        <div data-role ="content" id="account-content-1" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                <a href="#account-create-2" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a>
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Personal Info</a></li>
+                        <li><a href="#account-create-2" data-role="button" data-transition="slide">Payment Info</a></li>
+                        <li><a href="#account-create-3" data-role="button" data-transition="slide">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <form id="user-info-account-create">
+                <div data-role="fieldcontain" data-mini="true" style="text-align: center;">
+                    <label for="fName" class="ui-hidden-accessible"><b>First Name:</b></label>
+                        <input type="text" name="fName" id="fName" value="" placeholder="First Name"/>
+                    <label for="lName" class="ui-hidden-accessible"><b>Last Name:</b></label>
+                        <input type="text" name="lName" id="lName" value="" placeholder="Last Name" label="HI"/>
+                    <label for="email" class="ui-hidden-accessible"><b>Email Address:</b></label>
+                        <input type="email" name="email" id="email" value="" placeholder="Email Address"/>
+                    <label for="password1" class="ui-hidden-accessible"><b>Password:</b></label>
+                        <input type="password" name="password1" id="password1" value="" placeholder="Password (at least 5 characters)"/>
+                    <label for="password2" class="ui-hidden-accessible"><b>Confirm Password:</b></label>
+                        <input type="password" name="password2" id="password2" value="" placeholder="Confirm Password"/>
+                </div>
+            </form>
+
+            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="cancel-yes" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+
+        </div>
+    </div>
+
+    <div data-role="page" id="account-create-2" class="account-create">
+        <div data-role ="content" id="account-content-2" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                 <a href="#account-create-3" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a> 
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#account-create-1" data-transition="slide" data-direction="reverse">Personal Info</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Payment Info</a></li>
+                        <li><a href="#account-create-3" data-transition="slide">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <form id="payment-info-account-create">
+                <div data-role="fieldcontain" data-mini="true" style="text-align: center;">
+                    <label for="cc_num" class="ui-hidden-accessible"><b>Credit Card Number:</b></label>
+                        <input type="text" name="cc_num" id="cc_num" value="" placeholder="Credit Card Number"/>
+                    <label for="cc_cvv" class="ui-hidden-accessible"><b>CVV:</b></label>
+                        <input type="text" name="cc_cvv" id="cc_cvv" value="" placeholder="CVV"/>
+                    <label for="cc_exp" class="ui-hidden-accessible"><b>Expiration Date:</b></label>
+                        <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date"/>
+                </div>
+            </form>
+
+            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="cancel-yes-2" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+
+        </div>
+    </div>
+
+    <div data-role="page" id="account-create-3" class="account-create">
+        <div data-role ="content" id="account-content-3" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel2" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#account-create-1" data-transition="slide" data-direction="reverse">Personal Info</a></li>
+                        <li><a href="#account-create-2" data-transition="slide" data-direction="reverse">Payment Info</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <br>
+            <br>
+            By clicking below,
+            <br> 
+            you agree to the 
+            <br>
+            <a href="#terms-service" style="color:white;">terms of service</a> 
+            and 
+            <a href="#privacy-policy" style="color:white;">privacy policy</a>.
+            <br>
+            <br>
+            <br>
+            <a href="#" id="submit-create-account" data-role="button" data-mini="true">Create Account</a>
+
+
+            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="cancel-yes-3" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+        
+        </div>
+    </div>
+
+
+    <div data-role="page" id="terms-service" class="account-create">
+        <div data-role ="content" style ="text-align:center;">
+             <div data-role="header" data-id="account-header" data-position="fixed">
+                    <a href="#account-create-3" class="ui-btn-left" id="terms-back" data-role="button" data-inline="true" data-transition="fade">Back</a>
+                    <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+             </div>
+         
+         <div style="text-align:justify;">
+            The terms and conditions contain the following sections: Introduction, License to use website, Acceptable use, Restricted access, User content, Limitations of liability, Exceptions, Reasonableness, Other parties, Unenforceable provisions, Indemnity, Breaches of these terms and conditions, Variation, Assignment, Severability, Entire agreement, Law and jurisdiction, Registrations and authorizations, These website terms and conditions.
+        </div>
+
+        </div>
+    </div>
+
+    <div data-role="page" id="privacy-policy" class="account-create">
+        <div data-role ="content" style ="text-align:center;">
+             <div data-role="header" data-id="account-header" data-position="fixed">
+                    <a href="#account-create-3" class="ui-btn-left" id="policy-back" data-role="button" data-inline="true" data-transition="fade">Back</a>
+                    <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+             </div>
+            <div style="text-align:justify;">
+             We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.
+            <br>
+            <br>
+            You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to [address].
+            <br>
+            <br>
+            If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.
+            </div>
+        </div>
+    </div>
+
 
     <div data-role="page" id="home" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
