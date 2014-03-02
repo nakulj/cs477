@@ -7,8 +7,11 @@
 
 <script src="lib/CryptoJS v3/rollups/hmac-sha1.js"></script>
 <script type="text/javascript">
-	var message= "1000000000";
-	var passphrase= "1337password"
+	var userid= "1000000000";
+	var time= Date.now();
+	var message= userid+time;
+	alert(message);
+	var passphrase= "1337password";
 	var hash= CryptoJS.HmacSHA1(message, passphrase);
 	alert(hash);
 </script>
