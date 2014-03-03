@@ -238,8 +238,30 @@ $("#home").on("pageshow", function(event) {
     $("#mytickets-list-container").height(ticketListHeight);
 
     /* Distribute buttons over the height of the QR image. */
-    $(".qrBtn").height(qrImgHeight/$(".qrBtn").length);
-    $(".qrBtn").css("line-height", (qrImgHeight/$(".qrBtn").length)/2 + "px"); // don't know why line height needs to be halved, but it works
+    //$(".qrBtn").height(qrImgHeight/$(".qrBtn").length);
+    //$(".qrBtn").css("line-height", (qrImgHeight/$(".qrBtn").length)/2 + "px"); // don't know why line height needs to be halved, but it works
+});
+
+function updateGuestTotal() {
+    var curGuestNum = +$("#output-guest-num").html();
+    var output = curGuestNum * 1.5;
+    $("#output-total-price").html(output.toFixed(2));
+}
+
+$("#input-guest-inc").on("click", function(e) {
+    var curVal = +$("#output-guest-num").html();
+    if (curVal < 4) { // hardcoded for now, TODO
+        $("#output-guest-num").html(curVal+1);
+        updateGuestTotal();
+    }
+});
+
+$("#input-guest-dec").on("click", function(e) {
+    var curVal = +$("#output-guest-num").html();
+    if (curVal > 1) { // hardcoded for now, TODO
+        $("#output-guest-num").html(curVal-1);
+        updateGuestTotal();
+    }
 });
 
 /* Toggle ticket panel */
@@ -259,7 +281,7 @@ $("#qr-front").click(function() {
 });
 
 /* Flip dependents and show QR code. */
-$("#qr-back-btn").button().click(function() {
+$(".qrFlipBack").button().click(function() {
     $("#qr-back").hide( "clip", { direction: "horizontal" }, 300, function() {
         $("#qr-front").show("clip", { direction: "horizontal" }, 300, function () {});
     });

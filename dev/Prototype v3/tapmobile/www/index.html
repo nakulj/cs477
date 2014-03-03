@@ -405,12 +405,23 @@
                     <div id="qr-code"></div>
                 </div>
 
-                <div id="qr-back" class="rotationContent" data-role="controlgroup" data-mini="true">
-                    <a href="" class="qrBtn" data-role="button" data-theme="c">Dependent 1</a>
-                    <a href="" class="qrBtn" data-role="button" data-theme="c">Dependent 2</a>
-                    <a href="" class="qrBtn" data-role="button" data-theme="c">Guest (Add Name)</a>
-                    <a href="#dependents" class="qrShortcutBtn qrBtn" data-transition="slide" data-role="button" data-theme="c">Dependent Settings</a>
-                    <a href="" id="qr-back-btn" class="qrBtn" data-role="button" data-theme="a">Back</a>
+                <div id="qr-back" class="rotationContent">
+                    <h3 style="margin: 0;">Guest Passes</h3>
+                    <div data-role="fieldcontain">
+                        <label for="input-num-guests"># of Guests</label>
+                        <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+                            <button id="input-guest-dec" data-icon="arrow-d" data-iconpos="notext" data-theme="b"></button>
+                            <button><span id="output-guest-num">1</span></button>
+                            <button id="input-guest-inc" data-icon="arrow-u" data-iconpos="notext" data-theme="b"></button>
+                        </div>
+                    </div>
+                    <div data-role="fieldcontain" style="font-size: 75%;">
+                        <span>Total Price: </span>$<span id="output-total-price">1.50</span>
+                    </div>
+                    <div data-role="controlgroup" data-mini="true">
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="g">Purchase</a>
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Back</a>
+                    </div>
                 </div>
             </div>
 
