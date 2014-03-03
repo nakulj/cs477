@@ -215,12 +215,15 @@ var ticketListHeight;
 
 $("#home").on("pageshow", function(event) {
     /* Get the actual QR image height */
-    qrImgHeight = $("#qr-img").actual("height");
+    qrImgHeight = $("#qr-code").actual("height");
 
     /* Set the height of the QR divs and image to be uniform and properly animate */    
     $("#qr-front").height(qrImgHeight);
-    $("#qr-img").height(qrImgHeight);
+    $("#qr-code").height(qrImgHeight);
     $("#qr-back").height(qrImgHeight);
+
+    /* Center QR tile on screen dynamically */
+    $("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
 
     /* Always show QR code side when page loads */
     resetCenterTile();

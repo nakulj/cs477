@@ -62,26 +62,24 @@
 
 /* HOME SCREEN */
 
-.qrRotationTile {
-	margin: 0;
-	padding: 0;
-	position: relative;
-	height: 50%;
-	width: 50%;
-	left: 25%;
-	overflow: hidden;
+#qr-rotation-tile {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 50%;
+}
+
+.rotationContent {
+    padding: 0;
 }
 
 #qr-front {
 }
 
 #qr-back {
-	padding: 0;
 }
 
-#qr-img {
-	height: initial;
-	width: 100%;
+#qr-code {
 }
 
 .qrCaption {
