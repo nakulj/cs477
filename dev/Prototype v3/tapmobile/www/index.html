@@ -62,10 +62,10 @@
             if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
             else email2Warning = "";
 
-            if (!validPw1) pw1Warning = "Error - You entered: \"" + pw1 + "\". Please enter a password with more than 5 non-space characters.\n\n";
+            if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
             else pw1Warning = "";
 
-            if (!validPw2) pw2Warning = "Error - You entered: \"" + pw2 + "\". Passwords do not match.\n\n";
+            if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
             else pw2Warning = "";
 
             if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
@@ -89,31 +89,6 @@
             document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
 
             alert(finalAlert);
-
-        }
-
-        function validateDependentsForm() {
-            var dependentUsername = document.forms["dependentsForm"]["new-dependent-username"].value;
-            var dependentPassword = document.forms["dependentsForm"]["new-dependent-password"].value;
-
-            var validUser = validateName(dependentUsername);
-            var validPass = validatePassword(dependentPassword);
-
-            var userWarning, passWarning, finalAlert;
-
-            if (!validUser) userWarning = "Username Error - You entered: \"" + dependentUsername + "\". Please enter a username with at least two letter characters.\n\n";
-            else userWarning = "";
-
-            if (!validPass) passWarning = "Password Error - You entered: \"" + dependentPassword + "\". Please enter a password with more than 5 non-space characters.\n\n";
-            else passWarning = "";
-
-            if (!validUser || !validPass) finalAlert = userWarning + passWarning;
-            else finalAlert = "No errors found."
-
-            document.getElementById('DependentsUserAlert').innerHTML = userWarning;
-            document.getElementById('DependentsPasswordAlert').innerHTML = passWarning;
-            alert(finalAlert);
-
 
         }
 
@@ -382,7 +357,6 @@
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -452,7 +426,6 @@
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -474,63 +447,12 @@
         </div>
     </div>
 
-    <div data-role="page" id="dependents" class="sidePanelAccessible">
-        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="dependents-settings-panel">
-            <ul data-role="listview" data-icon="false">
-                <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
-                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
-                <li><a href="#about" data-transition="slide">About</a></li>
-                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
-            </ul>
-        </div><!-- /panel -->
-
-        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
-            <a href="#dependents-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
-            <h1><span style="color:white;">tap</span>Mobile</h1>
-        </div>
-
-        <div data-role="content">
-            <form action="" method="post" name="dependentsForm" onsubmit="return validateDependentsForm()">
-            <center><p>Link additional TAP accounts here to share funds and tickets</p></center>
-            <h3>Linked Dependents</h3>
-            <ul data-role="listview" data-split-theme="a" data-split-icon="delete">
-                <li>
-                    <a href="#">tammytrojan</a>
-                    <a href="#">Delete</a>
-                </li>
-            </ul>
-            <br />
-            <h3>Link New Account</h3>
-            <ul data-role="listview">
-                <li data-role="fieldcontain">
-                    <label for="new-dependent-username">Username:</label>
-                    <input type="text" name="new-dependent-username" id="new-dependent-username" value="" data-clear-btn="true">
-                    <div id="DependentsUserAlert" style="color:red"></div>
-                </li>
-                <li data-role="fieldcontain">
-                    <label for="new-dependent-password">Password:</label>
-                    <input type="password" name="new-dependent-password" id="new-dependent-password" value="" data-clear-btn="true">
-                    <div id="DependentsPasswordAlert" style="color:red"></div>
-                </li>
-                <li>
-                     <!--<button onclick="validateDependentsForm()">Try it</button>-->
-                    <button type="submit">Add Dependent</button>
-                </li>
-            </ul>
-            </form>
-        </div>
-    </div>
-
     <div data-role="page" id="account-settings" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -634,7 +556,6 @@
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#dependents" data-transition="slide">Dependents</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>

@@ -228,7 +228,6 @@ function updateTimeQR() {
     message= userid+timestamp;
     qrcode.makeCode(message);
 }
-setInterval("updateTimeQR()", refreshRate);
 
 $("#home").on("pageshow", function(event) {
     qrcode = new QRCode(document.getElementById("qr-code"), {
@@ -237,6 +236,7 @@ $("#home").on("pageshow", function(event) {
         correctLevel: QRCode.CorrectLevel.L
     });
     updateTimeQR();
+    setInterval("updateTimeQR()", refreshRate);
 
     /* Get the actual QR image height */
     qrImgHeight = $("#qr-code").actual("height");
