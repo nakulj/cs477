@@ -209,11 +209,35 @@ function addAvailableTicket(ticket) {
 // Private
 // ----------------------------------------------------------------------
 
+// QR Code generation
+var userid= "1234567890";
+var timestamp;
+var message;
+var qrcode;
+
 // Public data
 var qrImgHeight;
 var ticketListHeight;
 
+/* QR Code Generator */
+var refreshRate = 5000;
+
+function updateTimeQR() {
+    qrcode.clear();
+    timestamp= Date.now();
+    message= userid+timestamp;
+    qrcode.makeCode(message);
+}
+setInterval("updateTimeQR()", refreshRate);
+
 $("#home").on("pageshow", function(event) {
+    qrcode = new QRCode(document.getElementById("qr-code"), {
+        width: $(window).width()/2,
+        height: $(window).width()/2,
+        correctLevel: QRCode.CorrectLevel.L
+    });
+    updateTimeQR();
+
     /* Get the actual QR image height */
     qrImgHeight = $("#qr-code").actual("height");
 
@@ -241,6 +265,8 @@ $("#home").on("pageshow", function(event) {
     //$(".qrBtn").height(qrImgHeight/$(".qrBtn").length);
     //$(".qrBtn").css("line-height", (qrImgHeight/$(".qrBtn").length)/2 + "px"); // don't know why line height needs to be halved, but it works
 });
+
+/* Custom incrementor/decrementor */
 
 function updateGuestTotal() {
     var curGuestNum = +$("#output-guest-num").html();
