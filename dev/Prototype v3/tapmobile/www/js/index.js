@@ -209,6 +209,24 @@ function addAvailableTicket(ticket) {
 // Private
 // ----------------------------------------------------------------------
 
+// Trigger notification
+function processedTicketNotification() {
+    localNotifier.addNotification({
+        fireDate        : Math.round(new Date().getTime()/1000 + 5),
+        alertBody       : "This is a new local notification.",
+        repeatInterval  : "daily",
+        soundName       : "horn.caf",
+        badge           : 0,
+        notificationId  : 123,
+        foreground      : function(notificationId) {
+            alert("Hello World! This alert was triggered by notification " + notificationId);
+        },
+        background  : function(notificationId) {
+            alert("Hello World! This alert was triggered by notification " + notificationId);
+        }
+    });
+}
+
 // QR Code generation
 var userid= "1234567890";
 var timestamp;
@@ -229,7 +247,7 @@ function updateTimeQR() {
     qrcode.makeCode(message);
 }
 
-$("#home").on("pageshow", function(event) {
+$("#home").on("pagecreate", function(event) {
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
         height: $(window).width()/2,
@@ -237,7 +255,9 @@ $("#home").on("pageshow", function(event) {
     });
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
+});
 
+$("#home").on("pageshow", function(event) {
     /* Get the actual QR image height */
     qrImgHeight = $("#qr-code").actual("height");
 
