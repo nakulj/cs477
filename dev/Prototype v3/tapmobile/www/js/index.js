@@ -383,10 +383,123 @@ function teaseTicketContainer(duration) {
 // ACCOUNT SETTINGS PAGE
 // ========================================================================================================================
 
-
 // ----------------------------------------------------------------------
 // Private
 // ----------------------------------------------------------------------
+
+/* Validation */
+function validateAccountForm() {
+    var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
+    var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
+
+    var pw1 = document.forms["AccountSettingsForm"]["new-password"].value;
+    var pw2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
+
+    var cardnumber = document.forms["AccountSettingsForm"]["card-number"].value;
+    var cvv = document.forms["AccountSettingsForm"]["card-CVV"].value;
+    var cardname = document.forms["AccountSettingsForm"]["cardholder-name"].value;
+
+    var validEmail1 = validateEmail(email1);
+    var validEmail2 = (email1 == email2);
+    var validPw1 = validatePassword(pw1);
+    var validPw2 = (pw1 == pw2);
+    var validCardnumber = validateCardNumber(cardnumber);
+    var validCVV = validateCVV(cvv);
+    var validCardname = validateName(cardname);
+
+    var email1Warning, email2Warning, pw1Warning, pw2Warning, cardnumberWarning, cvvWarning, cardnameWarning, finalAlert;
+
+    if (!validEmail1) email1Warning = "Error - You entered: \"" + email1 + "\". Please enter an email in xxx@xxx.xxx format. \n\n";
+    else email1Warning = "";
+
+    if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
+    else email2Warning = "";
+
+    if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
+    else pw1Warning = "";
+
+    if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
+    else pw2Warning = "";
+
+    if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
+    else cardnumberWarning = "";
+
+    if (!validCVV) cvvWarning = "Error - You entered: \"" + cvv + "\". Please enter a CVV with exactly 3 digits.\n\n";
+    else cvvWarning = "";
+
+    if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
+    else cardnameWarning = "";
+
+    if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
+    else finalAlert = "No errors found."
+
+    document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
+    document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
+    document.getElementById('AccountPw1Alert').innerHTML = pw1Warning;
+    document.getElementById('AccountPw2Alert').innerHTML = pw2Warning;
+    document.getElementById('AccountCardNumberAlert').innerHTML = cardnumberWarning;
+    document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
+    document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
+
+    alert(finalAlert);
+}
+
+function validateName(fn) {
+    var isValid = true;
+    var reFNletters = /^[a-zA-Z]{2,}$/
+
+    if (fn.search(reFNletters) == -1) { //at least 2 letters
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validatePassword(pw) {
+    var isValid = true;
+    var pwFormat = /^\S{5,}$/
+
+    if (pw.search(pwFormat) == -1) { //at least 5 non space characters
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateEmail(em) {
+    var isValid = true;
+    var emailFormat = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
+
+    if (em.search(emailFormat) == -1) { //need email to be in xxx@xxx.xxx format
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateCardNumber(cn) {
+    var isValid = true;
+
+    var re16digit = /^\d{16}$/
+
+    if (!(cn.search(re16digit) != -1)) { //16 digit
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateCVV(cvv) {
+    var isValid = true;
+
+    var re3digit = /^\d{3}$/
+
+    if (!(cvv.search(re3digit) != -1)) { //3 digit
+        isValid = false;
+    }
+
+    return isValid;
+}
 
 $("#update-password").click(function() {
     var newPassword = $("#new-password").val();
