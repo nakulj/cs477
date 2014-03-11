@@ -42,18 +42,11 @@ var app = {
     }
 };
 
-/* Attach FastClick to the buttons on the page when it's initialized. */
 $(function() {
+    /* Attach FastClick to the buttons on the page when it's initialized. */
     FastClick.attach(document.body);
 
-    /* Generate a select menu containing the next 10 years from now */
-    var yearSelect = $("#expiration-year");
-    var currentYear = new Date().getFullYear();
-    var year;
-    for (year = currentYear; year < currentYear + 10; year++) {
-        yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
-    }
-
+    /***** PLACEHOLDER CODE *******/
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
@@ -73,7 +66,13 @@ $(function() {
 
     setAvailableTickets(testInitTickets);
 
-    /* Compile templates */
+    // Hardcoded default balance value
+    setTAPBalanceHeaderBtnValue(10);
+
+    /***** PLACEHOLDER CODE *******/
+
+
+    /* Compile templates (not being used right now, may not ever need it) */
 
     /* X template */
     //var campaign_source   = $("#campaign-template").html();
@@ -142,7 +141,7 @@ $("#submit-create-account").on("click", function(e) {
 // ========================================================================================================================
 
 // ----------------------------------------------------------------------
-// API
+// Object Prototypes
 // ----------------------------------------------------------------------
 
 /* Define ticket object prototype */
@@ -156,6 +155,16 @@ var TransitLine = function(name, time) {
   this.name = name;
   this.time = time;
 };
+
+// ----------------------------------------------------------------------
+// API
+// ----------------------------------------------------------------------
+
+/* Set the displayed TAP balance in top right of header */
+function setTAPBalanceHeaderBtnValue(balanceIntValue) {
+    var balanceFixedValue = balanceIntValue.toFixed(2);
+    $("#tap-balance-value").html(balanceFixedValue);
+}
 
 /* Nearest transit lines */
 
@@ -210,20 +219,16 @@ function addAvailableTicket(ticket) {
 // ----------------------------------------------------------------------
 
 // Trigger notification
-function processedTicketNotification() {
+function processedTicketNotification(delayInMilliseconds, notificationText) {
     localNotifier.addNotification({
-        fireDate        : Math.round(new Date().getTime()/1000 + 5),
-        alertBody       : "This is a new local notification.",
-        repeatInterval  : "daily",
+        fireDate        : Math.round(new Date().getTime() + delayInMilliseconds),
+        alertBody       : notificationText,
+        repeatInterval  : "",
         soundName       : "horn.caf",
         badge           : 0,
-        notificationId  : 123,
-        foreground      : function(notificationId) {
-            alert("Hello World! This alert was triggered by notification " + notificationId);
-        },
-        background  : function(notificationId) {
-            alert("Hello World! This alert was triggered by notification " + notificationId);
-        }
+        notificationId  : 1,
+        foreground      : function(notificationId) {},
+        background      : function(notificationId) {}
     });
 }
 
@@ -387,6 +392,25 @@ function teaseTicketContainer(duration) {
 // Private
 // ----------------------------------------------------------------------
 
+$("#account-settings").on("pagecreate", function(event) {
+    /* Generate a select menu containing the next 20 years from now */
+    var yearSelect = $("#expiration-year");
+    var currentYear = new Date().getFullYear();
+    var year;
+    for (year = currentYear; year < currentYear + 20; year++) {
+        yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
+    }
+});
+
+/* Called by update account form submit button */
+$("#update-account-form").on("submit", function(e) {
+    validateAccountForm();
+    return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
+});
+
+/* TODO: Placeholder for account delete button */
+
+
 /* Validation */
 function validateAccountForm() {
     var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
@@ -430,8 +454,8 @@ function validateAccountForm() {
     if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
     else cardnameWarning = "";
 
-    if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
-    else finalAlert = "No errors found."
+    //if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
+    //else finalAlert = "No errors found."
 
     document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
     document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
@@ -441,7 +465,9 @@ function validateAccountForm() {
     document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
     document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
 
-    alert(finalAlert);
+    //alert(finalAlert);
+
+    return false;
 }
 
 function validateName(fn) {
@@ -500,22 +526,3 @@ function validateCVV(cvv) {
 
     return isValid;
 }
-
-$("#update-password").click(function() {
-    var newPassword = $("#new-password").val();
-    var newPasswordConfirm = $("#new-password-confirm").val();
-
-    // Empty fields
-    if (newPassword == "" && newPasswordConfirm == "") {
-        $("#password-empty-label").show("fold");
-    } else {
-        $("#password-empty-label").hide("fold");
-    }
-
-    // Mismatched passwords
-    if (newPassword != newPasswordConfirm) {
-        $("#password-mismatch-label").show("fold");
-    } else {
-        $("#password-mismatch-label").hide("fold");
-    }
-});

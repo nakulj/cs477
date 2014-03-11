@@ -32,6 +32,7 @@
 </head>
 
 <body>
+    <!-- Log-in page -->
     <div data-role="page" id="log-in">
         <div data-role = "content" id="log-in-content" style = "text-align: center;">
             <br />
@@ -55,6 +56,7 @@
         </div>
     </div>
 
+    <!-- Account creation page -->
     <div data-role="page" id="account-create-1" class="account-create">
         <div data-role ="content" id="account-content-1" style ="text-align:center;">
             
@@ -103,6 +105,7 @@
         </div>
     </div>
 
+    <!-- Account creation page 2-->
     <div data-role="page" id="account-create-2" class="account-create">
         <div data-role ="content" id="account-content-2" style ="text-align:center;">
             
@@ -147,6 +150,7 @@
         </div>
     </div>
 
+    <!-- Account creation page 3 -->
     <div data-role="page" id="account-create-3" class="account-create">
         <div data-role ="content" id="account-content-3" style ="text-align:center;">
             
@@ -194,7 +198,7 @@
         </div>
     </div>
 
-
+    <!-- Terms and service page -->
     <div data-role="page" id="terms-service" class="account-create">
         <div data-role ="content" style ="text-align:center;">
              <div data-role="header" data-id="account-header" data-position="fixed">
@@ -209,6 +213,7 @@
         </div>
     </div>
 
+    <!-- Privacy policy page -->
     <div data-role="page" id="privacy-policy" class="account-create">
         <div data-role ="content" style ="text-align:center;">
              <div data-role="header" data-id="account-header" data-position="fixed">
@@ -227,7 +232,7 @@
         </div>
     </div>
 
-
+    <!-- Home page -->
     <div data-role="page" id="home" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
             <ul data-role="listview" data-icon="false">
@@ -238,11 +243,20 @@
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
-        </div><!-- /panel -->
+        </div><!-- /left panel -->
+
+        <div data-role="panel" data-position="right" data-display="reveal" id="tap-balance-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#account-settings" data-transition="slide" data-direction="reverse">Update Payment Information</a></li>
+                <li><a href="#payment-history" data-transition="slide" data-direction="reverse">View Payment Information</a></li>
+                <li>This needs to be improved and updated by Ian (add ability to transfer funds here?)</li>
+            </ul>
+        </div><!-- /right panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#tap-balance-panel" id="tap-balance-header-btn" class="ui-btn-right">$<span id="tap-balance-value">0.00</span></a>
         </div>
 
         <div id="home-content" data-role="content">
@@ -289,6 +303,7 @@
         </div>
     </div>
 
+    <!-- Home page dialog confirm ticket -->
     <div data-role="page" id="dialog-confirm-ticket">
         <div data-role="content">
             <p>Your credit card will be charged $X for this pass, continue?</p>
@@ -297,6 +312,7 @@
         </div>
     </div>
 
+    <!-- Payment history page -->
     <div data-role="page" id="payment-history" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
@@ -324,6 +340,7 @@
         </div>
     </div>
 
+    <!-- Account settings page -->
     <div data-role="page" id="account-settings" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
             <ul data-role="listview" data-icon="false">
@@ -342,16 +359,16 @@
         </div>
 
         <div data-role="content">
-            <form action="" method="post" name="AccountSettingsForm" onsubmit="return validateAccountForm()">
+            <form id="update-account-form" action="" method="post" name="AccountSettingsForm">
             <h3>Email Address</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Email Address: <br /> <span id="email-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <label for="new-password">New Email Address: </label>
                     <input type="text" name="new-email" id="new-email" value="" data-clear-btn="true">
                     <div id="AccountEmail1Alert" style="color:red"></div>
                 </li>
                 <li data-role="fieldcontain">
-                    <label for="new-password-confirm">Confirm New Email Address: <br /><span id="email-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <label for="new-password-confirm">Confirm New Email Address: </label>
                     <input type="text" name="new-email-confirm" id="new-email-confirm" value="" data-clear-btn="true">
                     <div id="AccountEmail2Alert" style="color:red"></div>
                 </li>
@@ -360,12 +377,12 @@
             <h3>Password</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Password: <br /> <span id="password-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <label for="new-password">New Password: </label>
                     <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
                     <div id="AccountPw1Alert" style="color:red"></div>
                 </li>
                 <li data-role="fieldcontain">
-                    <label for="new-password-confirm">Confirm New Password: <br /><span id="password-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <label for="new-password-confirm">Confirm New Password: </label>
                     <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
                     <div id="AccountPw2Alert" style="color:red"></div>
                 </li>
@@ -427,6 +444,7 @@
         </div>
     </div>
 
+    <!-- About page -->
     <div data-role="page" id="about" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
             <ul data-role="listview" data-icon="false">
@@ -442,6 +460,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+
         </div>
 
         <div data-role="content">
