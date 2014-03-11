@@ -90,7 +90,7 @@ var baseFare = 1.50; // TODO: Make this nil and force back end to let us know th
 var tapBalance = 10.00; // TODO: ^^
 
 // These are set in the front-end.
-var numGuests = 0
+var numGuests = 0;
 
 /* Affects all pages with panels in the application */
 $(".sidePanelAccessible").on( "pagecreate", function() {
@@ -368,21 +368,6 @@ function updateTimeQR() {
     qrcode.makeCode(message);
 }
 
-// Trigger local notification
-// TODO: Add Windows and Android notifications
-function processedTicketNotification(delayInMilliseconds, notificationText) {
-    localNotifier.addNotification({
-        fireDate        : Math.round(new Date().getTime() + delayInMilliseconds),
-        alertBody       : notificationText,
-        repeatInterval  : "",
-        soundName       : "horn.caf",
-        badge           : 0,
-        notificationId  : 1,
-        foreground      : function(notificationId) {},
-        background      : function(notificationId) {}
-    });
-}
-
 $("#home").on("pagecreate", function(event) {
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
@@ -493,6 +478,21 @@ $(".qrShortcutBtn").button().click(function() {
     /* Reset QR code immediately after navigating to a new page so it's in place when user returns. */
     resetCenterTile();
 });
+
+// Trigger local notification
+// TODO: Add Windows and Android notifications
+function processedTicketNotification(delayInMilliseconds, notificationText) {
+    localNotifier.addNotification({
+        fireDate        : Math.round(new Date().getTime() + delayInMilliseconds),
+        alertBody       : notificationText,
+        repeatInterval  : "",
+        soundName       : "horn.caf",
+        badge           : 0,
+        notificationId  : 1,
+        foreground      : function(notificationId) {},
+        background      : function(notificationId) {}
+    });
+}
 
 function resetCenterTile() {
     $("#qr-back").hide();
