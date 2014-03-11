@@ -1,4 +1,5 @@
 var userid= "1234567890";
+var numGuests= "3";
 var timestamp;
 var message;
 var passphrase= "1337password";
@@ -19,9 +20,9 @@ function updateTimeQR() {
 	if(countdown != 0) return;
 	qrcode.clear();
 	timestamp= Date.now();
-	message= userid+timestamp;
+	message= userid+numGuests+timestamp;
 	hash= CryptoJS.HmacSHA1(message, passphrase);
-	qrmessage= message+hash;
+	qrmessage= userid+" "+numGuests+" "+timestamp+" "+hash;
 	document.getElementById("time").innerHTML="Time: " + timestamp;
 	document.getElementById("HMAC").innerHTML="HMAC: " + hash;
 	qrcode.makeCode(qrmessage);
