@@ -29,132 +29,10 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <script>
-        function myFunction() {
-            alert("hello");
-        }
-        function validateAccountForm() {
-
-
-            var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
-            var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
-
-            var pw1 = document.forms["AccountSettingsForm"]["new-password"].value;
-            var pw2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
-
-            var cardnumber = document.forms["AccountSettingsForm"]["card-number"].value;
-            var cvv = document.forms["AccountSettingsForm"]["card-CVV"].value;
-            var cardname = document.forms["AccountSettingsForm"]["cardholder-name"].value;
-
-            var validEmail1 = validateEmail(email1);
-            var validEmail2 = (email1 == email2);
-            var validPw1 = validatePassword(pw1);
-            var validPw2 = (pw1 == pw2);
-            var validCardnumber = validateCardNumber(cardnumber);
-            var validCVV = validateCVV(cvv);
-            var validCardname = validateName(cardname);
-
-            var email1Warning, email2Warning, pw1Warning, pw2Warning, cardnumberWarning, cvvWarning, cardnameWarning, finalAlert;
-
-            if (!validEmail1) email1Warning = "Error - You entered: \"" + email1 + "\". Please enter an email in xxx@xxx.xxx format. \n\n";
-            else email1Warning = "";
-
-            if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
-            else email2Warning = "";
-
-            if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
-            else pw1Warning = "";
-
-            if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
-            else pw2Warning = "";
-
-            if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
-            else cardnumberWarning = "";
-
-            if (!validCVV) cvvWarning = "Error - You entered: \"" + cvv + "\". Please enter a CVV with exactly 3 digits.\n\n";
-            else cvvWarning = "";
-
-            if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
-            else cardnameWarning = "";
-
-            if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
-            else finalAlert = "No errors found."
-
-            document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
-            document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
-            document.getElementById('AccountPw1Alert').innerHTML = pw1Warning;
-            document.getElementById('AccountPw2Alert').innerHTML = pw2Warning;
-            document.getElementById('AccountCardNumberAlert').innerHTML = cardnumberWarning;
-            document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
-            document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
-
-            alert(finalAlert);
-
-        }
-
-        //validation functions
-
-        function validateName(fn) {
-            var isValid = true;
-            var reFNletters = /^[a-zA-Z]{2,}$/
-
-            if (fn.search(reFNletters) == -1) { //at least 2 letters
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validatePassword(pw) {
-            var isValid = true;
-            var pwFormat = /^\S{5,}$/
-
-            if (pw.search(pwFormat) == -1) { //at least 5 non space characters
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validateEmail(em) {
-            var isValid = true;
-            var emailFormat = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
-
-            if (em.search(emailFormat) == -1) { //need email to be in xxx@xxx.xxx format
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validateCardNumber(cn) {
-            var isValid = true;
-
-            var re16digit = /^\d{16}$/
-
-            if (!(cn.search(re16digit) != -1)) { //16 digit
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validateCVV(cvv) {
-            var isValid = true;
-
-            var re3digit = /^\d{3}$/
-
-            if (!(cvv.search(re3digit) != -1)) { //3 digit
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-    </script>
 </head>
 
 <body>
+    <!-- Log-in page -->
     <div data-role="page" id="log-in">
         <div data-role = "content" id="log-in-content" style = "text-align: center;">
             <br />
@@ -178,6 +56,7 @@
         </div>
     </div>
 
+    <!-- Account creation page -->
     <div data-role="page" id="account-create-1" class="account-create">
         <div data-role ="content" id="account-content-1" style ="text-align:center;">
             
@@ -226,6 +105,7 @@
         </div>
     </div>
 
+    <!-- Account creation page 2-->
     <div data-role="page" id="account-create-2" class="account-create">
         <div data-role ="content" id="account-content-2" style ="text-align:center;">
             
@@ -270,6 +150,7 @@
         </div>
     </div>
 
+    <!-- Account creation page 3 -->
     <div data-role="page" id="account-create-3" class="account-create">
         <div data-role ="content" id="account-content-3" style ="text-align:center;">
             
@@ -317,7 +198,7 @@
         </div>
     </div>
 
-
+    <!-- Terms and service page -->
     <div data-role="page" id="terms-service" class="account-create">
         <div data-role ="content" style ="text-align:center;">
              <div data-role="header" data-id="account-header" data-position="fixed">
@@ -332,6 +213,7 @@
         </div>
     </div>
 
+    <!-- Privacy policy page -->
     <div data-role="page" id="privacy-policy" class="account-create">
         <div data-role ="content" style ="text-align:center;">
              <div data-role="header" data-id="account-header" data-position="fixed">
@@ -350,22 +232,31 @@
         </div>
     </div>
 
-
+    <!-- Home page -->
     <div data-role="page" id="home" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
             <ul data-role="listview" data-icon="false">
-                <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
-        </div><!-- /panel -->
+        </div><!-- /left panel -->
+
+        <div data-role="panel" data-position="right" data-display="reveal" id="tap-balance-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#account-settings" data-transition="slide" data-direction="reverse">Update Payment Information</a></li>
+                <li><a href="#payment-history" data-transition="slide" data-direction="reverse">View Payment Information</a></li>
+                <li>This needs to be improved and updated by Ian (add ability to transfer funds here?)</li>
+            </ul>
+        </div><!-- /right panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#tap-balance-panel" id="tap-balance-header-btn" class="ui-btn-right">$<span id="tap-balance-value">0.00</span></a>
         </div>
 
         <div id="home-content" data-role="content">
@@ -412,6 +303,7 @@
         </div>
     </div>
 
+    <!-- Home page dialog confirm ticket -->
     <div data-role="page" id="dialog-confirm-ticket">
         <div data-role="content">
             <p>Your credit card will be charged $X for this pass, continue?</p>
@@ -420,12 +312,13 @@
         </div>
     </div>
 
+    <!-- Payment history page -->
     <div data-role="page" id="payment-history" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide" data-rel="close">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -447,13 +340,14 @@
         </div>
     </div>
 
+    <!-- Account settings page -->
     <div data-role="page" id="account-settings" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#account-settings" data-transition="slide" data-rel="close">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
@@ -465,16 +359,16 @@
         </div>
 
         <div data-role="content">
-            <form action="" method="post" name="AccountSettingsForm" onsubmit="return validateAccountForm()">
+            <form id="update-account-form" action="" method="post" name="AccountSettingsForm">
             <h3>Email Address</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Email Address: <br /> <span id="email-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <label for="new-password">New Email Address: </label>
                     <input type="text" name="new-email" id="new-email" value="" data-clear-btn="true">
                     <div id="AccountEmail1Alert" style="color:red"></div>
                 </li>
                 <li data-role="fieldcontain">
-                    <label for="new-password-confirm">Confirm New Email Address: <br /><span id="email-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <label for="new-password-confirm">Confirm New Email Address: </label>
                     <input type="text" name="new-email-confirm" id="new-email-confirm" value="" data-clear-btn="true">
                     <div id="AccountEmail2Alert" style="color:red"></div>
                 </li>
@@ -483,12 +377,12 @@
             <h3>Password</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Password: <br /> <span id="password-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <label for="new-password">New Password: </label>
                     <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
                     <div id="AccountPw1Alert" style="color:red"></div>
                 </li>
                 <li data-role="fieldcontain">
-                    <label for="new-password-confirm">Confirm New Password: <br /><span id="password-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <label for="new-password-confirm">Confirm New Password: </label>
                     <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
                     <div id="AccountPw2Alert" style="color:red"></div>
                 </li>
@@ -550,14 +444,15 @@
         </div>
     </div>
 
+    <!-- About page -->
     <div data-role="page" id="about" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
-                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#about" data-transition="slide" data-rel="close">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
@@ -565,6 +460,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+
         </div>
 
         <div data-role="content">
