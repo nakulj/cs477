@@ -21,7 +21,7 @@ function updateTimeQR() {
 	timestamp= Date.now();
 	message= userid+timestamp;
 	hash= CryptoJS.HmacSHA1(message, passphrase);
-	qrmessage= message+hash;
+	qrmessage= userid+" "+timestamp+" "+hash;
 	document.getElementById("time").innerHTML="Time: " + timestamp;
 	document.getElementById("HMAC").innerHTML="HMAC: " + hash;
 	qrcode.makeCode(qrmessage);
