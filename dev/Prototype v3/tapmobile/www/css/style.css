@@ -98,6 +98,19 @@
 	text-align: center;
 }
 
+#qr-front-caption-guests {
+    color: green;
+    display: none;
+}
+
+#qr-front-caption-guests-num {
+    font-weight: bold;
+}
+
+#qr-front-caption-ticket {
+    font-weight: bold;
+}
+
 .hiddenErrorLabel {
 	display: none;
     color: red;

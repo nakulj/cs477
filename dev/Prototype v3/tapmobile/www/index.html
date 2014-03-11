@@ -276,22 +276,27 @@
                         <label for="input-num-guests"># of Guests</label>
                         <div data-role="controlgroup" data-type="horizontal" data-mini="true">
                             <button id="input-guest-dec" data-icon="arrow-d" data-iconpos="notext" data-theme="b"></button>
-                            <button><span id="output-guest-num">1</span></button>
+                            <button><span id="output-guest-num">0</span></button>
                             <button id="input-guest-inc" data-icon="arrow-u" data-iconpos="notext" data-theme="b"></button>
                         </div>
                     </div>
                     <div data-role="fieldcontain" style="font-size: 75%;">
-                        <span>Total Price: </span>$<span id="output-total-price">1.50</span>
+                        <span>Total Price: </span>$<span id="output-total-price">0.00</span>
                     </div>
                     <div data-role="controlgroup" data-mini="true">
-                        <a href="" class="qrFlipBack" data-role="button" data-theme="g">Purchase</a>
-                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Back</a>
+                        <a href="" id="qr-guests-accept-btn" class="qrFlipBack" data-role="button" data-theme="g">Accept</a>
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Cancel</a>
                     </div>
                 </div>
             </div>
 
-            <p id="qr-front-caption" class="qrCaption">Metro 7 Day Full Fare <br /> <span style="font-size: 0.8em;">Expires on 11/13/2014 at 7:05pm</span></p>
-            <p id="qr-back-caption" class="qrCaption">Back caption</p>
+
+            <p id="qr-front-caption" class="qrCaption">
+                <span id="qr-front-caption-guests">+<span id="qr-front-caption-guests-num">2</span> Guests ($<span id="qr-front-caption-guests-price">0.00</span> extra)<br /></span>
+                <span id="qr-front-caption-ticket"></span><br />
+                <span style="font-size: 0.8em;">Expires on <span id="qr-front-caption-expdate"></span></span>
+            </p>
+            <p id="qr-back-caption" class="qrCaption"></p>
         </div>
 
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" id="mytickets">

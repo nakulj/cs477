@@ -67,7 +67,10 @@ $(function() {
     setAvailableTickets(testInitTickets);
 
     // Hardcoded default balance value
-    setTAPBalanceHeaderBtnValue(10);
+    setTAPBalance(10);
+
+    // Hardcoded front QR caption value
+    setFrontQRCaption(new FrontQRCaption("Metro 7 Day Pass", "3/16/2014", 0));
 
     /***** PLACEHOLDER CODE *******/
 
@@ -79,8 +82,18 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
+/* Application Globals (and defaults) */
+
+// These should only be reset by the back-end.
+var maxGuests = 4; // Max number of guests on a single QR scan
+var baseFare = 1.50; // TODO: Make this nil and force back end to let us know the base fare when the app is started.
+var tapBalance = 10.00; // TODO: ^^
+
+// These are set in the front-end.
+var numGuests = 0
+
 /* Affects all pages with panels in the application */
-$(".sidePanelAccessible").on( "pageinit", function() {
+$(".sidePanelAccessible").on( "pagecreate", function() {
     var pageId = $(this).attr("id");
 
     /* Find the settings panel this page and set it to open if the user swipes right */
@@ -144,27 +157,119 @@ $("#submit-create-account").on("click", function(e) {
 // Object Prototypes
 // ----------------------------------------------------------------------
 
-/* Define ticket object prototype */
-var AvailableTicket = function(name, price) {
-    this.name = name;
-    this.price = price;
-};
-
 /* Define transit line object prototype */
 var TransitLine = function(name, time) {
   this.name = name;
   this.time = time;
 };
 
+/* Define ticket object prototype */
+var AvailableTicket = function(name, price) {
+    this.name = name;
+    this.price = price;
+};
+
+var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
+    this.ticketText = ticketText;
+    this.expirationDate = expirationDate;
+    this.numGuests = numGuests;
+}
+
 // ----------------------------------------------------------------------
 // API
 // ----------------------------------------------------------------------
 
-/* Set the displayed TAP balance in top right of header */
-function setTAPBalanceHeaderBtnValue(balanceIntValue) {
-    var balanceFixedValue = balanceIntValue.toFixed(2);
-    $("#tap-balance-value").html(balanceFixedValue);
+/*
+ * Description: Modify the max number of guests allowed on a single QR scan.
+ * Input: An integer upper bound for number of guest spots.
+ * Output: N/A
+ * Error: N/A
+ */
+function setMaxGuests(newMaxGuests) {
+    maxGuests = newMaxGuests;
+    console.log("Max guests set to " + newMaxGuests);
 }
+
+/*
+ * Description: Change the base fare (displayed to user and used to calculate guest pass price)
+ * Input: A monetary value
+ * Output: N/A
+ * Error: N/A
+ */
+function setBaseFare(newBaseFare) {
+    baseFare = newBaseFare;
+    console.log("Base fare set to " + newBaseFare);
+}
+
+/*
+ * Description: Set the displayed TAP balance in top right of header.
+ * Input: An integer or float representing the monetary value of their account balance.
+ * Output: N/A
+ * Error: N/A
+ */
+function setTAPBalance(balanceIntValue) {
+    tapBalance = balanceIntValue.toFixed(2);
+    $("#tap-balance-value").html(tapBalance);
+}
+
+/*
+ * Description: Set the ticket text in the caption displayed under the front-facing QR code.
+ * Input: Text identifying the ticket being used.
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaptionTicket(ticketText) {
+    $("#qr-front-caption-ticket").html(ticketText);
+}
+
+/*
+ * Description: Set the expiration date in the caption displayed under the front-facing QR code.
+ * Input: Text identifying the date.
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaptionExpDate(expirationDate) {
+    $("#qr-front-caption-expdate").html(expirationDate);
+}
+
+/*
+ * Description: Set the number of guests in the caption displayed under the front-facing QR code (if 0, line is not shown)
+ * Input: Number of guests on the QR scan.
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaptionGuests(numGuests) {
+    var frontCaptionGuests = $("#qr-front-caption-guests");
+    if (numGuests > 0) {
+        $("#qr-front-caption-guests-num").html(numGuests);
+        $("#qr-front-caption-guests-price").html((numGuests * baseFare).toFixed(2));
+        frontCaptionGuests.css("display", "inline");
+    } else {
+        frontCaptionGuests.css("display", "none");
+    }
+}
+
+/*
+ * Description: Set the caption displayed under the front-facing QR code.
+ * Input: A FrontQRCaption object
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaption(frontQRCaption) {
+    setFrontQRCaptionTicket(frontQRCaption.ticketText);
+    setFrontQRCaptionExpDate(frontQRCaption.expirationDate);
+    setFrontQRCaptionGuests(frontQRCaption.numGuests);
+}
+
+/*
+ * Description: nil (may not need this)
+ * Input: 
+ * Output: N/A
+ * Error: N/A
+ */
+function setBackQRCaption(backQRCaption) {
+}
+
 
 /* Nearest transit lines */
 
@@ -214,23 +319,34 @@ function addAvailableTicket(ticket) {
     $("#mytickets-list").append("<li><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
 }
 
+/*
+ * Description: Call this when a ticket QR code was successfully processed and payed for by admin application.
+ * Input: Boolean to indicate if TAP balance was used (so front end can deduct it) and the remaining TAP balance (if tapBalanceUsed is true).
+ * Output: N/A
+ * Error: N/A
+ */
+function processedTicketSuccessful(tapBalanceUsed, remainingBalance) {
+    // Send notification to phone platform.
+    processedTicketNotification(0, "Successfully processed ticket");
+
+    // Update TAP balance on home screen.
+    if (tapBalanceUsed) {
+        setTAPBalance(remainingBalance); // Back-end should be validating this value.
+    }
+}
+
+/*
+ * Description: Call this when a ticket QR code was failed to process.
+ * Input: An error code to identify the issue.
+ * Output: N/A
+ * Error: N/A
+ */
+function processedTicketFailed(errorCode) {
+}
+
 // ----------------------------------------------------------------------
 // Private
 // ----------------------------------------------------------------------
-
-// Trigger notification
-function processedTicketNotification(delayInMilliseconds, notificationText) {
-    localNotifier.addNotification({
-        fireDate        : Math.round(new Date().getTime() + delayInMilliseconds),
-        alertBody       : notificationText,
-        repeatInterval  : "",
-        soundName       : "horn.caf",
-        badge           : 0,
-        notificationId  : 1,
-        foreground      : function(notificationId) {},
-        background      : function(notificationId) {}
-    });
-}
 
 // QR Code generation
 var userid= "1234567890";
@@ -252,6 +368,21 @@ function updateTimeQR() {
     qrcode.makeCode(message);
 }
 
+// Trigger local notification
+// TODO: Add Windows and Android notifications
+function processedTicketNotification(delayInMilliseconds, notificationText) {
+    localNotifier.addNotification({
+        fireDate        : Math.round(new Date().getTime() + delayInMilliseconds),
+        alertBody       : notificationText,
+        repeatInterval  : "",
+        soundName       : "horn.caf",
+        badge           : 0,
+        notificationId  : 1,
+        foreground      : function(notificationId) {},
+        background      : function(notificationId) {}
+    });
+}
+
 $("#home").on("pagecreate", function(event) {
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
@@ -260,6 +391,14 @@ $("#home").on("pagecreate", function(event) {
     });
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
+
+    /* Find the TAP balance panel this page and set it to open if the user swipes left */
+    $(this).on( "swipeleft", function( e ) {
+        // Check if panel is open already
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            $("#tap-balance-panel").panel( "open" );
+        }
+    });
 });
 
 $("#home").on("pageshow", function(event) {
@@ -293,26 +432,29 @@ $("#home").on("pageshow", function(event) {
 
 /* Custom incrementor/decrementor */
 
-function updateGuestTotal() {
-    var curGuestNum = +$("#output-guest-num").html();
-    var output = curGuestNum * 1.5;
-    $("#output-total-price").html(output.toFixed(2));
+function updateGuestTotal(guestTotal) {
+    $("#output-guest-num").html(guestTotal);
+    $("#output-total-price").html((guestTotal * baseFare).toFixed(2));
 }
 
 $("#input-guest-inc").on("click", function(e) {
     var curVal = +$("#output-guest-num").html();
-    if (curVal < 4) { // hardcoded for now, TODO
-        $("#output-guest-num").html(curVal+1);
-        updateGuestTotal();
+    if (curVal < maxGuests) {
+        updateGuestTotal(curVal+1);
     }
 });
 
 $("#input-guest-dec").on("click", function(e) {
     var curVal = +$("#output-guest-num").html();
-    if (curVal > 1) { // hardcoded for now, TODO
-        $("#output-guest-num").html(curVal-1);
-        updateGuestTotal();
+    if (curVal > 0) {
+        updateGuestTotal(curVal-1);
     }
+});
+
+$("#qr-guests-accept-btn").on("click", function(event) {
+    var strNumGuests = $("#output-guest-num").html();
+    numGuests = parseInt(strNumGuests, 10);
+    setFrontQRCaptionGuests(numGuests);
 });
 
 /* Toggle ticket panel */
@@ -322,6 +464,10 @@ $("#mytickets").click(function() {
 
 /* Flip QR code and show dependents. */
 $("#qr-front").click(function() {
+    /* Reset data */
+    updateGuestTotal(numGuests);
+
+    /* Animation */
     $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
         $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
     });
