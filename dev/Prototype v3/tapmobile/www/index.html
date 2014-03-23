@@ -238,25 +238,16 @@
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide" data-rel="close">Home</a></li>
                 <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /left panel -->
 
-        <div data-role="panel" data-position="right" data-display="reveal" id="tap-balance-panel">
-            <ul data-role="listview" data-icon="false">
-                <li><a href="#account-settings" data-transition="slide" data-direction="reverse">Update Payment Information</a></li>
-                <li><a href="#payment-history" data-transition="slide" data-direction="reverse">View Payment Information</a></li>
-                <li>This needs to be improved and updated by Ian (add ability to transfer funds here?)</li>
-            </ul>
-        </div><!-- /right panel -->
-
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-            <a href="#tap-balance-panel" id="tap-balance-header-btn" class="ui-btn-right">$<span id="tap-balance-value">0.00</span></a>
+            <a href="#add-funds" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
         </div>
 
         <div id="home-content" data-role="content">
@@ -317,13 +308,12 @@
         </div>
     </div>
 
-    <!-- Payment history page -->
-    <div data-role="page" id="payment-history" class="sidePanelAccessible">
+    <!-- Add Funds page -->
+    <div data-role="page" id="add-funds" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide" data-rel="close">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -333,15 +323,242 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-        </div>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
 
-        <div data-role="content">
-            <ul data-role="listview">
-                <li data-role="list-divider">Purchase History</li>
-                <li><a href="">30 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">11/12/13</span></a></li>
-                <li><a href="">Full Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/31/13</span></a></li>
-                <li><a href="">7 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/18/13</span></a></li>
+        
+        <div data-role="content" style="text-align: center;">
+            
+            <span style="font-size: 1.2em; font-weight: bold; line-height: 2.2em;">
+                Current Balance
+            </span>
+            <br>
+            $<span id="tap-balance-value">0.00</span>
+            
+            <br><br><br>
+            
+            <form id="add-funds-form" method="post" action="purchaseFunds();" name="add-funds-form">
+            <h3>Add Funds</h3>
+                <fieldset data-role="controlgroup">
+                    <legend>Choose an amount:</legend>
+                        <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" />
+                        <label for="radio-choice-1">$1.50</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
+                        <label for="radio-choice-2">$5</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
+                        <label for="radio-choice-3">$10</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
+                        <label for="radio-choice-4">$20</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-5" value="choice-5"  />
+                        <label for="radio-choice-5">$50</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-6" value="choice-6"  />
+                        <label for="radio-choice-6">$100</label>
+                </fieldset>
+                <button data-theme="g" type="submit">Purchase Funds</button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Purchase History page -->
+    <div data-role="page" id="purchase-history" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" >        
+                <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(126,169,68); color: white; text-shadow: none;">Funds Added to Account</li>
+                <li >
+                    <h2 class="ui-li-heading">
+                    $10.00
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Card ending in xxxx</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    11/14/14 - 7:46am
+                    </p>
+                </li>
+            </ul>
+
+             <ul data-role="listview" data-inset="true" >
+             <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(161,59,57); color: white; text-shadow: none;">Purchases from Account Balance</li>
+                <li >
+                    <p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
+                    <h2 class="ui-li-heading">
+                    $4.50
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Single Fare</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/15/14 - 11:55am
+                    </p>
+                </li>
+                <li >
+                    <p class="ui-li-aside ui-li-desc"><strong></strong></p>
+                    <h2 class="ui-li-heading">
+                    $1.50
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Single Fare</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/15/14 - 8:00am
+                    </p>
+                </li>
+                </ul>
+        </div>
+    </div>
+
+    <!-- Past Taps page -->
+    <div data-role="page" id="past-taps" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+           <ul data-role="listview" data-inset="true" data-split-icon="delete" data-split-theme="c">        
+                <li>
+                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
+                    <h2 class="ui-li-heading">
+                    Single Fare
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Culver Station</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/01/14 - 9:15pm
+                    </p></a>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong></strong></p>
+                    <h2 class="ui-li-heading">
+                    5-Day Pass
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Jefferson Station</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    10/05/14 - 10:15pm
+                    </p></a>
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Ticket Wallet page -->
+    <div data-role="page" id="payment-info" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true">        
+            <li data-theme="g">
+                <p class="ui-li-aside ui-li-desc"><strong>0 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                3-Day Pass
+                </h2>
+                <p class="ui-li-desc">
+                Expires on 12/10/14 at 7:45pm
+                </p>
+            </li>
+            <li>
+                <p class="ui-li-aside ui-li-desc"><strong>1 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                5-Day Pass
+                </h2>
+                <p class="ui-li-desc">
+                Not Yet Activated
+                </p>
+            </li>
+             <li>
+               <p class="ui-li-aside ui-li-desc"><strong>5 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                Single Fare
+                </h2>
+            </li>
+        </ul>
         </div>
     </div>
 
@@ -351,7 +568,6 @@
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide" data-rel="close">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -455,7 +671,6 @@
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
                 <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide" data-rel="close">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
