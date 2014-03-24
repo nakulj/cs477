@@ -1,15 +1,17 @@
 var userid= "1234567890";
+var numGuests= "3";
 var timestamp;
 var message;
 var passphrase= "1337password";
 var hash;
+var qrmessage;
 var qrcode = new QRCode(document.getElementById("qrcode"), {
 	width : 100,
 	height : 100,
 	correctLevel: QRCode.CorrectLevel.L
 });
 
-var refreshTime=5;
+var refreshTime=20;
 var countdown=-1;
 
 function updateTimeQR() {
@@ -18,11 +20,12 @@ function updateTimeQR() {
 	if(countdown != 0) return;
 	qrcode.clear();
 	timestamp= Date.now();
-	message= userid+timestamp;
+	message= userid+numGuests+timestamp;
 	hash= CryptoJS.HmacSHA1(message, passphrase);
+	qrmessage= userid+" "+numGuests+" "+timestamp+" "+hash;
 	document.getElementById("time").innerHTML="Time: " + timestamp;
 	document.getElementById("HMAC").innerHTML="HMAC: " + hash;
-	qrcode.makeCode(message);
+	qrcode.makeCode(qrmessage);
 }
 updateTimeQR();
 setInterval("updateTimeQR()",1000);

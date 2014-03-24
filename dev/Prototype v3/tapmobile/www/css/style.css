@@ -36,6 +36,11 @@
 	text-shadow: none;
 }
 
+/* Settings panel */
+.settingsPanel {
+
+}
+
 /*LOG IN SCREEN*/
 #log-in{
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyYWRpYWxHcmFkaWVudCBpZD0iZyI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNmRhY2ZlIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWQ3MGRkIi8+PC9yYWRpYWxHcmFkaWVudD48cmVjdCB4PSIwJSIgeT0iMCUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxZDcwZGQiIC8+PHJlY3QgeD0iLTYuMTUwMSUiIHk9Ii01OS44OCUiIHdpZHRoPSIxMTIuMzAwMiUiIGhlaWdodD0iMjE5Ljc2JSIgZmlsbD0idXJsKCNnKSIgLz48L3N2Zz4=);
@@ -62,6 +67,10 @@
 
 /* HOME SCREEN */
 
+#tap-balance-header-btn {
+    min-width: 5em; /* So button doesn't fluctuate in width as the TAP balance value changes (but will grow if need be) */
+}
+
 #qr-rotation-tile {
     margin: 0;
     padding: 0;
@@ -87,6 +96,19 @@
 
 .qrCaption {
 	text-align: center;
+}
+
+#qr-front-caption-guests {
+    color: green;
+    display: none;
+}
+
+#qr-front-caption-guests-num {
+    font-weight: bold;
+}
+
+#qr-front-caption-ticket {
+    font-weight: bold;
 }
 
 .hiddenErrorLabel {

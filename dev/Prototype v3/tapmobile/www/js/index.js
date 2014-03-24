@@ -42,18 +42,11 @@ var app = {
     }
 };
 
-/* Attach FastClick to the buttons on the page when it's initialized. */
 $(function() {
+    /* Attach FastClick to the buttons on the page when it's initialized. */
     FastClick.attach(document.body);
 
-    /* Generate a select menu containing the next 10 years from now */
-    var yearSelect = $("#expiration-year");
-    var currentYear = new Date().getFullYear();
-    var year;
-    for (year = currentYear; year < currentYear + 10; year++) {
-        yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
-    }
-
+    /***** PLACEHOLDER CODE *******/
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
@@ -73,15 +66,34 @@ $(function() {
 
     setAvailableTickets(testInitTickets);
 
-    /* Compile templates */
+    // Hardcoded default balance value
+    setTAPBalance(10);
+
+    // Hardcoded front QR caption value
+    setFrontQRCaption(new FrontQRCaption("Metro 7 Day Pass", "3/16/2014", 0));
+
+    /***** PLACEHOLDER CODE *******/
+
+
+    /* Compile templates (not being used right now, may not ever need it) */
 
     /* X template */
     //var campaign_source   = $("#campaign-template").html();
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
+/* Application Globals (and defaults) */
+
+// These should only be reset by the back-end.
+var maxGuests = 4; // Max number of guests on a single QR scan
+var baseFare = 1.50; // TODO: Make this nil and force back end to let us know the base fare when the app is started.
+var tapBalance = 10.00; // TODO: ^^
+
+// These are set in the front-end.
+var numGuests = 0;
+
 /* Affects all pages with panels in the application */
-$(".sidePanelAccessible").on( "pageinit", function() {
+$(".sidePanelAccessible").on( "pagecreate", function() {
     var pageId = $(this).attr("id");
 
     /* Find the settings panel this page and set it to open if the user swipes right */
@@ -138,12 +150,99 @@ $("#submit-create-account").on("click", function(e) {
 
 
 // ========================================================================================================================
+// ADD FUNDS PAGE
+// ========================================================================================================================
+
+
+/*
+ * Description: Charge user's credit card for selected fund amount
+ * Input: The amount of money to be charged to card and added to account balance
+ * Output: N/A
+ * Error: N/A
+ */
+function purchaseFunds(charge_amount){
+    //To Do: link to payment gateway
+    console.log("Charged $" + charge_amount);
+}
+
+/*
+ * Description: Aux function to convert radio button choice to fund amount
+ * Input: N/A
+ * Output: A float value for the fund amount selected
+ * Error: N/A
+ */
+function determineFundAmount(){
+    var fund_amount = $("input[type='radio']:checked").val();
+
+    if (fund_amount == "choice-1"){
+        fund_amount = 1.50;
+    }
+    else if (fund_amount == "choice-2"){
+        fund_amount = 5.00;
+    }
+    else if (fund_amount == "choice-3"){
+        fund_amount = 10.00;
+    }
+    else if (fund_amount == "choice-4"){
+        fund_amount = 20.00;
+    }
+    else if (fund_amount == "choice-5"){
+        fund_amount = 50.00;
+    }
+    else if (fund_amount == "choice-6"){
+        fund_amount = 100.00;
+    }
+
+    return fund_amount;
+}
+
+/* Open confirmation when user clicks to purchase funds*/
+$("#add-funds-form").on("submit", function(e) {
+   
+    var card_number = 4444; //TO DO: pull from database
+    var fund_amount = determineFundAmount();
+
+    $("#fund-confirm-message").html("Your credit card ending in " + card_number + " will be charged $" + fund_amount.toFixed(2) + ", continue?");
+    $("#dialog-confirm-add-funds").popup({ theme: "a" });
+    $("#dialog-confirm-add-funds").popup("open");
+    
+    return false;
+});
+
+/*Complete add funds transaction if user confirms purchase*/
+$("#dialog-confirm-purchase-funds").on("click", function(e) {
+    
+    var fund_amount = determineFundAmount();
+    purchaseFunds(fund_amount);
+    
+    var newBalance = parseFloat($(".tap-balance-value").html()) + fund_amount; //TO DO: pull amount from backend and add to it
+    setTAPBalance(newBalance); // Back-end should be validating this value.
+    
+    addItemToBalanceHistory(10,10,10,10);
+
+    $("#dialog-confirm-add-funds").popup("close");
+    
+    return false; // Prevent default form action
+});
+
+//TO DO: this should be pushing to backend and then backend should be pulled everytime balance history is refreshed
+function addItemToBalanceHistory(charge_amount, card_number, time, date){
+    $("#balance_history_funds").append("<li class='ui-li ui-li-static ui-btn-up-c ui-last-child'><h2 class='ui-li-heading'>$" + charge_amount.toFixed(2) + "</h2><p class='ui-li-desc'><strong>Card ending in " + card_number + "</strong></p><p class='ui-li-desc'>" + date + "-" + time + "</p></li>");
+}
+
+// ========================================================================================================================
 // HOME PAGE
 // ========================================================================================================================
 
 // ----------------------------------------------------------------------
-// API
+// Object Prototypes
 // ----------------------------------------------------------------------
+
+/* Define transit line object prototype */
+var TransitLine = function(name, time) {
+  this.name = name;
+  this.time = time;
+};
 
 /* Define ticket object prototype */
 var AvailableTicket = function(name, price) {
@@ -151,11 +250,108 @@ var AvailableTicket = function(name, price) {
     this.price = price;
 };
 
-/* Define transit line object prototype */
-var TransitLine = function(name, time) {
-  this.name = name;
-  this.time = time;
-};
+var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
+    this.ticketText = ticketText;
+    this.expirationDate = expirationDate;
+    this.numGuests = numGuests;
+}
+
+// ----------------------------------------------------------------------
+// API
+// ----------------------------------------------------------------------
+
+/*
+ * Description: Modify the max number of guests allowed on a single QR scan.
+ * Input: An integer upper bound for number of guest spots.
+ * Output: N/A
+ * Error: N/A
+ */
+function setMaxGuests(newMaxGuests) {
+    maxGuests = newMaxGuests;
+    console.log("Max guests set to " + newMaxGuests);
+}
+
+/*
+ * Description: Change the base fare (displayed to user and used to calculate guest pass price)
+ * Input: A monetary value
+ * Output: N/A
+ * Error: N/A
+ */
+function setBaseFare(newBaseFare) {
+    baseFare = newBaseFare;
+    console.log("Base fare set to " + newBaseFare);
+}
+
+/*
+ * Description: Set the displayed TAP balance in top right of header and in Add Funds under balance.
+ * Input: An integer or float representing the monetary value of their account balance.
+ * Output: N/A
+ * Error: N/A
+ */
+function setTAPBalance(balanceIntValue) {
+    tapBalance = parseFloat(balanceIntValue).toFixed(2);
+    $(".tap-balance-value").html(tapBalance);
+    $("#funds_tap_balance_value").html("$" + tapBalance);
+}
+
+/*
+ * Description: Set the ticket text in the caption displayed under the front-facing QR code.
+ * Input: Text identifying the ticket being used.
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaptionTicket(ticketText) {
+    $("#qr-front-caption-ticket").html(ticketText);
+}
+
+/*
+ * Description: Set the expiration date in the caption displayed under the front-facing QR code.
+ * Input: Text identifying the date.
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaptionExpDate(expirationDate) {
+    $("#qr-front-caption-expdate").html(expirationDate);
+}
+
+/*
+ * Description: Set the number of guests in the caption displayed under the front-facing QR code (if 0, line is not shown)
+ * Input: Number of guests on the QR scan.
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaptionGuests(numGuests) {
+    var frontCaptionGuests = $("#qr-front-caption-guests");
+    if (numGuests > 0) {
+        $("#qr-front-caption-guests-num").html(numGuests);
+        $("#qr-front-caption-guests-price").html((numGuests * baseFare).toFixed(2));
+        frontCaptionGuests.css("display", "inline");
+    } else {
+        frontCaptionGuests.css("display", "none");
+    }
+}
+
+/*
+ * Description: Set the caption displayed under the front-facing QR code.
+ * Input: A FrontQRCaption object
+ * Output: N/A
+ * Error: N/A
+ */
+function setFrontQRCaption(frontQRCaption) {
+    setFrontQRCaptionTicket(frontQRCaption.ticketText);
+    setFrontQRCaptionExpDate(frontQRCaption.expirationDate);
+    setFrontQRCaptionGuests(frontQRCaption.numGuests);
+}
+
+/*
+ * Description: nil (may not need this)
+ * Input: 
+ * Output: N/A
+ * Error: N/A
+ */
+function setBackQRCaption(backQRCaption) {
+}
+
 
 /* Nearest transit lines */
 
@@ -205,6 +401,31 @@ function addAvailableTicket(ticket) {
     $("#mytickets-list").append("<li><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
 }
 
+/*
+ * Description: Call this when a ticket QR code was successfully processed and payed for by admin application.
+ * Input: Boolean to indicate if TAP balance was used (so front end can deduct it) and the remaining TAP balance (if tapBalanceUsed is true).
+ * Output: N/A
+ * Error: N/A
+ */
+function processedTicketSuccessful(tapBalanceUsed, remainingBalance) {
+    // Send notification to phone platform.
+    processedTicketNotification(0, "Successfully processed ticket");
+
+    // Update TAP balance on home screen.
+    if (tapBalanceUsed) {
+        setTAPBalance(remainingBalance); // Back-end should be validating this value.
+    }
+}
+
+/*
+ * Description: Call this when a ticket QR code was failed to process.
+ * Input: An error code to identify the issue.
+ * Output: N/A
+ * Error: N/A
+ */
+function processedTicketFailed(errorCode) {
+}
+
 // ----------------------------------------------------------------------
 // Private
 // ----------------------------------------------------------------------
@@ -229,7 +450,7 @@ function updateTimeQR() {
     qrcode.makeCode(message);
 }
 
-$("#home").on("pageshow", function(event) {
+$("#home").on("pagecreate", function(event) {
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
         height: $(window).width()/2,
@@ -238,6 +459,16 @@ $("#home").on("pageshow", function(event) {
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
 
+    /* Find the TAP balance panel this page and set it to open if the user swipes left */
+    $(this).on( "swipeleft", function( e ) {
+        // Check if panel is open already
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            $("#tap-balance-panel").panel( "open" );
+        }
+    });
+});
+
+$("#home").on("pageshow", function(event) {
     /* Get the actual QR image height */
     qrImgHeight = $("#qr-code").actual("height");
 
@@ -268,26 +499,29 @@ $("#home").on("pageshow", function(event) {
 
 /* Custom incrementor/decrementor */
 
-function updateGuestTotal() {
-    var curGuestNum = +$("#output-guest-num").html();
-    var output = curGuestNum * 1.5;
-    $("#output-total-price").html(output.toFixed(2));
+function updateGuestTotal(guestTotal) {
+    $("#output-guest-num").html(guestTotal);
+    $("#output-total-price").html((guestTotal * baseFare).toFixed(2));
 }
 
 $("#input-guest-inc").on("click", function(e) {
     var curVal = +$("#output-guest-num").html();
-    if (curVal < 4) { // hardcoded for now, TODO
-        $("#output-guest-num").html(curVal+1);
-        updateGuestTotal();
+    if (curVal < maxGuests) {
+        updateGuestTotal(curVal+1);
     }
 });
 
 $("#input-guest-dec").on("click", function(e) {
     var curVal = +$("#output-guest-num").html();
-    if (curVal > 1) { // hardcoded for now, TODO
-        $("#output-guest-num").html(curVal-1);
-        updateGuestTotal();
+    if (curVal > 0) {
+        updateGuestTotal(curVal-1);
     }
+});
+
+$("#qr-guests-accept-btn").on("click", function(event) {
+    var strNumGuests = $("#output-guest-num").html();
+    numGuests = parseInt(strNumGuests, 10);
+    setFrontQRCaptionGuests(numGuests);
 });
 
 /* Toggle ticket panel */
@@ -297,6 +531,10 @@ $("#mytickets").click(function() {
 
 /* Flip QR code and show dependents. */
 $("#qr-front").click(function() {
+    /* Reset data */
+    updateGuestTotal(numGuests);
+
+    /* Animation */
     $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
         $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
     });
@@ -322,6 +560,21 @@ $(".qrShortcutBtn").button().click(function() {
     /* Reset QR code immediately after navigating to a new page so it's in place when user returns. */
     resetCenterTile();
 });
+
+// Trigger local notification
+// TODO: Add Windows and Android notifications
+function processedTicketNotification(delayInMilliseconds, notificationText) {
+    localNotifier.addNotification({
+        fireDate        : Math.round(new Date().getTime() + delayInMilliseconds),
+        alertBody       : notificationText,
+        repeatInterval  : "",
+        soundName       : "horn.caf",
+        badge           : 0,
+        notificationId  : 1,
+        foreground      : function(notificationId) {},
+        background      : function(notificationId) {}
+    });
+}
 
 function resetCenterTile() {
     $("#qr-back").hide();
@@ -363,26 +616,141 @@ function teaseTicketContainer(duration) {
 // ACCOUNT SETTINGS PAGE
 // ========================================================================================================================
 
-
 // ----------------------------------------------------------------------
 // Private
 // ----------------------------------------------------------------------
 
-$("#update-password").click(function() {
-    var newPassword = $("#new-password").val();
-    var newPasswordConfirm = $("#new-password-confirm").val();
-
-    // Empty fields
-    if (newPassword == "" && newPasswordConfirm == "") {
-        $("#password-empty-label").show("fold");
-    } else {
-        $("#password-empty-label").hide("fold");
-    }
-
-    // Mismatched passwords
-    if (newPassword != newPasswordConfirm) {
-        $("#password-mismatch-label").show("fold");
-    } else {
-        $("#password-mismatch-label").hide("fold");
+$("#account-settings").on("pagecreate", function(event) {
+    /* Generate a select menu containing the next 20 years from now */
+    var yearSelect = $("#expiration-year");
+    var currentYear = new Date().getFullYear();
+    var year;
+    for (year = currentYear; year < currentYear + 20; year++) {
+        yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
     }
 });
+
+/* Called by update account form submit button */
+$("#update-account-form").on("submit", function(e) {
+    validateAccountForm();
+    return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
+});
+
+/* TODO: Placeholder for account delete button */
+
+
+/* Validation */
+function validateAccountForm() {
+    var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
+    var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
+
+    var pw1 = document.forms["AccountSettingsForm"]["new-password"].value;
+    var pw2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
+
+    var cardnumber = document.forms["AccountSettingsForm"]["card-number"].value;
+    var cvv = document.forms["AccountSettingsForm"]["card-CVV"].value;
+    var cardname = document.forms["AccountSettingsForm"]["cardholder-name"].value;
+
+    var validEmail1 = validateEmail(email1);
+    var validEmail2 = (email1 == email2);
+    var validPw1 = validatePassword(pw1);
+    var validPw2 = (pw1 == pw2);
+    var validCardnumber = validateCardNumber(cardnumber);
+    var validCVV = validateCVV(cvv);
+    var validCardname = validateName(cardname);
+
+    var email1Warning, email2Warning, pw1Warning, pw2Warning, cardnumberWarning, cvvWarning, cardnameWarning, finalAlert;
+
+    if (!validEmail1) email1Warning = "Error - You entered: \"" + email1 + "\". Please enter an email in xxx@xxx.xxx format. \n\n";
+    else email1Warning = "";
+
+    if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
+    else email2Warning = "";
+
+    if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
+    else pw1Warning = "";
+
+    if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
+    else pw2Warning = "";
+
+    if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
+    else cardnumberWarning = "";
+
+    if (!validCVV) cvvWarning = "Error - You entered: \"" + cvv + "\". Please enter a CVV with exactly 3 digits.\n\n";
+    else cvvWarning = "";
+
+    if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
+    else cardnameWarning = "";
+
+    //if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
+    //else finalAlert = "No errors found."
+
+    document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
+    document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
+    document.getElementById('AccountPw1Alert').innerHTML = pw1Warning;
+    document.getElementById('AccountPw2Alert').innerHTML = pw2Warning;
+    document.getElementById('AccountCardNumberAlert').innerHTML = cardnumberWarning;
+    document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
+    document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
+
+    //alert(finalAlert);
+
+    return false;
+}
+
+function validateName(fn) {
+    var isValid = true;
+    var reFNletters = /^[a-zA-Z]{2,}$/
+
+    if (fn.search(reFNletters) == -1) { //at least 2 letters
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validatePassword(pw) {
+    var isValid = true;
+    var pwFormat = /^\S{5,}$/
+
+    if (pw.search(pwFormat) == -1) { //at least 5 non space characters
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateEmail(em) {
+    var isValid = true;
+    var emailFormat = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
+
+    if (em.search(emailFormat) == -1) { //need email to be in xxx@xxx.xxx format
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateCardNumber(cn) {
+    var isValid = true;
+
+    var re16digit = /^\d{16}$/
+
+    if (!(cn.search(re16digit) != -1)) { //16 digit
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateCVV(cvv) {
+    var isValid = true;
+
+    var re3digit = /^\d{3}$/
+
+    if (!(cvv.search(re3digit) != -1)) { //3 digit
+        isValid = false;
+    }
+
+    return isValid;
+}
