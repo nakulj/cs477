@@ -300,6 +300,16 @@ function setTAPBalance(balanceIntValue) {
 }
 
 /*
+ * Description: Set if this user has an active ticket ready to scan.
+ * Input: True if they have a ticket, false if not.
+ * Output: N/A
+ * Error: N/A
+ */
+function setHasActiveTicket(newHasActiveTicket) {
+    hasActiveTicket = newHasActiveTicket;
+}
+
+/*
  * Description: Set the ticket text in the caption displayed under the front-facing QR code.
  * Input: Text identifying the ticket being used.
  * Output: N/A
