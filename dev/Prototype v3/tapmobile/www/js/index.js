@@ -67,7 +67,7 @@ $(function() {
     setAvailableTickets(testInitTickets);
 
     // Hardcoded default balance value
-    setTAPBalance(10);
+    setTAPBalance(3);
 
     // Hardcoded front QR caption value
     setFrontQRCaption(new FrontQRCaption("Metro 7 Day Pass", "3/16/2014", 0));
@@ -85,12 +85,14 @@ $(function() {
 /* Application Globals (and defaults) */
 
 // These should only be reset by the back-end.
-var maxGuests = 4; // Max number of guests on a single QR scan
+var maxGuests = 4; // Max number of guests on a single QR scan (this could be capped further depending on the user's account balance)
 var baseFare = 1.50; // TODO: Make this nil and force back end to let us know the base fare when the app is started.
 var tapBalance = 10.00; // TODO: ^^
+var hasActiveTicket = false; // If the user has an active ticket, set this to true.
 
 // These are set in the front-end.
 var numGuests = 0;
+var qrCodeVisible = true;
 
 /* Affects all pages with panels in the application */
 $(".sidePanelAccessible").on( "pagecreate", function() {
@@ -292,6 +294,9 @@ function setTAPBalance(balanceIntValue) {
     tapBalance = parseFloat(balanceIntValue).toFixed(2);
     $(".tap-balance-value").html(tapBalance);
     $("#funds_tap_balance_value").html("$" + tapBalance);
+
+    // Hide QR code if balance went below required base fare.
+    verifyAndUpdateQRCodeScannable();
 }
 
 /*
@@ -451,6 +456,8 @@ function updateTimeQR() {
 }
 
 $("#home").on("pagecreate", function(event) {
+    /* QR code stuff */
+
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
         height: $(window).width()/2,
@@ -459,7 +466,9 @@ $("#home").on("pagecreate", function(event) {
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
 
+
     /* Find the TAP balance panel this page and set it to open if the user swipes left */
+
     $(this).on( "swipeleft", function( e ) {
         // Check if panel is open already
         if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
@@ -475,6 +484,7 @@ $("#home").on("pageshow", function(event) {
     /* Set the height of the QR divs and image to be uniform and properly animate */    
     $("#qr-front").height(qrImgHeight);
     $("#qr-code").height(qrImgHeight);
+    $("#qr-code-disabled").height(qrImgHeight);
     $("#qr-back").height(qrImgHeight);
 
     /* Center QR tile on screen dynamically */
@@ -482,6 +492,9 @@ $("#home").on("pageshow", function(event) {
 
     /* Always show QR code side when page loads */
     resetCenterTile();
+
+    /* Check if QR code should be displayed or hidden */
+    verifyAndUpdateQRCodeScannable();
 
     /* Calculate the height of the Buy Tickets container. */
     ticketListHeight = $("#mytickets-list li").actual("height") * 3;
@@ -506,7 +519,9 @@ function updateGuestTotal(guestTotal) {
 
 $("#input-guest-inc").on("click", function(e) {
     var curVal = +$("#output-guest-num").html();
-    if (curVal < maxGuests) {
+
+    // This shitshow makes sure there is enough fare available for the user and guests.
+    if (curVal < maxGuests && ((hasActiveTicket && tapBalance >= baseFare * (curVal+1)) || (!hasActiveTicket && tapBalance >= baseFare * (curVal+2)))) {
         updateGuestTotal(curVal+1);
     }
 });
@@ -531,17 +546,19 @@ $("#mytickets").click(function() {
 
 /* Flip QR code and show dependents. */
 $("#qr-front").click(function() {
-    /* Reset data */
-    updateGuestTotal(numGuests);
+    if (qrCodeVisible) {
+        /* Reset data */
+        updateGuestTotal(numGuests);
 
-    /* Animation */
-    $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
-        $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
-    });
+        /* Animation */
+        $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
+            $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
+        });
 
-    $("#qr-front-caption").hide( "slide", { direction: "left" }, 300, function() {
-        $("#qr-back-caption").show("slide", { direction: "right" }, 300, function () {});
-    });
+        $("#qr-front-caption").hide( "slide", { direction: "left" }, 300, function() {
+            $("#qr-back-caption").show("slide", { direction: "right" }, 300, function () {});
+        });
+    }
 });
 
 /* Flip dependents and show QR code. */
@@ -560,6 +577,23 @@ $(".qrShortcutBtn").button().click(function() {
     /* Reset QR code immediately after navigating to a new page so it's in place when user returns. */
     resetCenterTile();
 });
+
+// Verify that the user has a valid ticket or enough money for base fare, deactivate qr code otherwise.
+function verifyAndUpdateQRCodeScannable()
+{
+    if (tapBalance >= baseFare || hasActiveTicket) {
+        // Show QR code
+        $("#qr-code").css("display", "block");
+        $("#qr-code-disabled").css("display", "none");
+        qrCodeVisible = true;
+    } else {
+        // Hide QR code
+        resetCenterTile();
+        $("#qr-code").css("display", "none");
+        $("#qr-code-disabled").css("display", "block");
+        qrCodeVisible = false;
+    }
+}
 
 // Trigger local notification
 // TODO: Add Windows and Android notifications

@@ -94,6 +94,22 @@
 #qr-code {
 }
 
+#qr-code-disabled {
+    display: none;
+    background-color: grey;
+    border: 3px groove grey;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#qr-code-disabled h2 {
+    position: relative;
+    top: 25%;
+    font-size: 90%;
+    text-align: center;
+}
+
 .qrCaption {
 	text-align: center;
 }
