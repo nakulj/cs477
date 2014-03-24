@@ -247,7 +247,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-            <a href="#add-funds" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <a href="#add-funds" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
         </div>
 
         <div id="home-content" data-role="content">
@@ -323,7 +323,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
             <div data-role="navbar">
                     <ul>
                         <li><a href="#" class="ui-btn-active ui-state-persist">Add<br>Funds</a></li>
@@ -341,11 +341,11 @@
                 Current Balance
             </span>
             <br>
-            $<span id="tap-balance-value">0.00</span>
+            <p id="funds_tap_balance_value">0.00</p>
             
             <br><br><br>
             
-            <form id="add-funds-form" method="post" action="purchaseFunds();" name="add-funds-form">
+            <form id="add-funds-form" method="post" action=" " name="add-funds-form">
             <h3>Add Funds</h3>
                 <fieldset data-role="controlgroup">
                     <legend>Choose an amount:</legend>
@@ -367,10 +367,21 @@
                         <input type="radio" name="radio-choice" id="radio-choice-6" value="choice-6"  />
                         <label for="radio-choice-6">$100</label>
                 </fieldset>
-                <button data-theme="g" type="submit">Purchase Funds</button>
+               <button data-theme="g" id="funds-submit" type="submit">Purchase Funds</button>
             </form>
 
         </div>
+
+        <div data-role="popup" id="dialog-confirm-add-funds" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Purchase Funds</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title" id="fund-confirm-message"></h3>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="dialog-confirm-purchase-funds" data-role="button" data-inline="true" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
     </div>
 
     <!-- Purchase History page -->
@@ -388,7 +399,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
             <div data-role="navbar">
                     <ul>
                         <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
@@ -401,7 +412,7 @@
 
         
         <div data-role="content">
-            <ul data-role="listview" data-inset="true" >        
+            <ul data-role="listview" data-inset="true" id="balance_history_funds">        
                 <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(126,169,68); color: white; text-shadow: none;">Funds Added to Account</li>
                 <li >
                     <h2 class="ui-li-heading">
@@ -461,7 +472,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
             <div data-role="navbar">
                     <ul>
                         <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
@@ -520,7 +531,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
-            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span id="tap-balance-value">0.00</span></a>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
             <div data-role="navbar">
                     <ul>
                         <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>

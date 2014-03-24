@@ -153,10 +153,82 @@ $("#submit-create-account").on("click", function(e) {
 // ADD FUNDS PAGE
 // ========================================================================================================================
 
-function purchaseFunds(){
+
+/*
+ * Description: Charge user's credit card for selected fund amount
+ * Input: The amount of money to be charged to card and added to account balance
+ * Output: N/A
+ * Error: N/A
+ */
+function purchaseFunds(charge_amount){
     //To Do: link to payment gateway
+    console.log("Charged $" + charge_amount);
 }
 
+/*
+ * Description: Aux function to convert radio button choice to fund amount
+ * Input: N/A
+ * Output: A float value for the fund amount selected
+ * Error: N/A
+ */
+function determineFundAmount(){
+    var fund_amount = $("input[type='radio']:checked").val();
+
+    if (fund_amount == "choice-1"){
+        fund_amount = 1.50;
+    }
+    else if (fund_amount == "choice-2"){
+        fund_amount = 5.00;
+    }
+    else if (fund_amount == "choice-3"){
+        fund_amount = 10.00;
+    }
+    else if (fund_amount == "choice-4"){
+        fund_amount = 20.00;
+    }
+    else if (fund_amount == "choice-5"){
+        fund_amount = 50.00;
+    }
+    else if (fund_amount == "choice-6"){
+        fund_amount = 100.00;
+    }
+
+    return fund_amount;
+}
+
+/* Open confirmation when user clicks to purchase funds*/
+$("#add-funds-form").on("submit", function(e) {
+   
+    var card_number = 4444; //TO DO: pull from database
+    var fund_amount = determineFundAmount();
+
+    $("#fund-confirm-message").html("Your credit card ending in " + card_number + " will be charged $" + fund_amount.toFixed(2) + ", continue?");
+    $("#dialog-confirm-add-funds").popup({ theme: "a" });
+    $("#dialog-confirm-add-funds").popup("open");
+    
+    return false;
+});
+
+/*Complete add funds transaction if user confirms purchase*/
+$("#dialog-confirm-purchase-funds").on("click", function(e) {
+    
+    var fund_amount = determineFundAmount();
+    purchaseFunds(fund_amount);
+    
+    var newBalance = parseFloat($(".tap-balance-value").html()) + fund_amount; //TO DO: pull amount from backend and add to it
+    setTAPBalance(newBalance); // Back-end should be validating this value.
+    
+    addItemToBalanceHistory(10,10,10,10);
+
+    $("#dialog-confirm-add-funds").popup("close");
+    
+    return false; // Prevent default form action
+});
+
+//TO DO: this should be pushing to backend and then backend should be pulled everytime balance history is refreshed
+function addItemToBalanceHistory(charge_amount, card_number, time, date){
+    $("#balance_history_funds").append("<li class='ui-li ui-li-static ui-btn-up-c ui-last-child'><h2 class='ui-li-heading'>$" + charge_amount.toFixed(2) + "</h2><p class='ui-li-desc'><strong>Card ending in " + card_number + "</strong></p><p class='ui-li-desc'>" + date + "-" + time + "</p></li>");
+}
 
 // ========================================================================================================================
 // HOME PAGE
@@ -211,14 +283,15 @@ function setBaseFare(newBaseFare) {
 }
 
 /*
- * Description: Set the displayed TAP balance in top right of header.
+ * Description: Set the displayed TAP balance in top right of header and in Add Funds under balance.
  * Input: An integer or float representing the monetary value of their account balance.
  * Output: N/A
  * Error: N/A
  */
 function setTAPBalance(balanceIntValue) {
-    tapBalance = balanceIntValue.toFixed(2);
-    $("#tap-balance-value").html(tapBalance);
+    tapBalance = parseFloat(balanceIntValue).toFixed(2);
+    $(".tap-balance-value").html(tapBalance);
+    $("#funds_tap_balance_value").html("$" + tapBalance);
 }
 
 /*
