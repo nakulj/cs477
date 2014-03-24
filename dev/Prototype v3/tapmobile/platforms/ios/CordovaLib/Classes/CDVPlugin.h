@@ -51,8 +51,8 @@ extern NSString* const CDVLocalNotification;
  - (void) onResume {}
  - (void) onOrientationWillChange {}
  - (void) onOrientationDidChange {}
- - (void)didReceiveLocalNotification:(NSNotification *)notification;
  */
+ - (void)didReceiveLocalNotification:(NSNotification *)notification;
 
 - (id)appDelegate;
 

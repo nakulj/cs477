@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="https://github.com/hiattp/Phonegap-LocalNotification"
+        id="localnotification"
+        version="0.1.0">
+
+  <name>LocalNotification</name>
+  <description>Local notification for time-based alerts.</description>
+  <license>MIT License</license>
+  <keywords>localnotification, notification, timer, alert, alarm clock</keywords>
+
+  <!-- ios -->
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/*">
+		  <feature name="LocalNotification">
+			  <param name="ios-package" value="LocalNotification"/>
+		  </feature>
+    </config-file>
+    
+    <js-module src="www/localnotification.js" name="LocalNotification">
+        <clobbers target="localNotifier" />
+    </js-module> -->
+
+  	<header-file src="src/ios/LocalNotification.h" />
+  	<source-file src="src/ios/LocalNotification.m" />
+
+  </platform>
+
+</plugin>

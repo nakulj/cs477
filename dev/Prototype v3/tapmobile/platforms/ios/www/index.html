@@ -19,34 +19,568 @@
 -->
 <html>
 <head>
-    <title>Introduction</title>
+    <title>tapMobile</title>
 
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 
+    <link rel="stylesheet" href="css/tapMobile.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.4.0-rc.1.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+        function myFunction() {
+            alert("hello");
+        }
+        function validateAccountForm() {
+
+
+            var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
+            var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
+
+            var pw1 = document.forms["AccountSettingsForm"]["new-password"].value;
+            var pw2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
+
+            var cardnumber = document.forms["AccountSettingsForm"]["card-number"].value;
+            var cvv = document.forms["AccountSettingsForm"]["card-CVV"].value;
+            var cardname = document.forms["AccountSettingsForm"]["cardholder-name"].value;
+
+            var validEmail1 = validateEmail(email1);
+            var validEmail2 = (email1 == email2);
+            var validPw1 = validatePassword(pw1);
+            var validPw2 = (pw1 == pw2);
+            var validCardnumber = validateCardNumber(cardnumber);
+            var validCVV = validateCVV(cvv);
+            var validCardname = validateName(cardname);
+
+            var email1Warning, email2Warning, pw1Warning, pw2Warning, cardnumberWarning, cvvWarning, cardnameWarning, finalAlert;
+
+            if (!validEmail1) email1Warning = "Error - You entered: \"" + email1 + "\". Please enter an email in xxx@xxx.xxx format. \n\n";
+            else email1Warning = "";
+
+            if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
+            else email2Warning = "";
+
+            if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
+            else pw1Warning = "";
+
+            if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
+            else pw2Warning = "";
+
+            if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
+            else cardnumberWarning = "";
+
+            if (!validCVV) cvvWarning = "Error - You entered: \"" + cvv + "\". Please enter a CVV with exactly 3 digits.\n\n";
+            else cvvWarning = "";
+
+            if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
+            else cardnameWarning = "";
+
+            if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
+            else finalAlert = "No errors found."
+
+            document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
+            document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
+            document.getElementById('AccountPw1Alert').innerHTML = pw1Warning;
+            document.getElementById('AccountPw2Alert').innerHTML = pw2Warning;
+            document.getElementById('AccountCardNumberAlert').innerHTML = cardnumberWarning;
+            document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
+            document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
+
+            alert(finalAlert);
+
+        }
+
+        //validation functions
+
+        function validateName(fn) {
+            var isValid = true;
+            var reFNletters = /^[a-zA-Z]{2,}$/
+
+            if (fn.search(reFNletters) == -1) { //at least 2 letters
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validatePassword(pw) {
+            var isValid = true;
+            var pwFormat = /^\S{5,}$/
+
+            if (pw.search(pwFormat) == -1) { //at least 5 non space characters
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateEmail(em) {
+            var isValid = true;
+            var emailFormat = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
+
+            if (em.search(emailFormat) == -1) { //need email to be in xxx@xxx.xxx format
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateCardNumber(cn) {
+            var isValid = true;
+
+            var re16digit = /^\d{16}$/
+
+            if (!(cn.search(re16digit) != -1)) { //16 digit
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateCVV(cvv) {
+            var isValid = true;
+
+            var re3digit = /^\d{3}$/
+
+            if (!(cvv.search(re3digit) != -1)) { //3 digit
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+    </script>
 </head>
 
 <body>
-    <div data-role="page" data-theme="a" id="intro">
-        <div data-role="header">
-            <h1>tapMobile</h1>
+    <div data-role="page" id="log-in">
+        <div data-role = "content" id="log-in-content" style = "text-align: center;">
+            <br />
+            <br />
+            <br />
+            <span style = "font-size: 2.5em;">tap<span style = "color: #eee;">Mobile</span></span>
+            <br />
+            <br />
+            <br />
+
+            <form id = "log-in-form" method="post" action="">
+                <div>
+                    <input type="text" name="email" id="basic" value=""  placeholder = "email"/>
+                    <input type="password" name="password" id="basic" value=""  placeholder = "password"/>
+                    <br />
+                    <input type="submit" value="Log In"/>
+                </div>
+            </form>
+
+            <a href="#account-create-1" data-role="button" data-transition="slideup">Sign Up</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="account-create-1" class="account-create">
+        <div data-role ="content" id="account-content-1" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                <a href="#account-create-2" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a>
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Personal Info</a></li>
+                        <li><a href="#account-create-2" data-role="button" data-transition="slide">Payment Info</a></li>
+                        <li><a href="#account-create-3" data-role="button" data-transition="slide">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <form id="user-info-account-create">
+                <div data-role="fieldcontain" data-mini="true" style="text-align: center;">
+                    <label for="fName" class="ui-hidden-accessible"><b>First Name:</b></label>
+                        <input type="text" name="fName" id="fName" value="" placeholder="First Name"/>
+                    <label for="lName" class="ui-hidden-accessible"><b>Last Name:</b></label>
+                        <input type="text" name="lName" id="lName" value="" placeholder="Last Name" label="HI"/>
+                    <label for="email" class="ui-hidden-accessible"><b>Email Address:</b></label>
+                        <input type="email" name="email" id="email" value="" placeholder="Email Address"/>
+                    <label for="password1" class="ui-hidden-accessible"><b>Password:</b></label>
+                        <input type="password" name="password1" id="password1" value="" placeholder="Password (at least 5 characters)"/>
+                    <label for="password2" class="ui-hidden-accessible"><b>Confirm Password:</b></label>
+                        <input type="password" name="password2" id="password2" value="" placeholder="Confirm Password"/>
+                </div>
+            </form>
+
+            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="cancel-yes" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+
+        </div>
+    </div>
+
+    <div data-role="page" id="account-create-2" class="account-create">
+        <div data-role ="content" id="account-content-2" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                 <a href="#account-create-3" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a> 
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#account-create-1" data-transition="slide" data-direction="reverse">Personal Info</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Payment Info</a></li>
+                        <li><a href="#account-create-3" data-transition="slide">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <form id="payment-info-account-create">
+                <div data-role="fieldcontain" data-mini="true" style="text-align: center;">
+                    <label for="cc_num" class="ui-hidden-accessible"><b>Credit Card Number:</b></label>
+                        <input type="text" name="cc_num" id="cc_num" value="" placeholder="Credit Card Number"/>
+                    <label for="cc_cvv" class="ui-hidden-accessible"><b>CVV:</b></label>
+                        <input type="text" name="cc_cvv" id="cc_cvv" value="" placeholder="CVV"/>
+                    <label for="cc_exp" class="ui-hidden-accessible"><b>Expiration Date:</b></label>
+                        <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date"/>
+                </div>
+            </form>
+
+            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="cancel-yes-2" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+
+        </div>
+    </div>
+
+    <div data-role="page" id="account-create-3" class="account-create">
+        <div data-role ="content" id="account-content-3" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel2" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#account-create-1" data-transition="slide" data-direction="reverse">Personal Info</a></li>
+                        <li><a href="#account-create-2" data-transition="slide" data-direction="reverse">Payment Info</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <br>
+            <br>
+            By clicking below,
+            <br> 
+            you agree to the 
+            <br>
+            <a href="#terms-service" style="color:white;">terms of service</a> 
+            and 
+            <a href="#privacy-policy" style="color:white;">privacy policy</a>.
+            <br>
+            <br>
+            <br>
+            <a href="#" id="submit-create-account" data-role="button" data-mini="true">Create Account</a>
+
+
+            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="cancel-yes-3" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+        
+        </div>
+    </div>
+
+
+    <div data-role="page" id="terms-service" class="account-create">
+        <div data-role ="content" style ="text-align:center;">
+             <div data-role="header" data-id="account-header" data-position="fixed">
+                    <a href="#account-create-3" class="ui-btn-left" id="terms-back" data-role="button" data-inline="true" data-transition="fade">Back</a>
+                    <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+             </div>
+         
+         <div style="text-align:justify;">
+            The terms and conditions contain the following sections: Introduction, License to use website, Acceptable use, Restricted access, User content, Limitations of liability, Exceptions, Reasonableness, Other parties, Unenforceable provisions, Indemnity, Breaches of these terms and conditions, Variation, Assignment, Severability, Entire agreement, Law and jurisdiction, Registrations and authorizations, These website terms and conditions.
         </div>
 
-        <div data-role="content">
-            <div class="content-container">
-                <p>HEY!</p>
+        </div>
+    </div>
+
+    <div data-role="page" id="privacy-policy" class="account-create">
+        <div data-role ="content" style ="text-align:center;">
+             <div data-role="header" data-id="account-header" data-position="fixed">
+                    <a href="#account-create-3" class="ui-btn-left" id="policy-back" data-role="button" data-inline="true" data-transition="fade">Back</a>
+                    <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+             </div>
+            <div style="text-align:justify;">
+             We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.
+            <br>
+            <br>
+            You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to [address].
+            <br>
+            <br>
+            If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.
             </div>
         </div>
     </div>
 
+
+    <div data-role="page" id="home" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+        </div>
+
+        <div id="home-content" data-role="content">
+            <div data-role="controlgroup">
+                <a href="#" data-role="button">Destination A</a>
+                <a href="#" data-role="button">Destination B</a>
+            </div>
+
+            <div id="qr-rotation-tile">
+                <div id="qr-front" class="rotationContent">
+                    <div id="qr-code"></div>
+                </div>
+
+                <div id="qr-back" class="rotationContent">
+                    <h3 style="margin: 0;">Guest Passes</h3>
+                    <div data-role="fieldcontain">
+                        <label for="input-num-guests"># of Guests</label>
+                        <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+                            <button id="input-guest-dec" data-icon="arrow-d" data-iconpos="notext" data-theme="b"></button>
+                            <button><span id="output-guest-num">1</span></button>
+                            <button id="input-guest-inc" data-icon="arrow-u" data-iconpos="notext" data-theme="b"></button>
+                        </div>
+                    </div>
+                    <div data-role="fieldcontain" style="font-size: 75%;">
+                        <span>Total Price: </span>$<span id="output-total-price">1.50</span>
+                    </div>
+                    <div data-role="controlgroup" data-mini="true">
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="g">Purchase</a>
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Back</a>
+                    </div>
+                </div>
+            </div>
+
+            <p id="qr-front-caption" class="qrCaption">Metro 7 Day Full Fare <br /> <span style="font-size: 0.8em;">Expires on 11/13/2014 at 7:05pm</span></p>
+            <p id="qr-back-caption" class="qrCaption">Back caption</p>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" id="mytickets">
+            <p id="mytickets-tab">Buy Ticket</p>
+            <div id="mytickets-list-container">
+                <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="dialog-confirm-ticket">
+        <div data-role="content">
+            <p>Your credit card will be charged $X for this pass, continue?</p>
+            <a data-role="button" data-rel="back" id="button-confirm-ticket">Ok</a>
+            <a data-role="button" data-rel="back">Cancel</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="payment-history" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview">
+                <li data-role="list-divider">Purchase History</li>
+                <li><a href="">30 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">11/12/13</span></a></li>
+                <li><a href="">Full Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/31/13</span></a></li>
+                <li><a href="">7 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/18/13</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="account-settings" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#account-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+        </div>
+
+        <div data-role="content">
+            <form action="" method="post" name="AccountSettingsForm" onsubmit="return validateAccountForm()">
+            <h3>Email Address</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-password">New Email Address: <br /> <span id="email-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <input type="text" name="new-email" id="new-email" value="" data-clear-btn="true">
+                    <div id="AccountEmail1Alert" style="color:red"></div>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-password-confirm">Confirm New Email Address: <br /><span id="email-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <input type="text" name="new-email-confirm" id="new-email-confirm" value="" data-clear-btn="true">
+                    <div id="AccountEmail2Alert" style="color:red"></div>
+                </li>
+            </ul>
+            <br />
+            <h3>Password</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-password">New Password: <br /> <span id="password-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
+                    <div id="AccountPw1Alert" style="color:red"></div>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-password-confirm">Confirm New Password: <br /><span id="password-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
+                    <div id="AccountPw2Alert" style="color:red"></div>
+                </li>
+            </ul>
+            <br />
+            <h3>Payment Information</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="card-type">Type:</label>
+                    <select name="card-type" id="card-type">
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">MasterCard</option>
+                        <option value="american-express">American Express</option>
+                        <option value="american-express">Discover</option>
+                    </select>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="card-number">Number:</label>
+                    <input type="text" pattern="[0-9]*"  name="card-number" id="card-number" value="" data-clear-btn="true">
+                    <div id="AccountCardNumberAlert" style="color:red"></div>
+                    <br><br>
+                    <label for="card-number">CVV:</label>
+                    <input type="text" pattern="[0-9]*" name="card-CVV" id="card-CVV" value="" data-clear-btn="true">
+                    <div id="AccountCVVAlert" style="color:red"></div>
+                </li>
+                <li>
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Expiration Date:</legend>
+                        <label for="expiration-month">Test</label>
+                        <select name="expiration-month" id="expiration-month">
+                            <option value="jan">January</option>
+                            <option value="feb">February</option>
+                            <option value="mar">March</option>
+                            <option value="apr">April</option>
+                            <option value="may">May</option>
+                            <option value="jun">June</option>
+                            <option value="jul">July</option>
+                            <option value="aug">August</option>
+                            <option value="sept">September</option>
+                            <option value="oct">October</option>
+                            <option value="nov">November</option>
+                            <option value="dec">December</option>
+                        </select>
+                        <select name="expiration-year" id="expiration-year">
+                        </select>   
+                    </fieldset>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="cardholder-name">Cardholder Name:</label>
+                    <input type="text" name="cardholder-name" id="cardholder-name" value="" data-clear-btn="true">
+                    <div id="AccountCardNameAlert" style="color:red"></div>
+                </li>
+            </ul>
+            <br><br>
+            
+            <button data-theme="g" type="submit">Update Account Information</button>
+            <button type="submit" id="update-password" data-theme="r">Delete Account</button>
+        </form>
+        </div>
+    </div>
+
+    <div data-role="page" id="about" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
+                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+        </div>
+
+        <div data-role="content">
+            The Tap Mobile team has worked around the clock to deliver a quality product to our customers.  Enjoy!
+        </div>
+    </div>
+
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="lib/jquery-2.0.3.js"></script>
-    <script type="text/javascript" src="lib/jquery.mobile-1.4.0-rc.1.js"></script>
+    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/ui/jquery-ui.js"></script>
+    <script src="lib/jquery.mobile-1.3.2.js"></script>
+    <script type="text/javascript" src="lib/jquery.actual.js"></script>
     <script type="text/javascript" src="lib/fastclick.js"></script>
     <script type="text/javascript" src="lib/handlebars.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS v3/rollups/hmac-sha1.js"></script>
+    <script type="text/javascript" src="lib/davidshimjs-qrcodejs-07f829d/qrcode.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         /* this way we are sure that both jquery and phonegap are available before initialization */

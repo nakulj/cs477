@@ -29,132 +29,10 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <script>
-        function myFunction() {
-            alert("hello");
-        }
-        function validateAccountForm() {
-
-
-            var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
-            var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
-
-            var pw1 = document.forms["AccountSettingsForm"]["new-password"].value;
-            var pw2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
-
-            var cardnumber = document.forms["AccountSettingsForm"]["card-number"].value;
-            var cvv = document.forms["AccountSettingsForm"]["card-CVV"].value;
-            var cardname = document.forms["AccountSettingsForm"]["cardholder-name"].value;
-
-            var validEmail1 = validateEmail(email1);
-            var validEmail2 = (email1 == email2);
-            var validPw1 = validatePassword(pw1);
-            var validPw2 = (pw1 == pw2);
-            var validCardnumber = validateCardNumber(cardnumber);
-            var validCVV = validateCVV(cvv);
-            var validCardname = validateName(cardname);
-
-            var email1Warning, email2Warning, pw1Warning, pw2Warning, cardnumberWarning, cvvWarning, cardnameWarning, finalAlert;
-
-            if (!validEmail1) email1Warning = "Error - You entered: \"" + email1 + "\". Please enter an email in xxx@xxx.xxx format. \n\n";
-            else email1Warning = "";
-
-            if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
-            else email2Warning = "";
-
-            if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
-            else pw1Warning = "";
-
-            if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
-            else pw2Warning = "";
-
-            if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
-            else cardnumberWarning = "";
-
-            if (!validCVV) cvvWarning = "Error - You entered: \"" + cvv + "\". Please enter a CVV with exactly 3 digits.\n\n";
-            else cvvWarning = "";
-
-            if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
-            else cardnameWarning = "";
-
-            if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
-            else finalAlert = "No errors found."
-
-            document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
-            document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
-            document.getElementById('AccountPw1Alert').innerHTML = pw1Warning;
-            document.getElementById('AccountPw2Alert').innerHTML = pw2Warning;
-            document.getElementById('AccountCardNumberAlert').innerHTML = cardnumberWarning;
-            document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
-            document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
-
-            alert(finalAlert);
-
-        }
-
-        //validation functions
-
-        function validateName(fn) {
-            var isValid = true;
-            var reFNletters = /^[a-zA-Z]{2,}$/
-
-            if (fn.search(reFNletters) == -1) { //at least 2 letters
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validatePassword(pw) {
-            var isValid = true;
-            var pwFormat = /^\S{5,}$/
-
-            if (pw.search(pwFormat) == -1) { //at least 5 non space characters
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validateEmail(em) {
-            var isValid = true;
-            var emailFormat = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
-
-            if (em.search(emailFormat) == -1) { //need email to be in xxx@xxx.xxx format
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validateCardNumber(cn) {
-            var isValid = true;
-
-            var re16digit = /^\d{16}$/
-
-            if (!(cn.search(re16digit) != -1)) { //16 digit
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        function validateCVV(cvv) {
-            var isValid = true;
-
-            var re3digit = /^\d{3}$/
-
-            if (!(cvv.search(re3digit) != -1)) { //3 digit
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-    </script>
 </head>
 
 <body>
+    <!-- Log-in page -->
     <div data-role="page" id="log-in">
         <div data-role = "content" id="log-in-content" style = "text-align: center;">
             <br />
@@ -178,6 +56,7 @@
         </div>
     </div>
 
+    <!-- Account creation page -->
     <div data-role="page" id="account-create-1" class="account-create">
         <div data-role ="content" id="account-content-1" style ="text-align:center;">
             
@@ -226,6 +105,7 @@
         </div>
     </div>
 
+    <!-- Account creation page 2-->
     <div data-role="page" id="account-create-2" class="account-create">
         <div data-role ="content" id="account-content-2" style ="text-align:center;">
             
@@ -270,6 +150,7 @@
         </div>
     </div>
 
+    <!-- Account creation page 3 -->
     <div data-role="page" id="account-create-3" class="account-create">
         <div data-role ="content" id="account-content-3" style ="text-align:center;">
             
@@ -317,7 +198,7 @@
         </div>
     </div>
 
-
+    <!-- Terms and service page -->
     <div data-role="page" id="terms-service" class="account-create">
         <div data-role ="content" style ="text-align:center;">
              <div data-role="header" data-id="account-header" data-position="fixed">
@@ -332,6 +213,7 @@
         </div>
     </div>
 
+    <!-- Privacy policy page -->
     <div data-role="page" id="privacy-policy" class="account-create">
         <div data-role ="content" style ="text-align:center;">
              <div data-role="header" data-id="account-header" data-position="fixed">
@@ -350,22 +232,22 @@
         </div>
     </div>
 
-
+    <!-- Home page -->
     <div data-role="page" id="home" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
             <ul data-role="listview" data-icon="false">
-                <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
-        </div><!-- /panel -->
+        </div><!-- /left panel -->
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#add-funds" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
         </div>
 
         <div id="home-content" data-role="content">
@@ -385,22 +267,27 @@
                         <label for="input-num-guests"># of Guests</label>
                         <div data-role="controlgroup" data-type="horizontal" data-mini="true">
                             <button id="input-guest-dec" data-icon="arrow-d" data-iconpos="notext" data-theme="b"></button>
-                            <button><span id="output-guest-num">1</span></button>
+                            <button><span id="output-guest-num">0</span></button>
                             <button id="input-guest-inc" data-icon="arrow-u" data-iconpos="notext" data-theme="b"></button>
                         </div>
                     </div>
                     <div data-role="fieldcontain" style="font-size: 75%;">
-                        <span>Total Price: </span>$<span id="output-total-price">1.50</span>
+                        <span>Total Price: </span>$<span id="output-total-price">0.00</span>
                     </div>
                     <div data-role="controlgroup" data-mini="true">
-                        <a href="" class="qrFlipBack" data-role="button" data-theme="g">Purchase</a>
-                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Back</a>
+                        <a href="" id="qr-guests-accept-btn" class="qrFlipBack" data-role="button" data-theme="g">Accept</a>
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Cancel</a>
                     </div>
                 </div>
             </div>
 
-            <p id="qr-front-caption" class="qrCaption">Metro 7 Day Full Fare <br /> <span style="font-size: 0.8em;">Expires on 11/13/2014 at 7:05pm</span></p>
-            <p id="qr-back-caption" class="qrCaption">Back caption</p>
+
+            <p id="qr-front-caption" class="qrCaption">
+                <span id="qr-front-caption-guests">+<span id="qr-front-caption-guests-num">2</span> Guests ($<span id="qr-front-caption-guests-price">0.00</span> extra)<br /></span>
+                <span id="qr-front-caption-ticket"></span><br />
+                <span style="font-size: 0.8em;">Expires on <span id="qr-front-caption-expdate"></span></span>
+            </p>
+            <p id="qr-back-caption" class="qrCaption"></p>
         </div>
 
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" id="mytickets">
@@ -412,6 +299,7 @@
         </div>
     </div>
 
+    <!-- Home page dialog confirm ticket -->
     <div data-role="page" id="dialog-confirm-ticket">
         <div data-role="content">
             <p>Your credit card will be charged $X for this pass, continue?</p>
@@ -420,12 +308,12 @@
         </div>
     </div>
 
-    <div data-role="page" id="payment-history" class="sidePanelAccessible">
+    <!-- Add Funds page -->
+    <div data-role="page" id="add-funds" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -435,25 +323,263 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content" style="text-align: center;">
+            
+            <span style="font-size: 1.2em; font-weight: bold; line-height: 2.2em;">
+                Current Balance
+            </span>
+            <br>
+            <p id="funds_tap_balance_value">0.00</p>
+            
+            <br><br><br>
+            
+            <form id="add-funds-form" method="post" action=" " name="add-funds-form">
+            <h3>Add Funds</h3>
+                <fieldset data-role="controlgroup">
+                    <legend>Choose an amount:</legend>
+                        <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" />
+                        <label for="radio-choice-1">$1.50</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
+                        <label for="radio-choice-2">$5</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
+                        <label for="radio-choice-3">$10</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
+                        <label for="radio-choice-4">$20</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-5" value="choice-5"  />
+                        <label for="radio-choice-5">$50</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-6" value="choice-6"  />
+                        <label for="radio-choice-6">$100</label>
+                </fieldset>
+               <button data-theme="g" id="funds-submit" type="submit">Purchase Funds</button>
+            </form>
+
         </div>
 
+        <div data-role="popup" id="dialog-confirm-add-funds" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Purchase Funds</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title" id="fund-confirm-message"></h3>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="dialog-confirm-purchase-funds" data-role="button" data-inline="true" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+    </div>
+
+    <!-- Purchase History page -->
+    <div data-role="page" id="purchase-history" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
         <div data-role="content">
-            <ul data-role="listview">
-                <li data-role="list-divider">Purchase History</li>
-                <li><a href="">30 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">11/12/13</span></a></li>
-                <li><a href="">Full Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/31/13</span></a></li>
-                <li><a href="">7 Day Metro Pass<br/><span style="font-size: 0.8em; color: black;">10/18/13</span></a></li>
+            <ul data-role="listview" data-inset="true" id="balance_history_funds">        
+                <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(126,169,68); color: white; text-shadow: none;">Funds Added to Account</li>
+                <li >
+                    <h2 class="ui-li-heading">
+                    $10.00
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Card ending in xxxx</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    11/14/14 - 7:46am
+                    </p>
+                </li>
+            </ul>
+
+             <ul data-role="listview" data-inset="true" >
+             <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(161,59,57); color: white; text-shadow: none;">Purchases from Account Balance</li>
+                <li >
+                    <p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
+                    <h2 class="ui-li-heading">
+                    $4.50
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Single Fare</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/15/14 - 11:55am
+                    </p>
+                </li>
+                <li >
+                    <p class="ui-li-aside ui-li-desc"><strong></strong></p>
+                    <h2 class="ui-li-heading">
+                    $1.50
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Single Fare</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/15/14 - 8:00am
+                    </p>
+                </li>
+                </ul>
+        </div>
+    </div>
+
+    <!-- Past Taps page -->
+    <div data-role="page" id="past-taps" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+           <ul data-role="listview" data-inset="true" data-split-icon="delete" data-split-theme="c">        
+                <li>
+                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
+                    <h2 class="ui-li-heading">
+                    Single Fare
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Culver Station</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/01/14 - 9:15pm
+                    </p></a>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong></strong></p>
+                    <h2 class="ui-li-heading">
+                    5-Day Pass
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Jefferson Station</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    10/05/14 - 10:15pm
+                    </p></a>
+                    <a href="#"></a>
+                </li>
             </ul>
         </div>
     </div>
 
+    <!-- Ticket Wallet page -->
+    <div data-role="page" id="payment-info" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true">        
+            <li data-theme="g">
+                <p class="ui-li-aside ui-li-desc"><strong>0 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                3-Day Pass
+                </h2>
+                <p class="ui-li-desc">
+                Expires on 12/10/14 at 7:45pm
+                </p>
+            </li>
+            <li>
+                <p class="ui-li-aside ui-li-desc"><strong>1 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                5-Day Pass
+                </h2>
+                <p class="ui-li-desc">
+                Not Yet Activated
+                </p>
+            </li>
+             <li>
+               <p class="ui-li-aside ui-li-desc"><strong>5 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                Single Fare
+                </h2>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <!-- Account settings page -->
     <div data-role="page" id="account-settings" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
-                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide" data-rel="close">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
@@ -465,16 +591,16 @@
         </div>
 
         <div data-role="content">
-            <form action="" method="post" name="AccountSettingsForm" onsubmit="return validateAccountForm()">
+            <form id="update-account-form" action="" method="post" name="AccountSettingsForm">
             <h3>Email Address</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Email Address: <br /> <span id="email-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <label for="new-password">New Email Address: </label>
                     <input type="text" name="new-email" id="new-email" value="" data-clear-btn="true">
                     <div id="AccountEmail1Alert" style="color:red"></div>
                 </li>
                 <li data-role="fieldcontain">
-                    <label for="new-password-confirm">Confirm New Email Address: <br /><span id="email-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <label for="new-password-confirm">Confirm New Email Address: </label>
                     <input type="text" name="new-email-confirm" id="new-email-confirm" value="" data-clear-btn="true">
                     <div id="AccountEmail2Alert" style="color:red"></div>
                 </li>
@@ -483,12 +609,12 @@
             <h3>Password</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Password: <br /> <span id="password-empty-label" class="hiddenErrorLabel">Please enter a password</span></label>
+                    <label for="new-password">New Password: </label>
                     <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
                     <div id="AccountPw1Alert" style="color:red"></div>
                 </li>
                 <li data-role="fieldcontain">
-                    <label for="new-password-confirm">Confirm New Password: <br /><span id="password-mismatch-label" class="hiddenErrorLabel">Passwords do not match</span></label>
+                    <label for="new-password-confirm">Confirm New Password: </label>
                     <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
                     <div id="AccountPw2Alert" style="color:red"></div>
                 </li>
@@ -550,14 +676,14 @@
         </div>
     </div>
 
+    <!-- About page -->
     <div data-role="page" id="about" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide">Refresh Location</a></li>
-                <li><a href="#payment-history" data-transition="slide">Payment History</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
-                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#about" data-transition="slide" data-rel="close">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
@@ -565,6 +691,7 @@
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
             <h1><span style="color:white;">tap</span>Mobile</h1>
+
         </div>
 
         <div data-role="content">
