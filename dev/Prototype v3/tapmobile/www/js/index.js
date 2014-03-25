@@ -594,12 +594,14 @@ function verifyAndUpdateQRCodeScannable()
     if (tapBalance >= baseFare || hasActiveTicket) {
         // Show QR code
         $("#qr-code").css("display", "block");
+        $("#qr-front-caption").css("display", "block");
         $("#qr-code-disabled").css("display", "none");
         qrCodeVisible = true;
     } else {
         // Hide QR code
         resetCenterTile();
         $("#qr-code").css("display", "none");
+        $("#qr-front-caption").css("display", "none");
         $("#qr-code-disabled").css("display", "block");
         qrCodeVisible = false;
     }
