@@ -15,9 +15,9 @@ $ccCSV = trim($_POST["ccCSV"]);
 $ccDate = trim($_POST["ccDate"]);
 $password = trim($_POST["password"]);
 $password_2 = trim($_POST["password2"]);
-
 $error = false;
 $errormessage = 0;
+
 
 #CHECK TO SEE IF FIRST NAME CONTAINS AT LEAST 1 CHAR
 

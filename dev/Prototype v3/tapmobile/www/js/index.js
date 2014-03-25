@@ -113,6 +113,10 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
+
+
+
+
     // TODO: For now just transition to home page regardless.
     $.mobile.changePage("#home", {transition: "slideup"});
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
