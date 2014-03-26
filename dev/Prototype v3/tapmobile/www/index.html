@@ -61,7 +61,7 @@
         <div data-role ="content" id="account-content-1" style ="text-align:center;">
             
             <div data-role="header" data-id="account-header" data-position="fixed">
-                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <a href="#signup-cancel-popup" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
                 <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
                 <a href="#account-create-2" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a>
                 
@@ -76,21 +76,32 @@
             </div><!-- /header -->
 
             <form id="user-info-account-create">
-                <div data-role="fieldcontain" data-mini="true" style="text-align: center;">
-                    <label for="fName" class="ui-hidden-accessible"><b>First Name:</b></label>
-                        <input type="text" name="fName" id="fName" value="" placeholder="First Name"/>
-                    <label for="lName" class="ui-hidden-accessible"><b>Last Name:</b></label>
-                        <input type="text" name="lName" id="lName" value="" placeholder="Last Name" label="HI"/>
-                    <label for="email" class="ui-hidden-accessible"><b>Email Address:</b></label>
-                        <input type="email" name="email" id="email" value="" placeholder="Email Address"/>
-                    <label for="password1" class="ui-hidden-accessible"><b>Password:</b></label>
-                        <input type="password" name="password1" id="password1" value="" placeholder="Password (at least 5 characters)"/>
-                    <label for="password2" class="ui-hidden-accessible"><b>Confirm Password:</b></label>
-                        <input type="password" name="password2" id="password2" value="" placeholder="Confirm Password"/>
-                </div>
+                <ul data-role="listview">
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-fname"><b>First Name:</b></label>
+                        <input type="text" name="acc-create-fname" id="acc-create-fname" value="" placeholder="First Name"/>
+                        <div id="AccountEmail1Alert" style="color:red"></div>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-lname"><b>Last Name:</b></label>
+                        <input type="text" name="acc-create-lname" id="acc-create-lname" value="" placeholder="Last Name" label="HI"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-email"><b>Email Address:</b></label>
+                        <input type="email" name="acc-create-email" id="acc-create-email" value="" placeholder="Email Address"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-password1"><b>Password:</b></label>
+                        <input type="password" name="acc-create-password1" id="acc-create-password1" value="" placeholder="Password (at least 5 characters)"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-password2"><b>Confirm Password:</b></label>
+                        <input type="password" name="acc-create-password2" id="acc-create-password2" value="" placeholder="Confirm Password"/>
+                    </li>
+                </ul>
             </form>
 
-            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+            <div data-role="popup" id="signup-cancel-popup" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
                 <div data-role="header" data-theme="a" class="ui-corner-top">
                     <h1>Cancel Account</h1>
                 </div>
@@ -110,7 +121,7 @@
         <div data-role ="content" id="account-content-2" style ="text-align:center;">
             
             <div data-role="header" data-id="account-header" data-position="fixed">
-                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <a href="#signup-cancel-popup" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
                 <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
                  <a href="#account-create-3" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a> 
                 
@@ -125,17 +136,23 @@
             </div><!-- /header -->
 
             <form id="payment-info-account-create">
-                <div data-role="fieldcontain" data-mini="true" style="text-align: center;">
-                    <label for="cc_num" class="ui-hidden-accessible"><b>Credit Card Number:</b></label>
+                <ul data-role="listview">
+                    <li data-role="fieldcontain">
+                        <label for="cc_num"><b>Credit Card Number:</b></label>
                         <input type="text" name="cc_num" id="cc_num" value="" placeholder="Credit Card Number"/>
-                    <label for="cc_cvv" class="ui-hidden-accessible"><b>CVV:</b></label>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_cvv"><b>CVV:</b></label>
                         <input type="text" name="cc_cvv" id="cc_cvv" value="" placeholder="CVV"/>
-                    <label for="cc_exp" class="ui-hidden-accessible"><b>Expiration Date:</b></label>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_exp"><b>Expiration Date:</b></label>
                         <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date"/>
-                </div>
+                    </li>
+                </ul>
             </form>
 
-            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+            <div data-role="popup" id="signup-cancel-popup" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
                 <div data-role="header" data-theme="a" class="ui-corner-top">
                     <h1>Cancel Account</h1>
                 </div>
@@ -155,7 +172,7 @@
         <div data-role ="content" id="account-content-3" style ="text-align:center;">
             
             <div data-role="header" data-id="account-header" data-position="fixed">
-                <a href="#popupCancelAccount" class="ui-btn-left" id="account-cancel2" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <a href="#signup-cancel-popup" class="ui-btn-left" id="account-cancel2" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
                 <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
                 
                 <div data-role="navbar">
@@ -183,7 +200,7 @@
             <a href="#" id="submit-create-account" data-role="button" data-mini="true">Create Account</a>
 
 
-            <div data-role="popup" id="popupCancelAccount" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+            <div data-role="popup" id="signup-cancel-popup" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
                 <div data-role="header" data-theme="a" class="ui-corner-top">
                     <h1>Cancel Account</h1>
                 </div>
@@ -596,7 +613,7 @@
             <h3>Email Address</h3>
             <ul data-role="listview">
                 <li data-role="fieldcontain">
-                    <label for="new-password">New Email Address: </label>
+                    <label for="new-email">New Email Address: </label>
                     <input type="text" name="new-email" id="new-email" value="" data-clear-btn="true">
                     <div id="AccountEmail1Alert" style="color:red"></div>
                 </li>

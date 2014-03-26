@@ -213,10 +213,10 @@ $("#submit-create-account").on("click", function(e) {
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         dataType:'json',
         data: {
-            fname:$('#fName').val(),
-            lname:$('#lName').val(),
-            email:$('#email').val(),
-            password:$('#password2').val()
+            fname:$('#acc-create-fname').val(),
+            lname:$('#acc-create-lname').val(),
+            email:$('#acc-create-email').val(),
+            password:$('#acc-create-password2').val()
         },
         success : function(data) {
             $.mobile.changePage("#home", {transition: "slideup"});
