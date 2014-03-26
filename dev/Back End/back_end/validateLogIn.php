@@ -25,7 +25,7 @@ $password = trim($_POST["password"]);
 
     if($num_rows ==1){
         $row = mysql_fetch_assoc($result);
-        $username = $row['email'];
+        $username = $row['first_name'];
         $loginresult=$username;
 
 

@@ -76,7 +76,7 @@ $(function() {
     setTAPBalance(0.00);
 
     // Hardcoded front QR caption value
-    setFrontQRCaption(new FrontQRCaption("Metro 7 Day Pass", "3/16/2014", 0));
+    setFrontQRCaption(new FrontQRCaption("Metro Pass", "3/16/2014", 0));
 
     /***** PLACEHOLDER CODE *******/
 
@@ -135,6 +135,8 @@ var tapBalance = 0.00;
 /* If the user has an active ticket this should be set to true. */
 var hasActiveTicket = false;
 
+var userSession;
+
 
 // ========================================================================================================================
 // GLOBAL SETTERS
@@ -175,6 +177,11 @@ function setTAPBalance(balanceIntValue) {
 
     // Hide QR code if balance went below required base fare.
     verifyAndUpdateQRCodeScannable();
+}
+
+function setUserSession(username) {
+    userSession=username;
+
 }
 
 /*
@@ -226,7 +233,7 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 // ========================================================================================================================
 // LOGIN PAGE
 // ========================================================================================================================
-
+var balance;
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
     $.ajax({
@@ -243,17 +250,40 @@ $("#log-in-form").on("submit", function(e) {
             if(parsedusername==false) {
                 alert("Login Credentials Invalid, Please Try Again");
             }
-              else
+              else {
+                setUserSession(parsedusername);
                 $.mobile.changePage("#home", {transition: "slideup"});
-
+            }
 
         },
         error: function(data, textStatus) {
-            alert("server error has occured");
+            alert("Server error has occurred");
 
         }
     });
 
+//Set Tap Balance
+  setTimeout(function() {
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/getBalance.php',
+        data: {
+            email:userSession
+        },
+        success : function(data) {
+
+            var parsedbalance= $.parseJSON(data);
+            balance=parsedbalance;
+            console.log(parsedbalance);
+            setTAPBalance(parsedbalance);
+
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+
+        }
+    });
+    },3000);
 
 
 
@@ -466,7 +496,7 @@ $("#submit-create-account").on("click", function(e) {
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
-               alert("This email address is already in use, please select a new one");ß
+               alert("This email address is already in use, please select a new one");
             }
             if(!parsedstring)  {
                 $.mobile.changePage("#home", {transition: "slideup"});
@@ -499,6 +529,9 @@ $("#submit-create-account").on("click", function(e) {
  */
 function purchaseFunds(charge_amount){
     //To Do: link to payment gateway
+
+
+
     console.log("Charged $" + charge_amount);
 }
 
@@ -554,6 +587,25 @@ $("#dialog-confirm-purchase-funds").on("click", function(e) {
     
     var newBalance = parseFloat($(".tap-balance-value").html()) + fund_amount; //TO DO: pull amount from backend and add to it
     setTAPBalance(newBalance); // Back-end should be validating this value.
+
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/updateBalance.php',
+        data: {
+            newBalance:tapBalance,
+            userSession:userSession
+        },
+        success : function(data) {
+
+
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+
+        }
+    });
+
+
     
     addItemToBalanceHistory(10,10,10,10);
 
