@@ -229,12 +229,38 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/validateLogin.php',
+        data: {
+            email:$('#loginemail').val(),
+            password:$('#loginpassword').val()
+        },
+        success : function(data) {
+
+            var parsedusername= $.parseJSON(data);
+
+            if(parsedusername==false) {
+                alert("Login Credentials Invalid, Please Try Again");
+            }
+              else
+                $.mobile.changePage("#home", {transition: "slideup"});
+
+
+        },
+        error: function(data, textStatus) {
+            alert("server error has occured");
+
+        }
+    });
+
+
+
 
 
 
 
     // TODO: For now just transition to home page regardless.
-    $.mobile.changePage("#home", {transition: "slideup"});
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
