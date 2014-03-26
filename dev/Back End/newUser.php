@@ -21,7 +21,7 @@ $errormessage = 0;
 if(!isset($first_name) || strlen($first_name) < 1){
     $errormessage += 2;
     $error = true;
-    echo '<script type="text/javascript">alert("first name invalid"); </script>';
+    //echo '<script type="text/javascript">alert("first name invalid"); </script>';
 }
 else{
 	$regName = '/^[a-z ,.\'-]{1,50}$/i';
@@ -31,7 +31,7 @@ else{
     if (!$resName){
     	$errormessage += 2 ;
     	$error = true;
-    	echo '<script type="text/javascript">alert("first name invalid"); </script>';
+    	//echo '<script type="text/javascript">alert("first name invalid"); </script>';
     }
 }
 
@@ -40,7 +40,7 @@ else{
 if(!isset($last_name) || strlen($last_name) < 1){
     $errormessage += 2;
     $error = true;
-    echo '<script type="text/javascript">alert("last name invalid"); </script>';
+   // echo '<script type="text/javascript">alert("last name invalid"); </script>';
 }
 else{
 	$regName = '/^[a-z ,.\'-]{1,50}$/i';
@@ -50,7 +50,7 @@ else{
     if (!$resName){
     	$errormessage += 2 ;
     	$error = true;
-    	echo '<script type="text/javascript">alert("last name invalid"); </script>';
+    	//echo '<script type="text/javascript">alert("last name invalid"); </script>';
     }
 }
 
@@ -62,10 +62,12 @@ $resEmail = preg_match($regEmail, $email);
 if (!$resEmail){
 	$errormessage += 3;
 	$error = true;
-	echo '<script type="text/javascript">alert("email invalid"); </script>';
+	//echo '<script type="text/javascript">alert("email invalid"); </script>';
 }
 
 #CHECK TO SEE IF EMAIL ALREADY EXISTS IN DB
+
+$emailexists=FALSE;
 $emailstr = mysql_real_escape_string($email);
 
 $result = mysql_query("SELECT * FROM Users WHERE email='$emailstr' ");
@@ -74,9 +76,12 @@ $result = mysql_query("SELECT * FROM Users WHERE email='$emailstr' ");
 
     if($num_rows > 0){
 		#user already exists
-		$error = true;
-		echo '<script type="text/javascript">alert("email already exists); </script>';
+		$emailexists=TRUE;
+        $error = true;
+		//echo '<script type="text/javascript">alert("email already exists); </script>';
     }
+
+    echo json_encode($emailexists);
 
 
 #CHECK TO SEE IF PASSWORD CONTAINS AT LEAST 5 CHAR
@@ -84,7 +89,7 @@ $result = mysql_query("SELECT * FROM Users WHERE email='$emailstr' ");
 if(!isset($password) || strlen($password) < 1){
     $errormessage += 2;
     $error = true;
-    echo '<script type="text/javascript">alert("password invalid"); </script>';
+  //  echo '<script type="text/javascript">alert("password invalid"); </script>';
 }
 /*else{
 	$regName = '/^[a-z ,.\'-]{5,50}$/i';
@@ -102,15 +107,15 @@ if(!isset($password) || strlen($password) < 1){
 
 #ADD USER TO DB IF NO ERRORS DETECTED
 if (!$error){
-   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance,nearest_station)
-   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0','NULL')");
+   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance)
+   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0')");
 
-	echo '<script type="text/javascript">alert("user is created"); </script>';
+	//echo '<script type="text/javascript">alert("user is created"); </script>';
 
 	//echo "Welcome $first_name!";
 }
 else{
-	echo '<script type="text/javascript">alert("error creating user"); </script>';
+	//echo '<script type="text/javascript">alert("error creating user"); </script>';
 
 }
 

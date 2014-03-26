@@ -26,7 +26,7 @@
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="163" column="3" selection-start="5899" selection-end="5899" vertical-scroll-proportion="0.22553699" vertical-offset="2256" max-vertical-offset="12600">
+            <state line="151" column="0" selection-start="5658" selection-end="5658" vertical-scroll-proportion="0.2777778" vertical-offset="2025" max-vertical-offset="12660">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -37,18 +37,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="46" selection-start="3519" selection-end="3543" vertical-scroll-proportion="-4.82" vertical-offset="914" max-vertical-offset="10890">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#12;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.sublime-workspace" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.sublime-workspace">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="537" column="4" selection-start="12897" selection-end="12897" vertical-scroll-proportion="0.0" vertical-offset="8055" max-vertical-offset="10245">
+            <state line="77" column="46" selection-start="3519" selection-end="3543" vertical-scroll-proportion="-10.041667" vertical-offset="914" max-vertical-offset="10890">
               <folding />
             </state>
           </provider>
@@ -70,8 +59,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="141" />
-    <option name="y" value="82" />
+    <option name="x" value="293" />
+    <option name="y" value="22" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -101,7 +90,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -202,6 +190,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -209,14 +198,6 @@
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -227,15 +208,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -257,7 +246,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="141" y="82" width="1400" height="1000" extended-state="0" />
+    <frame x="293" y="22" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -295,6 +284,29 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="3" selection-start="5899" selection-end="5899" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="12600">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="46" selection-start="3519" selection-end="3543" vertical-scroll-proportion="0.0" vertical-offset="914" max-vertical-offset="10890">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.sublime-workspace">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="537" column="4" selection-start="12897" selection-end="12897" vertical-scroll-proportion="0.0" vertical-offset="8055" max-vertical-offset="10245">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="118" column="0" selection-start="4467" selection-end="4525" vertical-scroll-proportion="0.0" vertical-offset="1770" max-vertical-offset="12180">
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -320,15 +332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="46" selection-start="3519" selection-end="3543" vertical-scroll-proportion="-4.82" vertical-offset="914" max-vertical-offset="10890">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#form#0;n#div#2;n#div#12;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.sublime-workspace">
       <provider selected="true" editor-type-id="text-editor">
         <state line="537" column="4" selection-start="12897" selection-end="12897" vertical-scroll-proportion="0.0" vertical-offset="8055" max-vertical-offset="10245">
@@ -336,9 +339,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="46" selection-start="3519" selection-end="3543" vertical-scroll-proportion="-10.041667" vertical-offset="914" max-vertical-offset="10890">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="163" column="3" selection-start="5899" selection-end="5899" vertical-scroll-proportion="0.22553699" vertical-offset="2256" max-vertical-offset="12600">
+        <state line="151" column="0" selection-start="5658" selection-end="5658" vertical-scroll-proportion="0.2777778" vertical-offset="2025" max-vertical-offset="12660">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

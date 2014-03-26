@@ -116,9 +116,6 @@ $("#log-in-form").on("submit", function(e) {
 
 
 
-
-
-
     // TODO: For now just transition to home page regardless.
     $.mobile.changePage("#home", {transition: "slideup"});
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
@@ -152,12 +149,12 @@ $("#cancel-yes-3").on("click", function(e) {
 });
 
 $("#submit-create-account").on("click", function(e) {
-    alert("Ajax Firing");
+
 
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
-        dataType:'json',
+        //dataType:'json',
         data: {
             fname:$('#fName').val(),
             lname:$('#lName').val(),
@@ -166,11 +163,18 @@ $("#submit-create-account").on("click", function(e) {
 
         },
         success : function(data) {
-            $.mobile.changePage("#home", {transition: "slideup"});
+            var parsedstring= $.parseJSON(data);
+
+            if(parsedstring) {
+                alert("Email already exists on database");
+            }
+            if(!parsedstring)  {
+                $.mobile.changePage("#home", {transition: "slideup"});
+            }
 
         },
-        error: function(data) {
-            alert("error has occured");
+        error: function(data, textStatus) {
+
 
         }
 
