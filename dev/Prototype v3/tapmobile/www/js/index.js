@@ -205,28 +205,196 @@ $(".signup-cancel").on("click", function(e) {
     return false;
 });
 
+function set_error(field, msg, error_array){
+    var error_object = new Object();
+    error_object.field = field;
+    error_object.msg = msg;
+    error_array.push(error_object);
+}
+
+function set_page_redirect(page, number){
+    if (number == 2 && page != 1){
+        return 2;
+    }
+    else return 1;
+}
+
 $("#submit-create-account").on("click", function(e) {
-    alert("Ajax Firing");
+    
+    //Clear previous error messages
+    $("#fname-label").css('color', 'rgb(0,0,0)');
+    $("#lname-label").css('color', 'rgb(0,0,0)');
+    $("#email-label").css('color', 'rgb(0,0,0)');
+    $("#pass-label").css('color', 'rgb(0,0,0)');
+    $("#pass2-label").css('color', 'rgb(0,0,0)');
+    $("#cc_num-label").css('color', 'rgb(0,0,0)');
+    $("#cc_cvv-label").css('color', 'rgb(0,0,0)');
+    $("#cc_exp-label").css('color', 'rgb(0,0,0)');
+    $("#cc_zip-label").css('color', 'rgb(0,0,0)');
 
-    $.ajax({
-        type:'POST',
-        url:'http://tapmobile.co.nf/back_end/newUser.php',
-        dataType:'json',
-        data: {
-            fname:$('#acc-create-fname').val(),
-            lname:$('#acc-create-lname').val(),
-            email:$('#acc-create-email').val(),
-            password:$('#acc-create-password2').val()
-        },
-        success : function(data) {
-            $.mobile.changePage("#home", {transition: "slideup"});
-        },
-        error: function(data) {
-            alert("error has occured");
+    $("#fname-label").html("<b>First Name:</b>");
+    $("#lname-label").html("<b>Last Name:</b>");
+    $("#email-label").html("<b>Email Address:</b>");
+    $("#pass-label").html("<b>Password:</b>");
+    $("#pass2-label").html("<b>Confirm Password:</b>");
+    $("#cc_num-label").html("<b>Credit Card Number:</b>");
+    $("#cc_cvv-label").html("<b>CVV:</b>");
+    $("#cc_exp-label").html("<b>Expiration Date:</b>");
+    $("#cc_zip-label").html("<b>Billing Zip Code:</b>");
+    
+    //set values
+    var MAX_LENGTH = 255;
+    var error_array = [];
+
+    //Get account page 1 values
+    var fname = $("#acc-create-fname").val().trim();
+    var lname = $("#acc-create-lname").val().trim();
+    var email = $("#acc-create-email").val().trim();
+    var pass1 = $("#acc-create-password1").val();
+    var pass2 = $("#acc-create-password2").val();
+
+    //Validate page 1 values
+    
+    /* Check to make sure name fields are not empty */
+    if (!fname){
+        set_error("fname", "Please enter a first name", error_array);
+    }
+
+    if (!lname){
+        set_error("lname", "Please enter a last name", error_array);
+    }
+
+    /* Check to make sure name fields do not exceed max length */
+    if (fname.length > MAX_LENGTH){
+        set_error("fname", "First name exceeds max length", error_array);
+    }
+
+    if (lname.length > MAX_LENGTH){
+        set_error("lname", "Last name exceeds max length", error_array);
+    }
+
+    /*  Validate email address  */
+    var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
+    var result_test_email = regex_email.test(email);
+    if (!result_test_email){
+        set_error("email", "Please enter a valid email address", error_array);
+    }
+
+    /* Validate password */
+    //length: must be greater at least 5 characters and no greater than max length
+    if (pass1.length < 5 || pass1.length > MAX_LENGTH){
+        set_error("pass", "Please enter a password within correct length range", error_array);
+    }
+    else if (pass1 != pass2){
+        set_error("pass", "Passwords do not match", error_array);
+    }
+
+    //Get account page 2 values
+    var cc_num = $("#cc_num").val();
+    var cc_cvv = $("#cc_cvv").val();
+    var cc_exp = $("#cc_exp").val();
+    var cc_zip = $("#cc_zip").val();
+
+    //Validate page 2 values
+    var regex_cc_num = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
+    var result_test_cc_num = regex_cc_num.test(cc_num);
+    if (!result_test_cc_num){
+        set_error("cc_num", "Please enter a valid credit card number", error_array);
+    }
+    
+    var regex_cc_cvv = /^[0-9]{3,4}$/;
+    var result_test_cc_cvv = regex_cc_cvv.test(cc_cvv);
+    if (!result_test_cc_cvv){
+        set_error("cc_cvv", "Please enter a valid cvv number", error_array);
+    }
+
+    var test_cc_exp = cc_exp.split('-'); //value from input as yyyy-mm
+    if (test_cc_exp[0] < 2014 || test_cc_exp > 2200){
+        set_error("cc_exp", "Please enter a valid expiration", error_array);
+    }
+    else if (test_cc_exp[1] < 1 || test_cc_exp[1] > 12){
+        set_error("cc_exp", "Please enter a valid expiration", error_array);
+    }
+
+    var regex_cc_zip = /^\d{5}(?:[-\s]\d{4})?$/;
+    var result_test_cc_zip = regex_cc_zip.test(cc_zip);
+    if (!result_test_cc_zip){
+        set_error("cc_zip", "Please enter a valid billing zip code", error_array);
+    }
+
+    //Check for Errors and if found redirect user
+    if (error_array.length > 0){
+        var page = 0;
+        //for each field in array set according field to red with error message
+        for (var i = 0; i < error_array.length; i++){
+            if (error_array[i].field == "fname"){
+                $("#fname-label").css('color', 'rgb(200,0,0)');
+                $("#fname-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 1);
+            }
+            else if (error_array[i].field == "lname"){
+                $("#lname-label").css('color', 'rgb(200,0,0)');
+                $("#lname-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 1);
+            }
+            else if (error_array[i].field == "email"){
+                $("#email-label").css('color', 'rgb(200,0,0)');
+                $("#email-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 1); 
+            }
+            else if (error_array[i].field == "pass"){
+                $("#pass-label").css('color', 'rgb(200,0,0)');
+                $("#pass2-label").css('color', 'rgb(200,0,0)');
+                $("#pass-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 1);
+            }
+            else if (error_array[i].field == "cc_num"){
+                $("#cc_num-label").css('color', 'rgb(200,0,0)');
+                $("#cc_num-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_cvv"){
+                $("#cc_cvv-label").css('color', 'rgb(200,0,0)');
+                $("#cc_cvv-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_exp"){
+                $("#cc_exp-label").css('color', 'rgb(200,0,0)');
+                $("#cc_exp-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_zip"){
+                $("#cc_zip-label").css('color', 'rgb(200,0,0)');
+                $("#cc_zip-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
         }
-    });
 
-
+            $.mobile.changePage("#account-create-1", {transition: "slideup"});
+        else 
+            $.mobile.changePage("#account-create-2", {transition: "slideup"});
+    }
+    else{
+    console.log("Ajax Firing");
+        /*
+        $.ajax({
+            type:'POST',
+            url:'http://tapmobile.co.nf/back_end/newUser.php',
+            dataType:'json',
+            data: {
+                fname:$('#acc-create-fname').val(),
+                lname:$('#acc-create-lname').val(),
+                email:$('#acc-create-email').val(),
+                password:$('#acc-create-password2').val()
+            },
+            success : function(data) {
+                $.mobile.changePage("#home", {transition: "slideup"});
+            },
+            error: function(data) {
+                alert("error has occured");
+            }
+        });*/
+    }
 
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
