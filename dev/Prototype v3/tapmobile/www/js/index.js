@@ -323,9 +323,9 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
 // ----------------------------------------------------------------------
 
 /* Define transit line object prototype */
-var TransitLine = function(name, time) {
-  this.name = name;
-  this.time = time;
+var TransitLine = function(transitName, arrivalTime) {
+  this.transitName = transitName;
+  this.arrivalTime = arrivalTime;
 };
 
 /* Define ticket object prototype */
@@ -453,7 +453,7 @@ function addAvailableTicket(ticket) {
     availableTicketList.push(ticket);
 
     // Add to DOM.
-    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
+    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
 }
 
 /*
@@ -566,7 +566,8 @@ $("#home").on("pagebeforeshow", function(event) {
 /* Called after the home page is fully transitioned */
 $("#home").on("pageshow", function(event) {
     /* Center QR tile on screen dynamically */
-    $("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
+    //$("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
+    $("#qr-rotation-tile").animate({left: ($("#home-content").width()/2 - $(window).width()/4) + "px"}, 200);
 
     /* Calculate the height of the Buy Tickets container. */
     ticketListHeight = $("#mytickets-list li").actual("height") * 3;
