@@ -46,7 +46,25 @@ $(function() {
     FastClick.attach(document.body);
 
     /***** PLACEHOLDER CODE *******/
+    
+    // Hardcoded Metro Expo Line
+    var metroExpoLineStations = [];
 
+    metroExpoLineStations[0] = new TransitStation(1, "7th St/Metro Center", "Metro Expo Line", 34.0497597, -118.2594994, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[1] = new TransitStation(2, "Pico", "Metro Expo Line", 34.0407045, -118.2661995, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[2] = new TransitStation(3, "Jefferson/USC", "Metro Expo Line", 34.0229463, -118.2776492, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[3] = new TransitStation(4, "Expo Park/USC", "Metro Expo Line", 34.0183678, -118.284, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[4] = new TransitStation(5, "Expo/Vermont", "Metro Expo Line", 34.0184147, -118.2927447, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[5] = new TransitStation(6, "23rd St", "Metro Expo Line", 34.028762, -118.2738277, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[6] = new TransitStation(7, "Expo/Western", "Metro Expo Line", 34.018471, -118.3083753, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[7] = new TransitStation(8, "Expo/Crenshaw", "Metro Expo Line", 34.0222831, -118.3333312, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[8] = new TransitStation(9, "Farmdale", "Metro Expo Line", 34.0236457, -118.3445348, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[9] = new TransitStation(10, "Expo/La Brea", "Metro Expo Line", 34.0247601, -118.3538159, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[10] = new TransitStation(11, "La Cienega/Jefferson", "Metro Expo Line", 34.0263983, -118.3701157, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[11] = new TransitStation(12, "Culver City", "Metro Expo Line", 34.0280633, -118.3866186, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    
+    // Hardcoded test transit stations
+    
     var testTransitStations = [];
 
     testTransitStations[0] = new TransitStation(1, "Exposition Station", "Blue Line", "Santa Monica", "12:43pm", "Washington", "12:49pm");
