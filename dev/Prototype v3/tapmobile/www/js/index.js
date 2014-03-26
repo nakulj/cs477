@@ -202,6 +202,7 @@ $("#log-in-form").on("submit", function(e) {
 // ========================================================================================================================
 
 /* Called by accout creation cancel button */
+/* Called by accout creation cancel button */
 $(".signup-cancel").on("click", function(e) {
     document.getElementById("user-info-account-create").reset();
     document.getElementById("payment-info-account-create").reset();
@@ -209,7 +210,22 @@ $(".signup-cancel").on("click", function(e) {
     return false;
 });
 
+function set_error(field, msg, error_array){
+    var error_object = new Object();
+    error_object.field = field;
+    error_object.msg = msg;
+    error_array.push(error_object);
+}
+
+function set_page_redirect(page, number){
+    if (number == 2 && page != 1){
+        return 2;
+    }
+    else return 1;
+}
+
 $("#submit-create-account").on("click", function(e) {
+
     //Clear previous error messages
     $("#fname-label").css('color', 'rgb(0,0,0)');
     $("#lname-label").css('color', 'rgb(0,0,0)');
@@ -358,12 +374,14 @@ $("#submit-create-account").on("click", function(e) {
                 page = set_page_redirect(page, 2);
             }
         }
-        if(page==1)
+
+        if (page == 1)
             $.mobile.changePage("#account-create-1", {transition: "slideup"});
         else
             $.mobile.changePage("#account-create-2", {transition: "slideup"});
     }
     else{
+
     //If front end validation passes fire Ajax
     //Writes new user to server through PHP script
      $.ajax({
