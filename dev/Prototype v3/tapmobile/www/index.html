@@ -78,24 +78,24 @@
             <form id="user-info-account-create">
                 <ul data-role="listview">
                     <li data-role="fieldcontain">
-                        <label for="acc-create-fname"><b>First Name:</b></label>
+                        <label for="acc-create-fname"><span id="fname-label"><b>First Name:</b></span></label>
                         <input type="text" name="acc-create-fname" id="acc-create-fname" value="" placeholder="First Name"/>
                         <div id="AccountEmail1Alert" style="color:red"></div>
                     </li>
                     <li data-role="fieldcontain">
-                        <label for="acc-create-lname"><b>Last Name:</b></label>
+                        <label for="acc-create-lname"><span id="lname-label"><b>Last Name:</b></span></label>
                         <input type="text" name="acc-create-lname" id="acc-create-lname" value="" placeholder="Last Name" label="HI"/>
                     </li>
                     <li data-role="fieldcontain">
-                        <label for="acc-create-email"><b>Email Address:</b></label>
+                        <label for="acc-create-email"><span id="email-label"><b>Email Address:</b></span></label>
                         <input type="email" name="acc-create-email" id="acc-create-email" value="" placeholder="Email Address"/>
                     </li>
                     <li data-role="fieldcontain">
-                        <label for="acc-create-password1"><b>Password:</b></label>
+                        <label for="acc-create-password1"><span id="pass-label"><b>Password:</b></span></label>
                         <input type="password" name="acc-create-password1" id="acc-create-password1" value="" placeholder="Password (at least 5 characters)"/>
                     </li>
                     <li data-role="fieldcontain">
-                        <label for="acc-create-password2"><b>Confirm Password:</b></label>
+                        <label for="acc-create-password2"><span id="pass2-label"><b>Confirm Password:</b></span></label>
                         <input type="password" name="acc-create-password2" id="acc-create-password2" value="" placeholder="Confirm Password"/>
                     </li>
                 </ul>
@@ -138,16 +138,20 @@
             <form id="payment-info-account-create">
                 <ul data-role="listview">
                     <li data-role="fieldcontain">
-                        <label for="cc_num"><b>Credit Card Number:</b></label>
+                        <label for="cc_num"><span id="cc_num-label"><b>Credit Card Number:</b></span></label>
                         <input type="text" name="cc_num" id="cc_num" value="" placeholder="Credit Card Number"/>
                     </li>
                     <li data-role="fieldcontain">
-                        <label for="cc_cvv"><b>CVV:</b></label>
+                        <label for="cc_cvv"><span id="cc_cvv-label"><b>CVV:</b></span></label>
                         <input type="text" name="cc_cvv" id="cc_cvv" value="" placeholder="CVV"/>
                     </li>
                     <li data-role="fieldcontain">
-                        <label for="cc_exp"><b>Expiration Date:</b></label>
+                        <label for="cc_exp"><span id="cc_exp-label"><b>Expiration Date:</b></span></label>
                         <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_zip"><span id="cc_zip-label"><b>Billing Zip Code:</b></span></label>
+                        <input type="text" name="cc_zip" id="cc_zip" value="" placeholder="Billing Zip Code"/>
                     </li>
                 </ul>
             </form>
@@ -657,6 +661,9 @@
                     <label for="card-number">CVV:</label>
                     <input type="text" pattern="[0-9]*" name="card-CVV" id="card-CVV" value="" data-clear-btn="true">
                     <div id="AccountCVVAlert" style="color:red"></div>
+                    <label for="card-zip">Billing Zip Code:</label>
+                    <input type="text" pattern="[0-9]*" name="card-zip" id="card-zip" value="" data-clear-btn="true">
+                    <div id="AccountZIPAlert" style="color:red"></div>
                 </li>
                 <li>
                     <fieldset data-role="controlgroup" data-type="horizontal">
