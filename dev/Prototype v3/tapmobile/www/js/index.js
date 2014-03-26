@@ -659,12 +659,6 @@ $(".qrFlipBack").button().click(function() {
     });
 });
 
-/* Apply to all buttons that transition to a new page. */
-$(".qrShortcutBtn").button().click(function() {
-    /* Reset QR code immediately after navigating to a new page so it's in place when user returns. */
-    resetCenterTile();
-});
-
 // Verify that the user has a valid ticket or enough money for base fare, deactivate qr code otherwise.
 function verifyAndUpdateQRCodeScannable()
 {
