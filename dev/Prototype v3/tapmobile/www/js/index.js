@@ -292,6 +292,7 @@ $("#log-in-form").on("submit", function(e) {
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 //Set Tap Balance
@@ -322,6 +323,8 @@ $("#log-in-form").on("submit", function(e) {
 
 
 
+=======
+>>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
 =======
 >>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
     // TODO: For now just transition to home page regardless.
@@ -531,6 +534,7 @@ $("#submit-create-account").on("click", function(e) {
 
             if(parsedstring) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                alert("This email address is already in use, please select a new one");
 
@@ -539,6 +543,9 @@ $("#submit-create-account").on("click", function(e) {
 
                alert("This email address is already in use, please select a new one");
 
+=======
+               alert("This email address is already in use, please select a new one");ÃŸ
+>>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
 =======
                alert("This email address is already in use, please select a new one");ÃŸ
 >>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
