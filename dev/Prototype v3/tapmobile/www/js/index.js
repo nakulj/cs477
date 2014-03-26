@@ -46,41 +46,13 @@ $(function() {
     FastClick.attach(document.body);
 
     /***** PLACEHOLDER CODE *******/
-    
-    // Hardcoded Metro Expo Line
-    var metroExpoLineStations = [];
 
-    metroExpoLineStations[0] = new TransitStation(1, "7th St/Metro Center", "Metro Expo Line", 34.0497597, -118.2594994, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[1] = new TransitStation(2, "Pico", "Metro Expo Line", 34.0407045, -118.2661995, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[2] = new TransitStation(3, "Jefferson/USC", "Metro Expo Line", 34.0229463, -118.2776492, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[3] = new TransitStation(4, "Expo Park/USC", "Metro Expo Line", 34.0183678, -118.284, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[4] = new TransitStation(5, "Expo/Vermont", "Metro Expo Line", 34.0184147, -118.2927447, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[5] = new TransitStation(6, "23rd St", "Metro Expo Line", 34.028762, -118.2738277, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[6] = new TransitStation(7, "Expo/Western", "Metro Expo Line", 34.018471, -118.3083753, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[7] = new TransitStation(8, "Expo/Crenshaw", "Metro Expo Line", 34.0222831, -118.3333312, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[8] = new TransitStation(9, "Farmdale", "Metro Expo Line", 34.0236457, -118.3445348, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[9] = new TransitStation(10, "Expo/La Brea", "Metro Expo Line", 34.0247601, -118.3538159, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[10] = new TransitStation(11, "La Cienega/Jefferson", "Metro Expo Line", 34.0263983, -118.3701157, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[11] = new TransitStation(12, "Culver City", "Metro Expo Line", 34.0280633, -118.3866186, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    
-    // Adds Google version of Coordinates to list above ^
-    setStationLocation(metroExpoLineStations);
-    
-    var googleCurrentLocation = new google.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
-    
-    setDistanceToStation(googleCurrentLocation,metroExpoLineStations);
-    
-    sortStations(distanceToStation);
-    
-    setNearestTransitStations(metroExpoLineStations);
-    
-    // Hardcoded test transit stations
-    
     var testTransitStations = [];
 
     testTransitStations[0] = new TransitStation(1, "Exposition Station", "Blue Line", "Santa Monica", "12:43pm", "Washington", "12:49pm");
     testTransitStations[1] = new TransitStation(2, "Vermont Station", "Blue Line", "Exposition", "12:50pm", "Santa Monica", "12:41pm");
 
+    setNearestTransitStations(testTransitStations);
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
@@ -123,24 +95,15 @@ $(function() {
 // ========================================================================================================================
 
 /* Define transit line object prototype */
-var TransitStation = function(stationId, stationDescription, transitLine, latitude, longitude, stationLocation, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
+var TransitStation = function(stationId, stationDescription, transitLine, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
     this.stationId = stationId;
     this.stationDescription = stationDescription;
     this.transitLine = transitLine;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.stationLocation = stationLocation;
     this.transitDestA = transitDestA;
     this.arrivalTimeA = arrivalTimeA;
     this.transitDestB = transitDestB;
     this.arrivalTimeB = arrivalTimeB;
 };
-
-/* Define location object prototype */
-var Distance = function(distanceIndex, dist) {
-    this.distanceIndex = distanceIndex;
-    this.dist = dist;
-}
 
 /* Define ticket object prototype */
 var AvailableTicket = function(ticketId, ticketName, ticketPrice) {
@@ -176,30 +139,6 @@ var hasActiveTicket = false;
 // ========================================================================================================================
 // GLOBAL SETTERS
 // ========================================================================================================================
-
-/*
- * Description: Modify the currentLocation coordinates.
- * Input: Coordinates
- * Output: N/A
- * Error: N/A
- */
-function setLocation(newCurrentLocation) {
-    currentLocation.latitude = newCurrentLocation.latitude;
-    currentLocation.longitude = newCurrentLocation.longitude;
-}
-/*
- * Description: Add google coordinate location to expo line list.
- * Input: List of stations
- * Output: N/A
- * Error: N/A
- */
-function setStationLocation(stationsList) {
-    for(var i=0; i < stationsList.length; i++){
-        var lat = stationsList[i].latitude;
-        var lon = stationsList[i].longitude;
-        stationsList[i].stationLocation = new google.maps.LatLng(lat, lon);
-    }
-}
 
 /*
  * Description: Modify the max number of guests allowed on a single QR scan.
@@ -264,20 +203,11 @@ var qrCodeVisible = true;
 /* A list of AvailableTicket objects available to the user to purchase. */
 var availableTicketList = [];
 
-/* A UserLocation Object that stores the current location */
-var currentLocation = new UserLocation(3.33,3.33);
-
-/* The latitude of user's current location */
-var latitude = 0.00;
-
-/* The longitude of user's current location */
-var longitude = 0.00;
-
 /* A list of TransitStation objects that represent the nearest transit lines to the user */
 var nearestTransitStations = [];
 
 /* An index of which TransitStation the user is currently viewing in the home screen. */
-var nearestTransitStationIndex = 4;
+var nearestTransitStationIndex = 0;
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
@@ -536,7 +466,7 @@ $("#submit-create-account").on("click", function(e) {
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
-               alert("This email address is already in use, please select a new one");ß
+               alert("This email address is already in use, please select a new one");ÃŸ
             }
             if(!parsedstring)  {
                 $.mobile.changePage("#home", {transition: "slideup"});
@@ -705,82 +635,6 @@ function setBackQRCaption(backQRCaption) {
 
 
 /* Nearest transit lines */
-
-/*
- * Description: sorts the list by distance ascending
- * Input: A list of Distance objects.
- * Output: N/A
- * Error: N/A
- */
-function sortStations (distanceList) {
-    distanceList.sort(sortByDistance);
-}
-
-/*
- * Description: sorting function
- * Input: first two elements from the array
- * Output: N/A
- * Error: N/A
- */
-function sortByDistance(a, b){
-    var aDist = a.dist;
-    var bDist = b.dist;
-
-    if (aDist == bDist) {
-        return 0;
-    }
-    if (aDist > bDist){
-        return 1;
-    }
-    else return -1;
-}
-
-/*
- * Description: Writes Distance objects to array
- * Input: Google current location & list of TransitLine objects
- * Output: N/A
- * Error: N/A
- */
-function setDistanceToStation (currentLocation, stationList) {
-    for (var i = 0; i < stationList.length; i++) {
-        var distance = new Distance(stationList.stationId, findDistance(currentLocation, stationList[i].stationLocation));
-        addDistanceToStation(distance);
-    }
-}
-
-/*
- * Description: Returns spherical distance between two coordinates
- * Input: Google current location & station location
- * Output: Returns spherical distance between two coordinates
- * Error: N/A
- */
-function findDistance (currentLocation, stationLocation) {
-    return google.maps.geometry.spherical.computeDistanceBetween(currentLocation, stationLocation);
-}
-
-/*
- * Description: 
- * Input: Distance object
- * Output: Returns spherical distance between two coordinates
- * Error: N/A
- */
-function addDistanceToStation (distance) {
-    distanceToStation.push(distance);
-}
-
-/*
- * Description: 
- * Input: A list of TransitStation objects and list of Distance objects
- * Output: N/A
- * Error: N/A
- */
-function distanceListWriteToNearestList (transitStationList, distanceToStationSortedList) {
-    clearTransitStations();
-    for (var i=0; i < transitStationList.length; i++) {
-        var stationIndex = distanceToStationSortedList[i].distanceIndex-1;
-        nearestTransitStations[stationIndex] = distanceToStationSortedList[i];
-    }
-}
 
 /*
  * Description: 
