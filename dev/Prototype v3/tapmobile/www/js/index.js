@@ -38,7 +38,6 @@ var app = {
 
     receivedEvent: function(id) {
         //window.location="login.html";
-        //$.mobile.changePage('#card_details');
     }
 };
 
@@ -52,16 +51,16 @@ $(function() {
 
     var testInitTickets = [];
 
-    testInitTickets[0] = new AvailableTicket("Metro 30 Day Full Fare (API)", 65);
+    testInitTickets[0] = new AvailableTicket(1, "Metro 30 Day Full Fare (API)", 65);
     //addAvailableTicket(testInitTickets[0]);
 
-    testInitTickets[1] = new AvailableTicket("Metro 30 Day Pass with 1 Zone (API)", 55);
+    testInitTickets[1] = new AvailableTicket(2, "Metro 30 Day Pass with 1 Zone (API)", 55);
     //addAvailableTicket(testInitTickets[1]);
 
-    testInitTickets[2] = new AvailableTicket("Metro 7 Day Pass (API)", 20);
+    testInitTickets[2] = new AvailableTicket(3, "Metro 7 Day Pass (API)", 20);
     //addAvailableTicket(testInitTickets[2]);
 
-    testInitTickets[3] = new AvailableTicket("Metro 3 Day Pass (API)", 10);
+    testInitTickets[3] = new AvailableTicket(4, "Metro 3 Day Pass (API)", 10);
     //addAvailableTicket(testInitTickets[3]);
 
     setAvailableTickets(testInitTickets);
@@ -82,19 +81,95 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
-/* Application Globals (and defaults) */
 
-// These should only be reset by the back-end.
-var maxGuests = 4; // Max number of guests on a single QR scan (this could be capped further depending on the user's account balance)
-var baseFare = 1.50; // TODO: Make this nil and force back end to let us know the base fare when the app is started.
-var tapBalance = 10.00; // TODO: ^^
-var hasActiveTicket = false; // If the user has an active ticket, set this to true.
+// ========================================================================================================================
+// GLOBAL VARIABLES
+// ========================================================================================================================
 
-// These are set in the front-end.
+
+/* Max number of guests on a single QR scan (this could be capped further depending on the user's account balance) */
+var maxGuests = 4;
+
+/* TODO: Make this nil and force back end to let us know the base fare when the app is started. */
+var baseFare = 1.50;
+
+/* The current TAP balance as we know it on the front-end. */
+var tapBalance = 0.00;
+
+/* If the user has an active ticket this should be set to true. */
+var hasActiveTicket = false;
+
+
+// ========================================================================================================================
+// GLOBAL SETTERS
+// ========================================================================================================================
+
+/*
+ * Description: Modify the max number of guests allowed on a single QR scan.
+ * Input: An integer upper bound for number of guest spots.
+ * Output: N/A
+ * Error: N/A
+ */
+function setMaxGuests(newMaxGuests) {
+    maxGuests = newMaxGuests;
+    console.log("Max guests set to " + newMaxGuests);
+}
+
+/*
+ * Description: Change the base fare (displayed to user and used to calculate guest pass price)
+ * Input: A monetary value
+ * Output: N/A
+ * Error: N/A
+ */
+function setBaseFare(newBaseFare) {
+    baseFare = newBaseFare;
+    console.log("Base fare set to " + newBaseFare);
+}
+
+/*
+ * Description: Set the displayed TAP balance in top right of header and in Add Funds under balance.
+ * Input: An integer or float representing the monetary value of their account balance.
+ * Output: N/A
+ * Error: N/A
+ */
+function setTAPBalance(balanceIntValue) {
+    tapBalance = parseFloat(balanceIntValue).toFixed(2);
+    $(".tap-balance-value").html(tapBalance);
+    $("#funds_tap_balance_value").html("$" + tapBalance);
+
+    // Hide QR code if balance went below required base fare.
+    verifyAndUpdateQRCodeScannable();
+}
+
+/*
+ * Description: Set if this user has an active ticket ready to scan.
+ * Input: True if they have a ticket, false if not.
+ * Output: N/A
+ * Error: N/A
+ */
+function setHasActiveTicket(newHasActiveTicket) {
+    hasActiveTicket = newHasActiveTicket;
+}
+
+
+// ========================================================================================================================
+// ALL PAGES
+// ========================================================================================================================
+
+/* Private Global Variables */
+
+/* The number of guests currently selected in the app */
 var numGuests = 0;
+
+/* READ-ONLY: Set in verifyAndUpdateQRCodeScannable(). */
 var qrCodeVisible = true;
 
-/* Affects all pages with panels in the application */
+/* A list of AvailableTicket objects available to the user to purchase. */
+var availableTicketList = [];
+
+
+/* Enable the "swipe right" feature to open the side panel in the app. */
+
 $(".sidePanelAccessible").on( "pagecreate", function() {
     var pageId = $(this).attr("id");
 
@@ -113,9 +188,12 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 0fe02f3fd9fc3bef24aab4cae38742d567d1b5e1
     // TODO: For now just transition to home page regardless.
     $.mobile.changePage("#home", {transition: "slideup"});
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
@@ -126,22 +204,7 @@ $("#log-in-form").on("submit", function(e) {
 // ========================================================================================================================
 
 /* Called by accout creation cancel button */
-$("#cancel-yes").on("click", function(e) {
-    document.getElementById("user-info-account-create").reset();
-    document.getElementById("payment-info-account-create").reset();
-    $.mobile.changePage("#log-in", {transition: "slidedown"});
-    return false;
-});
-
-$("#cancel-yes-2").on("click", function(e) {   
-    document.getElementById("user-info-account-create").reset();
-    document.getElementById("payment-info-account-create").reset();
-    $.mobile.changePage("#log-in", {transition: "slidedown"});
-    return false;
-});
-
-$("#cancel-yes-3").on("click", function(e) {
-
+$(".signup-cancel").on("click", function(e) {
     document.getElementById("user-info-account-create").reset();
     document.getElementById("payment-info-account-create").reset();
     $.mobile.changePage("#log-in", {transition: "slidedown"});
@@ -156,13 +219,13 @@ $("#submit-create-account").on("click", function(e) {
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
         data: {
-            fname:$('#fName').val(),
-            lname:$('#lName').val(),
-            email:$('#email').val(),
-            password:$('#password2').val()
-
+            fname:$('#acc-create-fname').val(),
+            lname:$('#acc-create-lname').val(),
+            email:$('#acc-create-email').val(),
+            password:$('#acc-create-password2').val()
         },
         success : function(data) {
+<<<<<<< HEAD
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
@@ -176,8 +239,13 @@ $("#submit-create-account").on("click", function(e) {
         error: function(data, textStatus) {
 
 
+=======
+            $.mobile.changePage("#home", {transition: "slideup"});
+        },
+        error: function(data) {
+            alert("error has occured");
+>>>>>>> 0fe02f3fd9fc3bef24aab4cae38742d567d1b5e1
         }
-
     });
 
 
@@ -277,15 +345,16 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
 // ----------------------------------------------------------------------
 
 /* Define transit line object prototype */
-var TransitLine = function(name, time) {
-  this.name = name;
-  this.time = time;
+var TransitLine = function(transitName, arrivalTime) {
+  this.transitName = transitName;
+  this.arrivalTime = arrivalTime;
 };
 
 /* Define ticket object prototype */
-var AvailableTicket = function(name, price) {
-    this.name = name;
-    this.price = price;
+var AvailableTicket = function(ticketId, ticketName, ticketPrice) {
+    this.ticketId = ticketId;
+    this.ticketName = ticketName;
+    this.ticketPrice = ticketPrice;
 };
 
 var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
@@ -297,53 +366,6 @@ var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
 // ----------------------------------------------------------------------
 // API
 // ----------------------------------------------------------------------
-
-/*
- * Description: Modify the max number of guests allowed on a single QR scan.
- * Input: An integer upper bound for number of guest spots.
- * Output: N/A
- * Error: N/A
- */
-function setMaxGuests(newMaxGuests) {
-    maxGuests = newMaxGuests;
-    console.log("Max guests set to " + newMaxGuests);
-}
-
-/*
- * Description: Change the base fare (displayed to user and used to calculate guest pass price)
- * Input: A monetary value
- * Output: N/A
- * Error: N/A
- */
-function setBaseFare(newBaseFare) {
-    baseFare = newBaseFare;
-    console.log("Base fare set to " + newBaseFare);
-}
-
-/*
- * Description: Set the displayed TAP balance in top right of header and in Add Funds under balance.
- * Input: An integer or float representing the monetary value of their account balance.
- * Output: N/A
- * Error: N/A
- */
-function setTAPBalance(balanceIntValue) {
-    tapBalance = parseFloat(balanceIntValue).toFixed(2);
-    $(".tap-balance-value").html(tapBalance);
-    $("#funds_tap_balance_value").html("$" + tapBalance);
-
-    // Hide QR code if balance went below required base fare.
-    verifyAndUpdateQRCodeScannable();
-}
-
-/*
- * Description: Set if this user has an active ticket ready to scan.
- * Input: True if they have a ticket, false if not.
- * Output: N/A
- * Error: N/A
- */
-function setHasActiveTicket(newHasActiveTicket) {
-    hasActiveTicket = newHasActiveTicket;
-}
 
 /*
  * Description: Set the ticket text in the caption displayed under the front-facing QR code.
@@ -449,7 +471,41 @@ function setAvailableTickets(ticketList) {
  * Error: N/A
  */
 function addAvailableTicket(ticket) {
-    $("#mytickets-list").append("<li><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
+    // Add to array to access later.
+    availableTicketList.push(ticket);
+
+    // Add to DOM.
+    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
+}
+
+/*
+ * Description: Remove a ticket from the list.
+ * Input: A ticket object.
+ * Output: N/A
+ * Error: N/A
+ */
+function removeAvailableTicket(ticket) {
+    for (var i = 0; i < availableTicketList.length; i++) {
+        if (availableTicketList[i].ticketId == ticket.ticketId) {
+            --i;
+            availableTicketList.splice(i, 1);
+            $("#ticketId" + ticket.ticketId).remove();
+        }
+    }
+}
+
+/*
+ * Description: Clear available tickets.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearAvailableTickets() {
+    // Clear list.
+    availableTicketList = [];
+
+    // Clear DOM.
+    $("#mytickets-list").empty();
 }
 
 /*
@@ -458,14 +514,12 @@ function addAvailableTicket(ticket) {
  * Output: N/A
  * Error: N/A
  */
-function processedTicketSuccessful(tapBalanceUsed, remainingBalance) {
+function processedTicketSuccessful(remainingBalance) {
     // Send notification to phone platform.
     processedTicketNotification(0, "Successfully processed ticket");
 
     // Update TAP balance on home screen.
-    if (tapBalanceUsed) {
-        setTAPBalance(remainingBalance); // Back-end should be validating this value.
-    }
+    setTAPBalance(remainingBalance); // Back-end should be validating this value.
 }
 
 /*
@@ -475,6 +529,7 @@ function processedTicketSuccessful(tapBalanceUsed, remainingBalance) {
  * Error: N/A
  */
 function processedTicketFailed(errorCode) {
+    processedTicketNotification(0, "Ticket failed to process");
 }
 
 // ----------------------------------------------------------------------
@@ -496,14 +551,13 @@ var refreshRate = 5000;
 
 function updateTimeQR() {
     qrcode.clear();
-    timestamp= Date.now();
-    message= userid+timestamp;
+    timestamp = Date.now();
+    message = userid + timestamp;
     qrcode.makeCode(message);
 }
 
 $("#home").on("pagecreate", function(event) {
-    /* QR code stuff */
-
+    /* Encode the QR image */
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
         height: $(window).width()/2,
@@ -511,19 +565,10 @@ $("#home").on("pagecreate", function(event) {
     });
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
-
-
-    /* Find the TAP balance panel this page and set it to open if the user swipes left */
-
-    $(this).on( "swipeleft", function( e ) {
-        // Check if panel is open already
-        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
-            $("#tap-balance-panel").panel( "open" );
-        }
-    });
 });
 
-$("#home").on("pageshow", function(event) {
+/* Called right when transition to home page begins */
+$("#home").on("pagebeforeshow", function(event) {
     /* Get the actual QR image height */
     qrImgHeight = $("#qr-code").actual("height");
 
@@ -533,27 +578,27 @@ $("#home").on("pageshow", function(event) {
     $("#qr-code-disabled").height(qrImgHeight);
     $("#qr-back").height(qrImgHeight);
 
-    /* Center QR tile on screen dynamically */
-    $("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
-
     /* Always show QR code side when page loads */
     resetCenterTile();
 
     /* Check if QR code should be displayed or hidden */
     verifyAndUpdateQRCodeScannable();
+});
+
+/* Called after the home page is fully transitioned */
+$("#home").on("pageshow", function(event) {
+    /* Center QR tile on screen dynamically */
+    //$("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
+    $("#qr-rotation-tile").animate({left: ($("#home-content").width()/2 - $(window).width()/4) + "px"}, 200);
 
     /* Calculate the height of the Buy Tickets container. */
     ticketListHeight = $("#mytickets-list li").actual("height") * 3;
 
-    /* Twitch the ticket tab to indicate its existence to user */
-    teaseTicketContainer(600);
-
     /* Set the ticket container scrollbox height */
     $("#mytickets-list-container").height(ticketListHeight);
 
-    /* Distribute buttons over the height of the QR image. */
-    //$(".qrBtn").height(qrImgHeight/$(".qrBtn").length);
-    //$(".qrBtn").css("line-height", (qrImgHeight/$(".qrBtn").length)/2 + "px"); // don't know why line height needs to be halved, but it works
+    /* Twitch the ticket tab to indicate its existence to user */
+    teaseTicketContainer(600);
 });
 
 /* Custom incrementor/decrementor */
@@ -616,12 +661,6 @@ $(".qrFlipBack").button().click(function() {
     $("#qr-back-caption").hide( "slide", { direction: "left" }, 300, function() {
         $("#qr-front-caption").show("slide", { direction: "right" }, 300, function () {});
     });
-});
-
-/* Apply to all buttons that transition to a new page. */
-$(".qrShortcutBtn").button().click(function() {
-    /* Reset QR code immediately after navigating to a new page so it's in place when user returns. */
-    resetCenterTile();
 });
 
 // Verify that the user has a valid ticket or enough money for base fare, deactivate qr code otherwise.
