@@ -291,8 +291,7 @@ $("#log-in-form").on("submit", function(e) {
         }
     });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 
 //Set Tap Balance
@@ -321,12 +320,6 @@ $("#log-in-form").on("submit", function(e) {
 
 
 
-
-
-=======
->>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
-=======
->>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
     // TODO: For now just transition to home page regardless.
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
@@ -533,22 +526,20 @@ $("#submit-create-account").on("click", function(e) {
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-               alert("This email address is already in use, please select a new one");
-
-               alert("This email address is already in use, please select a new one");
 
 
                alert("This email address is already in use, please select a new one");
 
-=======
-               alert("This email address is already in use, please select a new one");ÃŸ
->>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
-=======
-               alert("This email address is already in use, please select a new one");ÃŸ
->>>>>>> 7e4e7b9e385fef5308b7df828b8b88767ad930c4
+               alert("This email address is already in use, please select a new one");
+
+
+               alert("This email address is already in use, please select a new one");
+
+
+               alert("This email address is already in use, please select a new one");
+
+
+               alert("This email address is already in use, please select a new one");
             }
             if(!parsedstring)  {
                 $.mobile.changePage("#home", {transition: "slideup"});
