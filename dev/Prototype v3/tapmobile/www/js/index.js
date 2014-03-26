@@ -198,22 +198,7 @@ $("#log-in-form").on("submit", function(e) {
 // ========================================================================================================================
 
 /* Called by accout creation cancel button */
-$("#cancel-yes").on("click", function(e) {
-    document.getElementById("user-info-account-create").reset();
-    document.getElementById("payment-info-account-create").reset();
-    $.mobile.changePage("#log-in", {transition: "slidedown"});
-    return false;
-});
-
-$("#cancel-yes-2").on("click", function(e) {   
-    document.getElementById("user-info-account-create").reset();
-    document.getElementById("payment-info-account-create").reset();
-    $.mobile.changePage("#log-in", {transition: "slidedown"});
-    return false;
-});
-
-$("#cancel-yes-3").on("click", function(e) {
-
+$(".signup-cancel").on("click", function(e) {
     document.getElementById("user-info-account-create").reset();
     document.getElementById("payment-info-account-create").reset();
     $.mobile.changePage("#log-in", {transition: "slidedown"});
@@ -232,17 +217,13 @@ $("#submit-create-account").on("click", function(e) {
             lname:$('#lName').val(),
             email:$('#email').val(),
             password:$('#password2').val()
-
         },
         success : function(data) {
             $.mobile.changePage("#home", {transition: "slideup"});
-
         },
         error: function(data) {
             alert("error has occured");
-
         }
-
     });
 
 
