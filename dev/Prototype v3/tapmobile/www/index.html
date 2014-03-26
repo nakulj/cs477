@@ -272,10 +272,11 @@
         </div>
 
         <div id="home-content" data-role="content">
-            <div data-role="controlgroup">
-                <a href="#" data-role="button">Destination A</a>
-                <a href="#" data-role="button">Destination B</a>
-            </div>
+            <ul id="nearest-station" data-role="listview" data-inset="true">
+                <li id="nearest-station-desc" data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: blue; color: white; text-shadow: none;"></li>
+                <li><p id="nearest-station-time-A" class="ui-li-aside"></p><h2 id="nearest-station-dest-A"></h2></li>
+                <li><p id="nearest-station-time-B" class="ui-li-aside"></p><h2 id="nearest-station-dest-B"></h2></li>
+            </ul>
 
             <div id="qr-rotation-tile">
                 <div id="qr-front" class="rotationContent">

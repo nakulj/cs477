@@ -67,6 +67,15 @@
 
 /* HOME SCREEN */
 
+#nearest-station {
+    margin-top: 0;
+    padding: 0;
+}
+
+#nearest-station li {
+    padding: 5px;
+}
+
 #tap-balance-header-btn {
     min-width: 5em; /* So button doesn't fluctuate in width as the TAP balance value changes (but will grow if need be) */
 }

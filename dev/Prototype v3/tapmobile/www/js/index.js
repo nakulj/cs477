@@ -47,6 +47,13 @@ $(function() {
 
     /***** PLACEHOLDER CODE *******/
 
+    var testTransitStations = [];
+
+    testTransitStations[0] = new TransitStation(1, "Exposition Station", "Blue Line", "Santa Monica", "12:43pm", "Washington", "12:49pm");
+    testTransitStations[1] = new TransitStation(2, "Vermont Station", "Blue Line", "Exposition", "12:50pm", "Santa Monica", "12:41pm");
+
+    setNearestTransitStations(testTransitStations);
+
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
     var testInitTickets = [];
@@ -66,7 +73,7 @@ $(function() {
     setAvailableTickets(testInitTickets);
 
     // Hardcoded default balance value
-    setTAPBalance(3);
+    setTAPBalance(0.00);
 
     // Hardcoded front QR caption value
     setFrontQRCaption(new FrontQRCaption("Metro 7 Day Pass", "3/16/2014", 0));
@@ -81,6 +88,35 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
+
+
+// ========================================================================================================================
+// OBJECT PROTOTYPES
+// ========================================================================================================================
+
+/* Define transit line object prototype */
+var TransitStation = function(stationId, stationDescription, transitLine, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
+    this.stationId = stationId;
+    this.stationDescription = stationDescription;
+    this.transitLine = transitLine;
+    this.transitDestA = transitDestA;
+    this.arrivalTimeA = arrivalTimeA;
+    this.transitDestB = transitDestB;
+    this.arrivalTimeB = arrivalTimeB;
+};
+
+/* Define ticket object prototype */
+var AvailableTicket = function(ticketId, ticketName, ticketPrice) {
+    this.ticketId = ticketId;
+    this.ticketName = ticketName;
+    this.ticketPrice = ticketPrice;
+};
+
+var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
+    this.ticketText = ticketText;
+    this.expirationDate = expirationDate;
+    this.numGuests = numGuests;
+}
 
 // ========================================================================================================================
 // GLOBAL VARIABLES
@@ -167,6 +203,11 @@ var qrCodeVisible = true;
 /* A list of AvailableTicket objects available to the user to purchase. */
 var availableTicketList = [];
 
+/* A list of TransitStation objects that represent the nearest transit lines to the user */
+var nearestTransitStations = [];
+
+/* An index of which TransitStation the user is currently viewing in the home screen. */
+var nearestTransitStationIndex = 0;
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
@@ -505,29 +546,6 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
 // ========================================================================================================================
 
 // ----------------------------------------------------------------------
-// Object Prototypes
-// ----------------------------------------------------------------------
-
-/* Define transit line object prototype */
-var TransitLine = function(transitName, arrivalTime) {
-  this.transitName = transitName;
-  this.arrivalTime = arrivalTime;
-};
-
-/* Define ticket object prototype */
-var AvailableTicket = function(ticketId, ticketName, ticketPrice) {
-    this.ticketId = ticketId;
-    this.ticketName = ticketName;
-    this.ticketPrice = ticketPrice;
-};
-
-var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
-    this.ticketText = ticketText;
-    this.expirationDate = expirationDate;
-    this.numGuests = numGuests;
-}
-
-// ----------------------------------------------------------------------
 // API
 // ----------------------------------------------------------------------
 
@@ -593,24 +611,59 @@ function setBackQRCaption(backQRCaption) {
 /* Nearest transit lines */
 
 /*
- * Description: Set the first nearest transit line.
- * Input: A TransitLine object
+ * Description: 
+ * Input: A list of TransitStation objects.
  * Output: N/A
  * Error: N/A
  */
-function setClosestTransit1(transitLine) {
-
+function setNearestTransitStations(transitStationList) {
+    for (var i = 0; i < transitStationList.length; i++) {
+        addTransitStation(transitStationList[i]);
+    }
 }
 
 /*
- * Description: Set the second nearest transit line.
- * Input: A TransitLine object
+ * Description: 
+ * Input: A TransitStation object.
  * Output: N/A
  * Error: N/A
  */
-function setClosestTransit2(transitLine) {
-
+function addTransitStation(transitStation) {
+    // Add to array to access later.
+    nearestTransitStations.push(transitStation);
 }
+
+/*
+ * Description: Remove a TransitStation from the list.
+ * Input: A ticket object.
+ * Output: N/A
+ * Error: N/A
+ */
+function removeTransitStation(transitStation) {
+    for (var i = 0; i < transitStationList.length; i++) {
+        if (transitStationList[i].stationId == transitStation.stationId) {
+            --i;
+
+            // Remove from list.
+            transitStationList.splice(i, 1);
+        }
+    }
+}
+
+/*
+ * Description: Clear available tickets.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearTransitStations() {
+    // Clear list.
+    nearestTransitStations = [];
+
+    // Clear DOM.
+    $("").empty();
+}
+
 
 /* QR/dependents */
 
@@ -742,6 +795,9 @@ $("#home").on("pagebeforeshow", function(event) {
     $("#qr-code-disabled").height(qrImgHeight);
     $("#qr-back").height(qrImgHeight);
 
+    /* Update the transit station element */
+    updateTransitStationElement(nearestTransitStationIndex);
+
     /* Always show QR code side when page loads */
     resetCenterTile();
 
@@ -764,6 +820,58 @@ $("#home").on("pageshow", function(event) {
     /* Twitch the ticket tab to indicate its existence to user */
     teaseTicketContainer(600);
 });
+
+/* Nearest transit station */
+
+// How many milliseconds it takes the element to slide off screen and back on.
+var transitStationSwipeSpeed = 200;
+
+$("#nearest-station").on("swipeleft", function(event) {
+    event.stopImmediatePropagation(); // Prevent other swipe events from firing.
+
+    if (!$(this).is(':animated')) { // Don't double animate.
+        if (nearestTransitStationIndex < nearestTransitStations.length - 1) {
+            $(this).css("position", "relative");
+            $(this).animate({left: -($(this).width()+20)+"px"}, transitStationSwipeSpeed, function() {
+                updateTransitStationElement(++nearestTransitStationIndex);
+
+                $(this).css("left", ($(this).width()+20)+"px");
+                $(this).animate({left: ($(this).parent().width() - $(this).width())/2}, transitStationSwipeSpeed, function() {
+                    $(this).css("left", "auto");
+                    $(this).css("position", "static");
+                });
+            });
+        }
+    }
+});
+
+$("#nearest-station").on("swiperight", function(event) {
+    event.stopImmediatePropagation(); // Prevent other swipe events from firing.
+
+    if (!$(this).is(':animated')) { // Don't double animate.
+        if (nearestTransitStationIndex > 0) {
+            $(this).css("position", "relative");
+            $(this).animate({right: -($(this).width()+20)+"px"}, transitStationSwipeSpeed, function() {
+                updateTransitStationElement(--nearestTransitStationIndex);
+
+                $(this).css("right", ($(this).width()+20)+"px");
+                $(this).animate({right: ($(this).parent().width() - $(this).width())/2}, transitStationSwipeSpeed, function() {
+                    $(this).css("right", "auto");
+                    $(this).css("position", "static");
+                });
+            });
+        }
+    }
+});
+
+function updateTransitStationElement(transitStationIndex) {
+    var transitStation = nearestTransitStations[transitStationIndex];
+    $("#nearest-station-desc").html(transitStation.stationDescription);
+    $("#nearest-station-dest-A").html(transitStation.transitDestA);
+    $("#nearest-station-time-A").html(transitStation.arrivalTimeA);
+    $("#nearest-station-dest-B").html(transitStation.transitDestB);
+    $("#nearest-station-time-B").html(transitStation.arrivalTimeB);
+}
 
 /* Custom incrementor/decrementor */
 
