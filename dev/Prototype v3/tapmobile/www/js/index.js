@@ -38,7 +38,6 @@ var app = {
 
     receivedEvent: function(id) {
         //window.location="login.html";
-        //$.mobile.changePage('#card_details');
     }
 };
 
@@ -82,20 +81,95 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
-/* Application Globals (and defaults) */
 
-// These should only be reset by the back-end.
-var maxGuests = 4; // Max number of guests on a single QR scan (this could be capped further depending on the user's account balance)
-var baseFare = 1.50; // TODO: Make this nil and force back end to let us know the base fare when the app is started.
-var tapBalance = 10.00; // TODO: ^^
-var hasActiveTicket = false; // If the user has an active ticket, set this to true.
+// ========================================================================================================================
+// GLOBAL VARIABLES
+// ========================================================================================================================
 
-// These are set in the front-end.
+
+/* Max number of guests on a single QR scan (this could be capped further depending on the user's account balance) */
+var maxGuests = 4;
+
+/* TODO: Make this nil and force back end to let us know the base fare when the app is started. */
+var baseFare = 1.50;
+
+/* The current TAP balance as we know it on the front-end. */
+var tapBalance = 0.00;
+
+/* If the user has an active ticket this should be set to true. */
+var hasActiveTicket = false;
+
+
+// ========================================================================================================================
+// GLOBAL SETTERS
+// ========================================================================================================================
+
+/*
+ * Description: Modify the max number of guests allowed on a single QR scan.
+ * Input: An integer upper bound for number of guest spots.
+ * Output: N/A
+ * Error: N/A
+ */
+function setMaxGuests(newMaxGuests) {
+    maxGuests = newMaxGuests;
+    console.log("Max guests set to " + newMaxGuests);
+}
+
+/*
+ * Description: Change the base fare (displayed to user and used to calculate guest pass price)
+ * Input: A monetary value
+ * Output: N/A
+ * Error: N/A
+ */
+function setBaseFare(newBaseFare) {
+    baseFare = newBaseFare;
+    console.log("Base fare set to " + newBaseFare);
+}
+
+/*
+ * Description: Set the displayed TAP balance in top right of header and in Add Funds under balance.
+ * Input: An integer or float representing the monetary value of their account balance.
+ * Output: N/A
+ * Error: N/A
+ */
+function setTAPBalance(balanceIntValue) {
+    tapBalance = parseFloat(balanceIntValue).toFixed(2);
+    $(".tap-balance-value").html(tapBalance);
+    $("#funds_tap_balance_value").html("$" + tapBalance);
+
+    // Hide QR code if balance went below required base fare.
+    verifyAndUpdateQRCodeScannable();
+}
+
+/*
+ * Description: Set if this user has an active ticket ready to scan.
+ * Input: True if they have a ticket, false if not.
+ * Output: N/A
+ * Error: N/A
+ */
+function setHasActiveTicket(newHasActiveTicket) {
+    hasActiveTicket = newHasActiveTicket;
+}
+
+
+// ========================================================================================================================
+// ALL PAGES
+// ========================================================================================================================
+
+/* Private Global Variables */
+
+/* The number of guests currently selected in the app */
 var numGuests = 0;
+
+/* READ-ONLY: Set in verifyAndUpdateQRCodeScannable(). */
 var qrCodeVisible = true;
+
+/* A list of AvailableTicket objects available to the user to purchase. */
 var availableTicketList = [];
 
-/* Affects all pages with panels in the application */
+
+/* Enable the "swipe right" feature to open the side panel in the app. */
+
 $(".sidePanelAccessible").on( "pagecreate", function() {
     var pageId = $(this).attr("id");
 
@@ -114,12 +188,6 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
-
-
-
-
-
-
     // TODO: For now just transition to home page regardless.
     $.mobile.changePage("#home", {transition: "slideup"});
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
@@ -297,53 +365,6 @@ var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
 // ----------------------------------------------------------------------
 
 /*
- * Description: Modify the max number of guests allowed on a single QR scan.
- * Input: An integer upper bound for number of guest spots.
- * Output: N/A
- * Error: N/A
- */
-function setMaxGuests(newMaxGuests) {
-    maxGuests = newMaxGuests;
-    console.log("Max guests set to " + newMaxGuests);
-}
-
-/*
- * Description: Change the base fare (displayed to user and used to calculate guest pass price)
- * Input: A monetary value
- * Output: N/A
- * Error: N/A
- */
-function setBaseFare(newBaseFare) {
-    baseFare = newBaseFare;
-    console.log("Base fare set to " + newBaseFare);
-}
-
-/*
- * Description: Set the displayed TAP balance in top right of header and in Add Funds under balance.
- * Input: An integer or float representing the monetary value of their account balance.
- * Output: N/A
- * Error: N/A
- */
-function setTAPBalance(balanceIntValue) {
-    tapBalance = parseFloat(balanceIntValue).toFixed(2);
-    $(".tap-balance-value").html(tapBalance);
-    $("#funds_tap_balance_value").html("$" + tapBalance);
-
-    // Hide QR code if balance went below required base fare.
-    verifyAndUpdateQRCodeScannable();
-}
-
-/*
- * Description: Set if this user has an active ticket ready to scan.
- * Input: True if they have a ticket, false if not.
- * Output: N/A
- * Error: N/A
- */
-function setHasActiveTicket(newHasActiveTicket) {
-    hasActiveTicket = newHasActiveTicket;
-}
-
-/*
  * Description: Set the ticket text in the caption displayed under the front-facing QR code.
  * Input: Text identifying the ticket being used.
  * Output: N/A
@@ -490,14 +511,12 @@ function clearAvailableTickets() {
  * Output: N/A
  * Error: N/A
  */
-function processedTicketSuccessful(tapBalanceUsed, remainingBalance) {
+function processedTicketSuccessful(remainingBalance) {
     // Send notification to phone platform.
     processedTicketNotification(0, "Successfully processed ticket");
 
     // Update TAP balance on home screen.
-    if (tapBalanceUsed) {
-        setTAPBalance(remainingBalance); // Back-end should be validating this value.
-    }
+    setTAPBalance(remainingBalance); // Back-end should be validating this value.
 }
 
 /*
@@ -507,6 +526,7 @@ function processedTicketSuccessful(tapBalanceUsed, remainingBalance) {
  * Error: N/A
  */
 function processedTicketFailed(errorCode) {
+    processedTicketNotification(0, "Ticket failed to process");
 }
 
 // ----------------------------------------------------------------------
@@ -528,14 +548,13 @@ var refreshRate = 5000;
 
 function updateTimeQR() {
     qrcode.clear();
-    timestamp= Date.now();
-    message= userid+timestamp;
+    timestamp = Date.now();
+    message = userid + timestamp;
     qrcode.makeCode(message);
 }
 
 $("#home").on("pagecreate", function(event) {
-    /* QR code stuff */
-
+    /* Encode the QR image */
     qrcode = new QRCode(document.getElementById("qr-code"), {
         width: $(window).width()/2,
         height: $(window).width()/2,
@@ -543,19 +562,10 @@ $("#home").on("pagecreate", function(event) {
     });
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
-
-
-    /* Find the TAP balance panel this page and set it to open if the user swipes left */
-
-    $(this).on( "swipeleft", function( e ) {
-        // Check if panel is open already
-        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
-            $("#tap-balance-panel").panel( "open" );
-        }
-    });
 });
 
-$("#home").on("pageshow", function(event) {
+/* Called right when transition to home page begins */
+$("#home").on("pagebeforeshow", function(event) {
     /* Get the actual QR image height */
     qrImgHeight = $("#qr-code").actual("height");
 
@@ -565,27 +575,26 @@ $("#home").on("pageshow", function(event) {
     $("#qr-code-disabled").height(qrImgHeight);
     $("#qr-back").height(qrImgHeight);
 
-    /* Center QR tile on screen dynamically */
-    $("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
-
     /* Always show QR code side when page loads */
     resetCenterTile();
 
     /* Check if QR code should be displayed or hidden */
     verifyAndUpdateQRCodeScannable();
+});
+
+/* Called after the home page is fully transitioned */
+$("#home").on("pageshow", function(event) {
+    /* Center QR tile on screen dynamically */
+    $("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
 
     /* Calculate the height of the Buy Tickets container. */
     ticketListHeight = $("#mytickets-list li").actual("height") * 3;
 
-    /* Twitch the ticket tab to indicate its existence to user */
-    teaseTicketContainer(600);
-
     /* Set the ticket container scrollbox height */
     $("#mytickets-list-container").height(ticketListHeight);
 
-    /* Distribute buttons over the height of the QR image. */
-    //$(".qrBtn").height(qrImgHeight/$(".qrBtn").length);
-    //$(".qrBtn").css("line-height", (qrImgHeight/$(".qrBtn").length)/2 + "px"); // don't know why line height needs to be halved, but it works
+    /* Twitch the ticket tab to indicate its existence to user */
+    teaseTicketContainer(600);
 });
 
 /* Custom incrementor/decrementor */
