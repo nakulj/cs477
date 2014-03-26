@@ -288,7 +288,7 @@ $("#submit-create-account").on("click", function(e) {
     /* Validate password */
     //length: must be greater at least 5 characters and no greater than max length
     if (pass1.length < 5 || pass1.length > MAX_LENGTH){
-        set_error("pass", "Please enter a password within correct length range", error_array);
+        set_error("pass", "Please enter a password over 5 characters", error_array);
     }
     else if (pass1 != pass2){
         set_error("pass", "Passwords do not match", error_array);
@@ -399,7 +399,7 @@ $("#submit-create-account").on("click", function(e) {
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
-                alert("Email already exists on database");
+               alert("This email address is already in use, please select a new one");ß
             }
             if(!parsedstring)  {
                 $.mobile.changePage("#home", {transition: "slideup"});
@@ -407,14 +407,9 @@ $("#submit-create-account").on("click", function(e) {
 
         },
         error: function(data, textStatus) {
+        alert("server error has occured");
 
-
-
-            $.mobile.changePage("#home", {transition: "slideup"});
-        },
-        error: function(data) {
-            alert("Server Error Has Occured");
-            }
+        }
         });
   }
 
