@@ -160,7 +160,19 @@ var hasActiveTicket = false;
 // ========================================================================================================================
 // GLOBAL SETTERS
 // ========================================================================================================================
-
+/*
+ * Description: Add google coordinate location to expo line list.
+ * Input: List of stations
+ * Output: N/A
+ * Error: N/A
+ */
+function setStationLocation(stationsList) {
+    for(var i=0; i < stationsList.length; i++){
+        var lat = stationsList[i].latitude;
+        var lon = stationsList[i].longitude;
+        stationsList[i].stationLocation = new google.maps.LatLng(lat, lon);
+    }
+}
 /*
  * Description: Modify the max number of guests allowed on a single QR scan.
  * Input: An integer upper bound for number of guest spots.
