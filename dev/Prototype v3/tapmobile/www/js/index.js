@@ -65,7 +65,7 @@ $(function() {
     
     // Adds Google version of Coordinates to list above ^
     setStationLocation(metroExpoLineStations);
-    
+    setNearestTransitStations(metroExpoLineStations);
     // Hardcoded test transit stations
     
     var testTransitStations = [];
@@ -73,7 +73,7 @@ $(function() {
     testTransitStations[0] = new TransitStation(1, "Exposition Station", "Blue Line", "Santa Monica", "12:43pm", "Washington", "12:49pm");
     testTransitStations[1] = new TransitStation(2, "Vermont Station", "Blue Line", "Exposition", "12:50pm", "Santa Monica", "12:41pm");
 
-    setNearestTransitStations(testTransitStations);
+    
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
@@ -116,10 +116,13 @@ $(function() {
 // ========================================================================================================================
 
 /* Define transit line object prototype */
-var TransitStation = function(stationId, stationDescription, transitLine, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
+var TransitStation = function(stationId, stationDescription, transitLine, latitude, longitude, stationLocation, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
     this.stationId = stationId;
     this.stationDescription = stationDescription;
     this.transitLine = transitLine;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.stationLocation = stationLocation;
     this.transitDestA = transitDestA;
     this.arrivalTimeA = arrivalTimeA;
     this.transitDestB = transitDestB;
@@ -240,7 +243,7 @@ var availableTicketList = [];
 var nearestTransitStations = [];
 
 /* An index of which TransitStation the user is currently viewing in the home screen. */
-var nearestTransitStationIndex = 0;
+var nearestTransitStationIndex = 4; 
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
