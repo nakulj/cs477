@@ -66,14 +66,6 @@ $(function() {
     // Adds Google version of Coordinates to list above ^
     setStationLocation(metroExpoLineStations);
     setNearestTransitStations(metroExpoLineStations);
-    // Hardcoded test transit stations
-    
-    var testTransitStations = [];
-
-    testTransitStations[0] = new TransitStation(1, "Exposition Station", "Blue Line", "Santa Monica", "12:43pm", "Washington", "12:49pm");
-    testTransitStations[1] = new TransitStation(2, "Vermont Station", "Blue Line", "Exposition", "12:50pm", "Santa Monica", "12:41pm");
-
-    
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
@@ -243,7 +235,7 @@ var availableTicketList = [];
 var nearestTransitStations = [];
 
 /* An index of which TransitStation the user is currently viewing in the home screen. */
-var nearestTransitStationIndex = 4; 
+var nearestTransitStationIndex = 0;
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
@@ -265,6 +257,7 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
+    
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateLogin.php',
@@ -289,12 +282,6 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-
-
-
-
-
-
 
     // TODO: For now just transition to home page regardless.
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
