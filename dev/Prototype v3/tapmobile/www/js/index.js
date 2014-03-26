@@ -188,12 +188,10 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 0fe02f3fd9fc3bef24aab4cae38742d567d1b5e1
+
     // TODO: For now just transition to home page regardless.
     $.mobile.changePage("#home", {transition: "slideup"});
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
@@ -225,7 +223,7 @@ $("#submit-create-account").on("click", function(e) {
             password:$('#acc-create-password2').val()
         },
         success : function(data) {
-<<<<<<< HEAD
+
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
@@ -239,12 +237,11 @@ $("#submit-create-account").on("click", function(e) {
         error: function(data, textStatus) {
 
 
-=======
+
             $.mobile.changePage("#home", {transition: "slideup"});
         },
         error: function(data) {
             alert("error has occured");
->>>>>>> 0fe02f3fd9fc3bef24aab4cae38742d567d1b5e1
         }
     });
 
