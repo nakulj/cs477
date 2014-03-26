@@ -274,8 +274,8 @@
         <div id="home-content" data-role="content">
             <ul id="nearest-station" data-role="listview" data-inset="true">
                 <li id="nearest-station-desc" data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: blue; color: white; text-shadow: none;"></li>
-                <li><p id="nearest-station-time-A" class="ui-li-aside"></p><h2 id="nearest-station-dest-A"></h2></li>
-                <li><p id="nearest-station-time-B" class="ui-li-aside"></p><h2 id="nearest-station-dest-B"></h2></li>
+                <li><p id="nearest-station-time-A" class="ui-li-aside"></p><h2 id="nearest-station-dest-A" style="overflow:visible;"></h2></li>
+                <li><p id="nearest-station-time-B" class="ui-li-aside"></p><h2 id="nearest-station-dest-B" style="overflow:visible;"></h2></li>
             </ul>
 
             <div id="qr-rotation-tile">
@@ -741,6 +741,12 @@
         $(document).ready(function() {
             app.initialize();
         });
+    </script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuBcTJ0Qn0YoisT0_93at06maGlOSNbM4&libraries=geometry,places&sensor=true">
+    </script>
+    <script type="text/javascript">
+        google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </body>
 </html>
