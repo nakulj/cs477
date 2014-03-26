@@ -66,6 +66,14 @@ $(function() {
     // Adds Google version of Coordinates to list above ^
     setStationLocation(metroExpoLineStations);
     
+    var googleCurrentLocation = new google.maps.LatLng(currentLocation.latitude, currentLocation.longitude);
+    
+    setDistanceToStation(googleCurrentLocation,metroExpoLineStations);
+    
+    sortStations(distanceToStation);
+    
+    setNearestTransitStations(metroExpoLineStations);
+    
     // Hardcoded test transit stations
     
     var testTransitStations = [];
@@ -73,7 +81,6 @@ $(function() {
     testTransitStations[0] = new TransitStation(1, "Exposition Station", "Blue Line", "Santa Monica", "12:43pm", "Washington", "12:49pm");
     testTransitStations[1] = new TransitStation(2, "Vermont Station", "Blue Line", "Exposition", "12:50pm", "Santa Monica", "12:41pm");
 
-    setNearestTransitStations(testTransitStations);
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
