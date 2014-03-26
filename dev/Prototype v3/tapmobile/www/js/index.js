@@ -52,16 +52,16 @@ $(function() {
 
     var testInitTickets = [];
 
-    testInitTickets[0] = new AvailableTicket("Metro 30 Day Full Fare (API)", 65);
+    testInitTickets[0] = new AvailableTicket(1, "Metro 30 Day Full Fare (API)", 65);
     //addAvailableTicket(testInitTickets[0]);
 
-    testInitTickets[1] = new AvailableTicket("Metro 30 Day Pass with 1 Zone (API)", 55);
+    testInitTickets[1] = new AvailableTicket(2, "Metro 30 Day Pass with 1 Zone (API)", 55);
     //addAvailableTicket(testInitTickets[1]);
 
-    testInitTickets[2] = new AvailableTicket("Metro 7 Day Pass (API)", 20);
+    testInitTickets[2] = new AvailableTicket(3, "Metro 7 Day Pass (API)", 20);
     //addAvailableTicket(testInitTickets[2]);
 
-    testInitTickets[3] = new AvailableTicket("Metro 3 Day Pass (API)", 10);
+    testInitTickets[3] = new AvailableTicket(4, "Metro 3 Day Pass (API)", 10);
     //addAvailableTicket(testInitTickets[3]);
 
     setAvailableTickets(testInitTickets);
@@ -93,6 +93,7 @@ var hasActiveTicket = false; // If the user has an active ticket, set this to tr
 // These are set in the front-end.
 var numGuests = 0;
 var qrCodeVisible = true;
+var availableTicketList = [];
 
 /* Affects all pages with panels in the application */
 $(".sidePanelAccessible").on( "pagecreate", function() {
@@ -279,9 +280,10 @@ var TransitLine = function(name, time) {
 };
 
 /* Define ticket object prototype */
-var AvailableTicket = function(name, price) {
-    this.name = name;
-    this.price = price;
+var AvailableTicket = function(ticketId, ticketName, ticketPrice) {
+    this.ticketId = ticketId;
+    this.ticketName = ticketName;
+    this.ticketPrice = ticketPrice;
 };
 
 var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
@@ -445,7 +447,41 @@ function setAvailableTickets(ticketList) {
  * Error: N/A
  */
 function addAvailableTicket(ticket) {
-    $("#mytickets-list").append("<li><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
+    // Add to array to access later.
+    availableTicketList.push(ticket);
+
+    // Add to DOM.
+    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.name + " - $" + ticket.price + "</a></li>");
+}
+
+/*
+ * Description: Remove a ticket from the list.
+ * Input: A ticket object.
+ * Output: N/A
+ * Error: N/A
+ */
+function removeAvailableTicket(ticket) {
+    for (var i = 0; i < availableTicketList.length; i++) {
+        if (availableTicketList[i].ticketId == ticket.ticketId) {
+            --i;
+            availableTicketList.splice(i, 1);
+            $("#ticketId" + ticket.ticketId).remove();
+        }
+    }
+}
+
+/*
+ * Description: Clear available tickets.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearAvailableTickets() {
+    // Clear list.
+    availableTicketList = [];
+
+    // Clear DOM.
+    $("#mytickets-list").empty();
 }
 
 /*
