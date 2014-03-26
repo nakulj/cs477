@@ -929,9 +929,9 @@ $("#nearest-station").on("swiperight", function(event) {
 function updateTransitStationElement(transitStationIndex) {
     var transitStation = nearestTransitStations[transitStationIndex];
     $("#nearest-station-desc").html(transitStation.stationDescription);
-    $("#nearest-station-dest-A").html(transitStation.transitDestA);
+    $("#nearest-station-dest-A").html("Westbound to " + transitStation.transitDestA);
     $("#nearest-station-time-A").html(transitStation.arrivalTimeA);
-    $("#nearest-station-dest-B").html(transitStation.transitDestB);
+    $("#nearest-station-dest-B").html("Eastbound to " + transitStation.transitDestB);
     $("#nearest-station-time-B").html(transitStation.arrivalTimeB);
 }
 
