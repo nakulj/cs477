@@ -335,7 +335,6 @@ $("#log-in-form").on("submit", function(e) {
 // ========================================================================================================================
 
 /* Called by accout creation cancel button */
-/* Called by accout creation cancel button */
 $(".signup-cancel").on("click", function(e) {
     document.getElementById("user-info-account-create").reset();
     document.getElementById("payment-info-account-create").reset();
@@ -954,7 +953,7 @@ $("#home").on("pageshow", function(event) {
 /* Handle back button presses on Android when on the home screen. */
 function handleHomeScreenBackBtn() {
     if (qrCodeFacingForward) { // Do nothing.
-        //navigator.app.exitApp();
+        navigator.Backbutton.goHome(); // Open home screen.
     } else { // Flip the QR code back over
         flipQRCodeToFront();
     }
