@@ -68,7 +68,8 @@
 /* HOME SCREEN */
 
 #nearest-station {
-    margin-top: 0;
+    /*max-width: 80%;
+    margin: auto;*/
     padding: 0;
 }
 

@@ -29,16 +29,11 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        // Start the scanner.
+        alert("onDeviceReady");
+        app.scan();
     },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-    }
-
     scan: function () {
         var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
@@ -51,15 +46,5 @@ var app = {
         function (error) {
             alert("Scanning failed: " + error);
         });
-    },
-    encode: function() {
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-        /*scanner.encode(scanner.Encode.TEXT_TYPE, "http://www.nhl.com", function(success) {
-            alert("encode success: " + success);
-          }, function(fail) {
-            alert("encoding failed: " + fail);
-          }
-        );*/
     }
 };

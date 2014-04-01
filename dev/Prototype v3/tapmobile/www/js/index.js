@@ -33,11 +33,17 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        document.addEventListener("backbutton", app.onBackKeyDown, false);
     },
 
-    receivedEvent: function(id) {
-        //window.location="login.html";
+    onBackKeyDown: function() {
+        if ($.mobile.activePage.attr('id') == "log-in") { // Exit app if on log-in screen.
+            navigator.app.exitApp();
+        } else if ($.mobile.activePage.attr('id') == "home") { // Handle special home screen cases.
+            handleHomeScreenBackBtn();
+        } else { // Default "go back"
+            navigator.app.backHistory();
+        }
     }
 };
 
@@ -232,6 +238,9 @@ function setHasActiveTicket(newHasActiveTicket) {
 /* The number of guests currently selected in the app */
 var numGuests = 0;
 
+/* READ-ONLY: True if QR is facing foward, false if it's flipped (showing guest passes) */
+var qrCodeFacingForward = true;
+
 /* READ-ONLY: Set in verifyAndUpdateQRCodeScannable(). */
 var qrCodeVisible = true;
 
@@ -264,7 +273,7 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 var balance;
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
-    
+    /*
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateLogin.php',
@@ -291,9 +300,6 @@ $("#log-in-form").on("submit", function(e) {
         }
     });
 
-
-
-
 //Set Tap Balance
   setTimeout(function() {
     $.ajax({
@@ -315,12 +321,12 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-    },3000);
+    },3000);*/
 
 
+    // Bypass login for testing.
+    $.mobile.changePage("#home", {transition: "slideup"});
 
-
-    // TODO: For now just transition to home page regardless.
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
@@ -924,6 +930,9 @@ $("#home").on("pagebeforeshow", function(event) {
 
     /* Check if QR code should be displayed or hidden */
     verifyAndUpdateQRCodeScannable();
+
+    /* Reset Buy Tickets tab */
+    collapseTicketContainer(0);
 });
 
 /* Called after the home page is fully transitioned */
@@ -941,6 +950,15 @@ $("#home").on("pageshow", function(event) {
     /* Twitch the ticket tab to indicate its existence to user */
     teaseTicketContainer(600);
 });
+
+/* Handle back button presses on Android when on the home screen. */
+function handleHomeScreenBackBtn() {
+    if (qrCodeFacingForward) { // Do nothing.
+        //navigator.app.exitApp();
+    } else { // Flip the QR code back over
+        flipQRCodeToFront();
+    }
+}
 
 /* Nearest transit station */
 
@@ -1028,6 +1046,8 @@ $("#mytickets").click(function() {
     toggleTicketContainer(400);
 });
 
+/* QR Code Behaviour */
+
 /* Flip QR code and show dependents. */
 $("#qr-front").click(function() {
     if (qrCodeVisible) {
@@ -1035,6 +1055,31 @@ $("#qr-front").click(function() {
         updateGuestTotal(numGuests);
 
         /* Animation */
+        flipQRCodeToBack();
+    }
+});
+
+/* Flip dependents and show QR code. */
+$(".qrFlipBack").button().click(function() {
+    flipQRCodeToFront();
+});
+
+function flipQRCodeToFront() {
+    if (!qrCodeFacingForward) {
+        $("#qr-back").hide( "clip", { direction: "horizontal" }, 300, function() {
+            $("#qr-front").show("clip", { direction: "horizontal" }, 300, function () {});
+        });
+        
+        $("#qr-back-caption").hide( "slide", { direction: "left" }, 300, function() {
+            $("#qr-front-caption").show("slide", { direction: "right" }, 300, function () {});
+        });
+
+        qrCodeFacingForward = true;
+    }
+}
+
+function flipQRCodeToBack() {
+    if (qrCodeFacingForward) {
         $("#qr-front").hide( "clip", { direction: "horizontal" }, 300, function() {
             $("#qr-back").show("clip", { direction: "horizontal" }, 300, function () {});
         });
@@ -1042,19 +1087,10 @@ $("#qr-front").click(function() {
         $("#qr-front-caption").hide( "slide", { direction: "left" }, 300, function() {
             $("#qr-back-caption").show("slide", { direction: "right" }, 300, function () {});
         });
-    }
-});
 
-/* Flip dependents and show QR code. */
-$(".qrFlipBack").button().click(function() {
-    $("#qr-back").hide( "clip", { direction: "horizontal" }, 300, function() {
-        $("#qr-front").show("clip", { direction: "horizontal" }, 300, function () {});
-    });
-    
-    $("#qr-back-caption").hide( "slide", { direction: "left" }, 300, function() {
-        $("#qr-front-caption").show("slide", { direction: "right" }, 300, function () {});
-    });
-});
+        qrCodeFacingForward = false;
+    }
+}
 
 // Verify that the user has a valid ticket or enough money for base fare, deactivate qr code otherwise.
 function verifyAndUpdateQRCodeScannable()
@@ -1095,6 +1131,7 @@ function resetCenterTile() {
     $("#qr-back-caption").hide();
     $("#qr-front").show();
     $("#qr-front-caption").show();
+    qrCodeFacingForward = true;
 }
 
 function isTicketContainerExpanded() {
