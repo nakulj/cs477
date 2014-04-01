@@ -31,20 +31,20 @@ var app = {
     // deviceready Event Handler
     onDeviceReady: function() {
         // Start the scanner.
-        alert("onDeviceReady");
         app.scan();
     },
     scan: function () {
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-        scanner.scan(function (result) { 
-            alert("We got a barcode\n" +
-                "Result: " + result.text + "\n" +
-                "Format: " + result.format + "\n" +
-                "Cancelled: " + result.cancelled);
-        }, 
-        function (error) {
-            alert("Scanning failed: " + error);
-        });
+        alert("scan");
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                alert("We got a barcode\n" +
+                    "Result: " + result.text + "\n" +
+                    "Format: " + result.format + "\n" +
+                    "Cancelled: " + result.cancelled);
+            }, 
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+        );
     }
 };
