@@ -70,7 +70,6 @@
 #nearest-station {
     /*max-width: 80%;
     margin: auto;*/
-    padding: 0;
 }
 
 #nearest-station li {
@@ -82,9 +81,8 @@
 }
 
 #qr-rotation-tile {
-    margin: 0;
+    margin: auto;
     padding: 0;
-    position: relative;
     width: 50%;
 }
 

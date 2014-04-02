@@ -938,9 +938,9 @@ $("#home").on("pagebeforeshow", function(event) {
 $("#home").on("pageshow", function(event) {
     /* Center QR tile on screen dynamically */
     //$("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
-    $("#qr-rotation-tile").animate({left: ($("#home-content").width()/2 - $(window).width()/4) + "px"}, 200);
+    //$("#qr-rotation-tile").animate({left: ($("#home-content").width()/2 - $(window).width()/4) + "px"}, 200);
 
-    /* Calculate the height of the Buy Tickets container. */
+    /* Determine the height of the Buy Tickets container by taking the height of one element and multiplying by 3. */
     ticketListHeight = $("#mytickets-list li").actual("height") * 3;
 
     /* Set the ticket container scrollbox height */
