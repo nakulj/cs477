@@ -599,7 +599,11 @@ $("#submit-create-account").on("click", function(e) {
             fname:$('#acc-create-fname').val(),
             lname:$('#acc-create-lname').val(),
             email:$('#acc-create-email').val(),
-            password:$('#acc-create-password2').val()
+            password:$('#acc-create-password2').val(),
+            street:$('#cc_address_street').val(),
+            city:$('#cc_address_city').val(),
+            state:$('#cc_address_state').val(),
+            zip:$('#cc_zip').val()
         },
         success : function(data) {
 
