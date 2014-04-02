@@ -417,6 +417,7 @@ $("#submit-create-account").on("click", function(e) {
     $("#email-label").css('color', 'rgb(0,0,0)');
     $("#pass-label").css('color', 'rgb(0,0,0)');
     $("#pass2-label").css('color', 'rgb(0,0,0)');
+    $("#cc_name-label").css('color', 'rgb(0,0,0)');
     $("#cc_num-label").css('color', 'rgb(0,0,0)');
     $("#cc_cvv-label").css('color', 'rgb(0,0,0)');
     $("#cc_exp-label").css('color', 'rgb(0,0,0)');
@@ -430,6 +431,7 @@ $("#submit-create-account").on("click", function(e) {
     $("#email-label").html("<b>Email Address:</b>");
     $("#pass-label").html("<b>Password:</b>");
     $("#pass2-label").html("<b>Confirm Password:</b>");
+    $("#cc_name-label").html("<b>Cardholder Name:</b>");
     $("#cc_num-label").html("<b>Credit Card Number:</b>");
     $("#cc_cvv-label").html("<b>CVV:</b>");
     $("#cc_exp-label").html("<b>Expiration Date:</b>");
@@ -486,6 +488,7 @@ $("#submit-create-account").on("click", function(e) {
     }
 
     //Get account page 2 values
+    var cc_name = $("#cc_name").val();
     var cc_num = $("#cc_num").val();
     var cc_cvv = $("#cc_cvv").val();
     var cc_exp = $("#cc_exp").val();
@@ -495,6 +498,10 @@ $("#submit-create-account").on("click", function(e) {
     var cc_zip = $("#cc_zip").val();
 
     //Validate page 2 values
+    if (!cc_name){
+        set_error("cc_name", "Please enter a cardholder name", error_array, false);
+    }
+
     var regex_cc_num = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
     var result_test_cc_num = regex_cc_num.test(cc_num);
     if (!result_test_cc_num){
@@ -584,6 +591,11 @@ $("#submit-create-account").on("click", function(e) {
                 $("#pass-label").append("<br>" + error_array[i].msg);
                 page = set_page_redirect(page, 1);
             }
+            else if (error_array[i].field == "cc_name"){
+                $("#cc_name-label").css('color', 'rgb(200,0,0)');
+                $("#cc_name-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
             else if (error_array[i].field == "cc_num"){
                 $("#cc_num-label").css('color', 'rgb(200,0,0)');
                 $("#cc_num-label").append("<br>" + error_array[i].msg);
@@ -639,6 +651,7 @@ $("#submit-create-account").on("click", function(e) {
             lname:$('#acc-create-lname').val(),
             email:$('#acc-create-email').val(),
             password:$('#acc-create-password2').val(),
+            cardholder_name:$('#cc_name').val(),
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
@@ -749,8 +762,8 @@ $("#dialog-confirm-purchase-funds").on("click", function(e) {
             userSession:userSession
         },
         success : function(data) {
-
-
+            document.getElementById("user-info-account-create").reset();
+            document.getElementById("payment-info-account-create").reset();
         },
         error: function(data, textStatus) {
             alert("Server error has occurred");
