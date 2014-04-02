@@ -330,6 +330,45 @@ $("#log-in-form").on("submit", function(e) {
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
+$("#forgot-password").on("click", function(e){
+    
+    //get email address from login field
+    var user_email = $("#loginemail").val();
+
+    //validate it's a real email address
+    var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
+    var result_test_email = regex_email.test(user_email);
+    if (!result_test_email){
+       //tell user to enter email address
+       $("#popup-forgotpass-email").popup({ theme: "b" });
+       $("#popup-forgotpass-email").popup("open");
+    }
+    else{
+        //go ahead and send email with password to user's stored email address
+        $.ajax({
+            type:'POST',
+            url:'http://tapmobile.co.nf/back_end/forgotPassword.php',
+            data: {
+                email:user_email
+            },
+            success : function(msg) {
+                //show confirmation that it has been sent
+                $("#popup-confirm-passSent").popup({ theme: "b" });
+                $("#popup-confirm-passSent").popup("open");
+
+                //clear log-in form
+                $("#log-in-form").trigger("reset");
+
+            },
+            error: function(data, textStatus) {
+                alert("Server error has occurred");
+
+            }
+        });
+    }
+
+});
+
 // ========================================================================================================================
 // ACCOUNT CREATION PAGE
 // ========================================================================================================================
@@ -342,11 +381,25 @@ $(".signup-cancel").on("click", function(e) {
     return false;
 });
 
-function set_error(field, msg, error_array){
+function set_error(field, msg, error_array, set_value){
     var error_object = new Object();
     error_object.field = field;
     error_object.msg = msg;
     error_array.push(error_object);
+
+    if (set_value){
+        var page = 0;
+        if (field == "cc_state"){
+            $("#cc_address_state-label").css('color', 'rgb(200,0,0)');
+            $("#cc_address_state-label").append("<br>" + msg);
+            page = set_page_redirect(page, 2);
+        }
+        else if (field == "cc_city"){
+            $("#cc_address_city-label").css('color', 'rgb(200,0,0)');
+            $("#cc_address_city-label").append("<br>" + msg);
+            page = set_page_redirect(page, 2);
+        }
+    }
 }
 
 function set_page_redirect(page, number){
@@ -367,6 +420,9 @@ $("#submit-create-account").on("click", function(e) {
     $("#cc_num-label").css('color', 'rgb(0,0,0)');
     $("#cc_cvv-label").css('color', 'rgb(0,0,0)');
     $("#cc_exp-label").css('color', 'rgb(0,0,0)');
+    $("#cc_address_street-label").css('color', 'rgb(0,0,0)');
+    $("#cc_address_city-label").css('color', 'rgb(0,0,0)');
+    $("#cc_address_state-label").css('color', 'rgb(0,0,0)');
     $("#cc_zip-label").css('color', 'rgb(0,0,0)');
 
     $("#fname-label").html("<b>First Name:</b>");
@@ -378,6 +434,9 @@ $("#submit-create-account").on("click", function(e) {
     $("#cc_cvv-label").html("<b>CVV:</b>");
     $("#cc_exp-label").html("<b>Expiration Date:</b>");
     $("#cc_zip-label").html("<b>Billing Zip Code:</b>");
+    $("#cc_address_street-label").html("<b>Street Address:</b>");
+    $("#cc_address_city-label").html("<b>City:</b>");
+    $("#cc_address_state-label").html("<b>State:</b>");
 
     //set values
     var MAX_LENGTH = 255;
@@ -394,69 +453,109 @@ $("#submit-create-account").on("click", function(e) {
 
     /* Check to make sure name fields are not empty */
     if (!fname){
-        set_error("fname", "Please enter a first name", error_array);
+        set_error("fname", "Please enter a first name", error_array, false);
     }
 
     if (!lname){
-        set_error("lname", "Please enter a last name", error_array);
+        set_error("lname", "Please enter a last name", error_array, false);
     }
 
     /* Check to make sure name fields do not exceed max length */
     if (fname.length > MAX_LENGTH){
-        set_error("fname", "First name exceeds max length", error_array);
+        set_error("fname", "First name exceeds max length", error_array, false);
     }
 
     if (lname.length > MAX_LENGTH){
-        set_error("lname", "Last name exceeds max length", error_array);
+        set_error("lname", "Last name exceeds max length", error_array, false);
     }
 
     /*  Validate email address  */
     var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
     var result_test_email = regex_email.test(email);
     if (!result_test_email){
-        set_error("email", "Please enter a valid email address", error_array);
+        set_error("email", "Please enter a valid email address", error_array, false);
     }
 
     /* Validate password */
     //length: must be greater at least 5 characters and no greater than max length
     if (pass1.length < 5 || pass1.length > MAX_LENGTH){
-        set_error("pass", "Please enter a password over 5 characters", error_array);
+        set_error("pass", "Please enter a password over 5 characters", error_array, false);
     }
     else if (pass1 != pass2){
-        set_error("pass", "Passwords do not match", error_array);
+        set_error("pass", "Passwords do not match", error_array, false);
     }
 
     //Get account page 2 values
     var cc_num = $("#cc_num").val();
     var cc_cvv = $("#cc_cvv").val();
     var cc_exp = $("#cc_exp").val();
+    var cc_street = $("#cc_address_street").val();
+    var cc_city = $("#cc_address_city").val();
+    var cc_state = $("#cc_address_state").val();
     var cc_zip = $("#cc_zip").val();
 
     //Validate page 2 values
     var regex_cc_num = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
     var result_test_cc_num = regex_cc_num.test(cc_num);
     if (!result_test_cc_num){
-        set_error("cc_num", "Please enter a valid credit card number", error_array);
+        set_error("cc_num", "Please enter a valid credit card number", error_array, false);
     }
 
     var regex_cc_cvv = /^[0-9]{3,4}$/;
     var result_test_cc_cvv = regex_cc_cvv.test(cc_cvv);
     if (!result_test_cc_cvv){
-        set_error("cc_cvv", "Please enter a valid cvv number", error_array);
+        set_error("cc_cvv", "Please enter a valid cvv number", error_array, false);
     }
 
     var test_cc_exp = cc_exp.split('-'); //value from input as yyyy-mm
     if (test_cc_exp[0] < 2014 || test_cc_exp > 2200){
-        set_error("cc_exp", "Please enter a valid expiration", error_array);
+        set_error("cc_exp", "Please enter a valid expiration", error_array, false);
     }
     else if (test_cc_exp[1] < 1 || test_cc_exp[1] > 12){
-        set_error("cc_exp", "Please enter a valid expiration", error_array);
+        set_error("cc_exp", "Please enter a valid expiration", error_array, false);
+    }
+
+    var regex_cc_street = /^[0-9a-zA-Z. ]+$/;
+    var result_test_cc_street = regex_cc_street.test(cc_street);
+    if (!result_test_cc_street){
+        set_error("cc_street", "Please enter a valid street address", error_array, false);
+    }
+
+    var regex_cc_city = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;
+    var result_test_cc_city = regex_cc_city.test(cc_city);
+    if (!result_test_cc_city){
+        set_error("cc_city", "Please enter a valid city", error_array, false);
     }
 
     var regex_cc_zip = /^\d{5}(?:[-\s]\d{4})?$/;
     var result_test_cc_zip = regex_cc_zip.test(cc_zip);
     if (!result_test_cc_zip){
-        set_error("cc_zip", "Please enter a valid billing zip code", error_array);
+        set_error("cc_zip", "Please enter a valid billing zip code", error_array, false);
+    }
+
+    if (result_test_cc_zip && result_test_cc_city){
+        //confirm that zip matches entered city/state
+        var zip_found_city, zip_found_state;
+
+        //this is async -- need to wait for this to finish before continuing --> could be done better
+        $.zipLookup(
+            cc_zip, 
+            function(cityName, stateName, stateShortName){      // If Successful,
+               zip_found_city = cityName;
+               zip_found_state = stateShortName;
+               
+               if (zip_found_city != cc_city){
+                    set_error("cc_city", "City does not match zip code", error_array, true);
+               }
+               
+               if (zip_found_state != cc_state){
+                    set_error("cc_state", "State does not match zip code", error_array, true);
+               }
+            },
+            function(errMsg){   
+                //set error message                            
+                set_error("cc_zip", "Zip code could not be found", error_array, true);
+            });
     }
 
     //Check for Errors and if found redirect user
@@ -500,6 +599,21 @@ $("#submit-create-account").on("click", function(e) {
                 $("#cc_exp-label").append("<br>" + error_array[i].msg);
                 page = set_page_redirect(page, 2);
             }
+            else if (error_array[i].field == "cc_street"){
+                $("#cc_address_street-label").css('color', 'rgb(200,0,0)');
+                $("#cc_address_street-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_city"){
+                $("#cc_address_city-label").css('color', 'rgb(200,0,0)');
+                $("#cc_address_city-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_state"){
+                $("#cc_address_state-label").css('color', 'rgb(200,0,0)');
+                $("#cc_address_state-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
             else if (error_array[i].field == "cc_zip"){
                 $("#cc_zip-label").css('color', 'rgb(200,0,0)');
                 $("#cc_zip-label").append("<br>" + error_array[i].msg);
@@ -524,26 +638,17 @@ $("#submit-create-account").on("click", function(e) {
             fname:$('#acc-create-fname').val(),
             lname:$('#acc-create-lname').val(),
             email:$('#acc-create-email').val(),
-            password:$('#acc-create-password2').val()
+            password:$('#acc-create-password2').val(),
+            street:$('#cc_address_street').val(),
+            city:$('#cc_address_city').val(),
+            state:$('#cc_address_state').val(),
+            zip:$('#cc_zip').val()
         },
         success : function(data) {
 
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
-
-
-               alert("This email address is already in use, please select a new one");
-
-               alert("This email address is already in use, please select a new one");
-
-
-               alert("This email address is already in use, please select a new one");
-
-
-               alert("This email address is already in use, please select a new one");
-
-
                alert("This email address is already in use, please select a new one");
             }
             if(!parsedstring)  {
