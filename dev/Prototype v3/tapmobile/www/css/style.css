@@ -93,12 +93,16 @@
     @media all and (min-width: 1em){
 
         .my-breakpoint div {
-            background: white;
+            background: rgba(0,0,0,0);
         }
         .my-breakpoint .ui-block-a, 
         .my-breakpoint .ui-block-c { 
           float:left; 
           width: 5%; 
+          text-align: center;
+          line-height: 1000%;
+          color: #333;
+          font-size: 100%;
         }
         .my-breakpoint .ui-block-b { 
           float:left; 
@@ -106,21 +110,11 @@
         }
     }
 
-#destination-arrow-left{
-    text-align: right; 
-    background: rgba(0,0,0,0); 
-    font-size: 5em; 
-    padding-right: 1%; 
-    line-height: 200%; 
-    color: #888;
+#station-wrapper{
+    height: 100%;
+    width: 100%;
 }
-#destination-arrow-right{
-    background: rgba(0,0,0,0); 
-    font-size: 5em; 
-    padding-left: 1%; 
-    line-height: 200%; 
-    color: #888;
-}
+
 #tap-balance-header-btn {
     min-width: 5em; /* So button doesn't fluctuate in width as the TAP balance value changes (but will grow if need be) */
 }
