@@ -1306,7 +1306,7 @@ $("#update-account-form").on("submit", function(e) {
 
 /* TODO: Placeholder for account delete button */
 
-function set_error_update(field, msg, error_array, set_now){
+function set_error_update(field, msg, error_array){
     var error_object = new Object();
     error_object.field = field;
     error_object.msg = msg;
@@ -1315,32 +1315,7 @@ function set_error_update(field, msg, error_array, set_now){
 
 function validateAccountUpdate(){
 
-    $("#new-email-label").css('color', 'rgb(0,0,0)');
-    $("#new-email-confirm-label").css('color', 'rgb(0,0,0)');
-    $("#new-password-label").css('color', 'rgb(0,0,0)');
-    $("#new-password-confirm-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_name-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_num-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_cvv-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_month-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_street-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_city-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_state-label").css('color', 'rgb(0,0,0)');
-    $("#update_cc_zip-label").css('color', 'rgb(0,0,0)');
-
-    $("#new-email-label").html("New Email Address:");
-    $("#new-email-confirm-label").html("Confirm New Email Address:");
-    $("#new-password-label").html("New Password:");
-    $("#new-password-confirm-label").html("Confirm New Password:");
-    $("#update_cc_name-label").html("Cardholder Name:");
-    $("#update_cc_num-label").html("Number:");
-    $("#update_cc_cvv-label").html("CVV:");
-    $("#update_cc_month-label").html("Expiration Date:");
-    $("#update_cc_street-label").html("Street Address:");
-    $("#update_cc_city-label").html("City:");
-    $("#update_cc_state-label").html("State:");
-    $("#update_cc_zip-label").html("Zip Code:");
-
+    reset_all_update_labels();
 
     var error_array = [];
     var MAX_LENGTH = 255;
@@ -1350,38 +1325,11 @@ function validateAccountUpdate(){
     var pass_changed = true;
     var payment_changed = true;
 
+    //get values from form
     var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
     var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
-
-    if (email1 || email2){
-        var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
-        var result_test_email = regex_email.test(email1);
-        if (!result_test_email){
-            set_error_update("email1", "Please enter a valid email address", error_array, false);
-        }
-        else if (email1 != email2){
-            set_error_update("email2", "Email addresses do not match", error_array, false);
-        }
-    }
-    else{
-        email_changed = false;
-    }
-
     var pass1 = document.forms["AccountSettingsForm"]["new-password"].value;
     var pass2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
-
-    if (pass1 || pass2){
-        if (pass1.length < 5 || pass1.length > MAX_LENGTH){
-            set_error_update("pass1", "Please enter a password over 5 characters", error_array, false);
-         }
-        else if (pass1 != pass2){
-            set_error_update("pass2", "Passwords do not match", error_array, false);
-         }
-    }
-    else{
-        pass_changed = false;
-    }
-
     var cc_cardholder = document.forms["AccountSettingsForm"]["update_cc_name"].value;
     var cc_num = document.forms["AccountSettingsForm"]["update_cc_num"].value;
     var cc_cvv = document.forms["AccountSettingsForm"]["update_cc_cvv"].value;
@@ -1392,67 +1340,42 @@ function validateAccountUpdate(){
     var cc_state = document.forms["AccountSettingsForm"]["update_cc_state"].value;
     var cc_zip = document.forms["AccountSettingsForm"]["update_cc_zip"].value;
 
-    if (cc_cardholder || cc_num || cc_cvv || cc_street || cc_city || cc_zip){
+    //if email entered, validate
+    if (email1 || email2){
+        validate_email(email1, email2, error_array);
+    }
+    else{
+        email_changed = false;
+    }
 
+    //if password entered, validate
+    if (pass1 || pass2){
+        validate_password(pass1, pass2, error_array);
+    }
+    else{
+        pass_changed = false;
+    }
+
+    //if payment info entered, validate
+    if (cc_cardholder || cc_num || cc_cvv || cc_street || cc_city || cc_zip){
+        if (!cc_cardholder){
+           set_error_update("#update_cc_name-label", "Please enter a cardholder name", error_array);
+        }
+
+        validate_cc(cc_num, cc_cvv, cc_exp_year, cc_exp_month, error_array);
+
+        validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_array);
     }
     else{
         payment_changed = false;
     }
 
-    //Check for Errors and if found redirect user
+    //Check for errors and if found display errors to user
     if (error_array.length > 0){
-
+        
         //for each field in array set according field to red with error message
         for (var i = 0; i < error_array.length; i++){
-            if (error_array[i].field == "email1"){
-                $("#new-email-label").css('color', 'rgb(200,0,0)');
-                $("#new-email-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "email2"){
-                $("#new-email-confirm-label").css('color', 'rgb(200,0,0)');
-                $("#new-email-confirm-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "pass1"){
-                $("#new-password-label").css('color', 'rgb(200,0,0)');
-                $("#new-password-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "pass2"){
-                $("#new-password-confirm-label").css('color', 'rgb(200,0,0)');
-                $("#new-password-confirm-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_cardholder"){
-                $("#update_cc_name-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_name-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_num"){
-                $("#update_cc_num-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_num-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_cvv"){
-                $("#update_cc_cvv-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_cvv-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_exp_month"){
-                $("#update_cc_month-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_month-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_street"){
-                $("#update_cc_street-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_street-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_city"){
-                $("#update_cc_city-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_city-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_state"){
-                $("#update_cc_state-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_state-label").append("<br>" + error_array[i].msg);
-            }
-            else if (error_array[i].field == "cc_zip"){
-                $("#update_cc_zip-label").css('color', 'rgb(200,0,0)');
-                $("#update_cc_zip-label").append("<br>" + error_array[i].msg);
-            }
-
+            set_error_message(error_array[i].field, error_array[i].msg);
         }
     }
     else{
@@ -1465,7 +1388,20 @@ function validateAccountUpdate(){
             data: {
                 email_changed:email_changed,
                 pass_changed:pass_changed,
-                payment_changed:payment_changed
+                payment_changed:payment_changed,
+                email1: email1,
+                email2: email2,
+                pass1: pass1,
+                pass2: pass2,
+                cc_cardholder: cc_cardholder,
+                cc_num: cc_num,
+                cc_cvv: cc_cvv, 
+                cc_exp_month: cc_exp_month,
+                cc_exp_year: cc_exp_year,
+                cc_street: cc_street,
+                cc_city: cc_city,
+                cc_state: cc_state,
+                cc_zip: cc_zip
             },
             success : function(msg) {
 
@@ -1480,118 +1416,119 @@ function validateAccountUpdate(){
             });
         }  
     }
-
-}
-/* Validation */
-function validateAccountForm() {
-    var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
-    var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
-
-    var pw1 = document.forms["AccountSettingsForm"]["new-password"].value;
-    var pw2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
-
-    var cardnumber = document.forms["AccountSettingsForm"]["card-number"].value;
-    var cvv = document.forms["AccountSettingsForm"]["card-CVV"].value;
-    var cardname = document.forms["AccountSettingsForm"]["cardholder-name"].value;
-
-    var validEmail1 = validateEmail(email1);
-    var validEmail2 = (email1 == email2);
-    var validPw1 = validatePassword(pw1);
-    var validPw2 = (pw1 == pw2);
-    var validCardnumber = validateCardNumber(cardnumber);
-    var validCVV = validateCVV(cvv);
-    var validCardname = validateName(cardname);
-
-    var email1Warning, email2Warning, pw1Warning, pw2Warning, cardnumberWarning, cvvWarning, cardnameWarning, finalAlert;
-
-    if (!validEmail1) email1Warning = "Error - You entered: \"" + email1 + "\". Please enter an email in xxx@xxx.xxx format. \n\n";
-    else email1Warning = "";
-
-    if (!validEmail2) email2Warning = "Error - You entered: \"" + email2 + "\". Emails do not match. \n\n";
-    else email2Warning = "";
-
-    if (!validPw1) pw1Warning = "Please enter a password with more than 5 non-space characters.\n\n";
-    else pw1Warning = "";
-
-    if (!validPw2) pw2Warning = "Passwords do not match.\n\n";
-    else pw2Warning = "";
-
-    if (!validCardnumber) cardnumberWarning = "Error - You entered: \"" + cardnumber + "\". Please enter a card number with exactly 16 digits.\n\n";
-    else cardnumberWarning = "";
-
-    if (!validCVV) cvvWarning = "Error - You entered: \"" + cvv + "\". Please enter a CVV with exactly 3 digits.\n\n";
-    else cvvWarning = "";
-
-    if (!validCardname) cardnameWarning = "Error - You entered: \"" + cardname + "\". Please enter a name with at least two letter characters.\n\n";
-    else cardnameWarning = "";
-
-    //if (!validEmail1 || !validEmail2 || !validPw1 || !validPw2 || !validCardnumber || !validCVV || !validCardname) finalAlert = email1Warning + email2Warning + pw1Warning + pw2Warning + cardnumberWarning + cvvWarning + cardnameWarning;
-    //else finalAlert = "No errors found."
-
-    document.getElementById('AccountEmail1Alert').innerHTML = email1Warning;
-    document.getElementById('AccountEmail2Alert').innerHTML = email2Warning;
-    document.getElementById('AccountPw1Alert').innerHTML = pw1Warning;
-    document.getElementById('AccountPw2Alert').innerHTML = pw2Warning;
-    document.getElementById('AccountCardNumberAlert').innerHTML = cardnumberWarning;
-    document.getElementById('AccountCVVAlert').innerHTML = cvvWarning;
-    document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
-
-    //alert(finalAlert);
 }
 
-function validateName(fn) {
-    var isValid = true;
-    var reFNletters = /^[a-zA-Z]{2,}$/
+function set_error_message(label_id, msg){
+    $(label_id).css('color', 'rgb(200,0,0)');
+    $(label_id).append("<br>" + msg);
+}
 
-    if (fn.search(reFNletters) == -1) { //at least 2 letters
-        isValid = false;
+function reset_update_label(label_id, msg){
+    $(label_id).css('color', 'rgb(0,0,0)');
+    $(label_id).html(msg);
+}
+
+function reset_all_update_labels(){
+    var update_labels = new Array(
+        "#new-email-label",
+        "#new-email-confirm-label",
+        "#new-password-label",
+        "#new-password-confirm-label",
+        "#update_cc_name-label",
+        "#update_cc_num-label",
+        "#update_cc_cvv-label",
+        "#update_cc_month-label",
+        "#update_cc_street-label",
+        "#update_cc_city-label",
+        "#update_cc_state-label",
+        "#update_cc_zip-label"
+    );
+
+    var update_fields = new Array(
+        "New Email Address:",
+        "Confirm New Email Address:",
+        "New Password:",
+        "Confirm New Password:",
+        "Cardholder Name:",
+        "Number:",
+        "CVV:",
+        "Expiration Date:",
+        "Street Address:",
+        "City:",
+        "State:",
+        "Zip Code:"
+    );
+
+    for (var i=0; i<update_labels.length; i++){
+        reset_update_label(update_labels[i], update_fields[i]);
     }
 
-    return isValid;
 }
 
-function validatePassword(pw) {
-    var isValid = true;
-    var pwFormat = /^\S{5,}$/
+function validate_email(email1, email2, error_array){
+    var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
+    var result_test_email = regex_email.test(email1);
+    
+    if (!result_test_email){
+        set_error_update("#new-email-label", "Please enter a valid email address", error_array);
+    }
+    else if (email1 != email2){
+        set_error_update("#new-email-confirm-label", "Email addresses do not match", error_array);
+    }
+}
 
-    if (pw.search(pwFormat) == -1) { //at least 5 non space characters
-        isValid = false;
+function validate_password(pass1, pass2, error_array){
+    if (pass1.length < 5 || pass1.length > MAX_LENGTH){
+        set_error_update("#new-password-label", "Please enter a password over 5 characters", error_array);
+     }
+    else if (pass1 != pass2){
+        set_error_update("#new-password-confirm-label", "Passwords do not match", error_array);
+     }
+}
+
+function validate_cc(cc_num, cc_cvv, cc_exp_year, cc_exp_month, error_array){
+    var regex_cc_num = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
+    var result_test_cc_num = regex_cc_num.test(cc_num);
+    
+    if (!result_test_cc_num){
+        set_error_update("#update_cc_num-label", "Please enter a valid credit card number", error_array);
     }
 
-    return isValid;
-}
-
-function validateEmail(em) {
-    var isValid = true;
-    var emailFormat = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
-
-    if (em.search(emailFormat) == -1) { //need email to be in xxx@xxx.xxx format
-        isValid = false;
+    var regex_cc_cvv = /^[0-9]{3,4}$/;
+    var result_test_cc_cvv = regex_cc_cvv.test(cc_cvv);
+    
+    if (!result_test_cc_cvv){
+        set_error_update("#update_cc_cvv-label", "Please enter a valid cvv number", error_array);
     }
 
-    return isValid;
+    if (cc_exp_year < 2014 || cc_exp_year > 2200){
+        set_error_update("#update_cc_month-label", "Please enter a valid expiration", error_array);
+    }
+    else if (cc_exp_month < 1 || cc_exp_month > 12){
+        set_error_update("#update_cc_month-label", "Please enter a valid expiration", error_array);
+    }
 }
 
-function validateCardNumber(cn) {
-    var isValid = true;
-
-    var re16digit = /^\d{16}$/
-
-    if (!(cn.search(re16digit) != -1)) { //16 digit
-        isValid = false;
+function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_array){
+    var regex_cc_street = /^[0-9a-zA-Z. ]+$/;
+    var result_test_cc_street = regex_cc_street.test(cc_street);
+    
+    if (!result_test_cc_street){
+        set_error_update("#update_cc_street-label", "Please enter a valid street address", error_array);
     }
 
-    return isValid;
-}
-
-function validateCVV(cvv) {
-    var isValid = true;
-
-    var re3digit = /^\d{3}$/
-
-    if (!(cvv.search(re3digit) != -1)) { //3 digit
-        isValid = false;
+    var regex_cc_city = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;
+    var result_test_cc_city = regex_cc_city.test(cc_city);
+    
+    if (!result_test_cc_city){
+        set_error_update("#update_cc_city-label", "Please enter a valid city", error_array);
     }
 
-    return isValid;
+    var regex_cc_zip = /^\d{5}(?:[-\s]\d{4})?$/;
+    var result_test_cc_zip = regex_cc_zip.test(cc_zip);
+    
+    if (!result_test_cc_zip){
+        set_error_update("#update_cc_zip-label", "Please enter a valid billing zip code", error_array);
+    }
 }
+
