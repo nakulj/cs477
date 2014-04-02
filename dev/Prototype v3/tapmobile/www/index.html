@@ -139,15 +139,79 @@
                 <ul data-role="listview">
                     <li data-role="fieldcontain">
                         <label for="cc_num"><span id="cc_num-label"><b>Credit Card Number:</b></span></label>
-                        <input type="text" name="cc_num" id="cc_num" value="" placeholder="Credit Card Number"/>
+                        <input type="text" name="cc_num" id="cc_num" value=""  maxlength="19" placeholder="Credit Card Number"/>
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_cvv"><span id="cc_cvv-label"><b>CVV:</b></span></label>
-                        <input type="text" name="cc_cvv" id="cc_cvv" value="" placeholder="CVV"/>
+                        <input type="text" name="cc_cvv" id="cc_cvv" value=""  maxlength="4" placeholder="CVV"/>
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_exp"><span id="cc_exp-label"><b>Expiration Date:</b></span></label>
                         <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_address_street"><span id="cc_address_street-label"><b>Street Address</b></span></label>
+                        <input type="text" name="cc_address_street" id="cc_address_street" value="" placeholder="Street Address"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_address_city"><span id="cc_address_city-label"><b>City</b></span></label>
+                        <input type="text" name="cc_address_city" id="cc_address_city" value="" placeholder="City"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_address_state"><span id="cc_address_state-label"><b>State</b></span></label>
+                        <select name="cc_address_state" id="cc_address_state">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>           
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_zip"><span id="cc_zip-label"><b>Billing Zip Code:</b></span></label>
@@ -730,6 +794,7 @@
     <script src="lib/jquery-1.10.2.js"></script>
     <script src="lib/ui/jquery-ui.js"></script>
     <script src="lib/jquery.mobile-1.3.2.js"></script>
+    <script src="http://ziplookup.googlecode.com/git/public/ziplookup/zipLookup.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="lib/jquery.actual.js"></script>
     <script type="text/javascript" src="lib/fastclick.js"></script>
     <script type="text/javascript" src="lib/handlebars.js"></script>

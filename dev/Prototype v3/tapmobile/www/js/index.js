@@ -430,6 +430,9 @@ $("#submit-create-account").on("click", function(e) {
     var cc_num = $("#cc_num").val();
     var cc_cvv = $("#cc_cvv").val();
     var cc_exp = $("#cc_exp").val();
+    var cc_street = $("#cc_address_street").val();
+    var cc_city = $("#cc_address_city").val();
+    var cc_state = $("#cc_address_state").val();
     var cc_zip = $("#cc_zip").val();
 
     //Validate page 2 values
@@ -453,12 +456,48 @@ $("#submit-create-account").on("click", function(e) {
         set_error("cc_exp", "Please enter a valid expiration", error_array);
     }
 
+    var regex_cc_street = /^[0-9a-zA-Z. ]+$/;
+    var result_test_cc_street = regex_cc_street.test(cc_street);
+    if (!result_test_cc_street){
+        set_error("cc_street", "Please enter a valid street address", error_array);
+    }
+
+    var regex_cc_city = /^[a-zA-Z]+(?:(?:\\s+|-)[a-zA-Z]+)*$/;
+    var result_test_cc_city = regex_cc_city.test(cc_city);
+    if (!result_test_cc_city){
+        set_error("cc_city", "Please enter a valid city", error_array);
+    }
+
     var regex_cc_zip = /^\d{5}(?:[-\s]\d{4})?$/;
     var result_test_cc_zip = regex_cc_zip.test(cc_zip);
     if (!result_test_cc_zip){
         set_error("cc_zip", "Please enter a valid billing zip code", error_array);
     }
+    else if (result_test_cc_zip && result_test_cc_city){
+        //confirm that zip matches entered city/state
+        var zip_found_city, zip_found_state;
 
+        $.zipLookup(
+            cc_zip, 
+            function(cityName, stateName, stateShortName){      // If Successful,
+               zip_found_city = cityName;
+               zip_found_state = stateShortName;
+               if (zip_found_city != cc_city){
+                    set_error("cc_city", "City does not match zip code", error_array);
+               }
+               
+               if (zip_found_state != cc_state){
+                     alert(zip_found_state + " " + cc_state);
+                    set_error("cc_state", "State does not match zip code", error_array);
+               }
+            },
+            function(errMsg){   
+                //set error message                            
+                set_error("cc_zip", "Zip code could not be found", error_array);
+            });
+    }
+
+    
     //Check for Errors and if found redirect user
     if (error_array.length > 0){
         var page = 0;
@@ -500,6 +539,21 @@ $("#submit-create-account").on("click", function(e) {
                 $("#cc_exp-label").append("<br>" + error_array[i].msg);
                 page = set_page_redirect(page, 2);
             }
+            else if (error_array[i].field == "cc_street"){
+                $("#cc_address_street-label").css('color', 'rgb(200,0,0)');
+                $("#cc_address_street-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_city"){
+                $("#cc_address_city-label").css('color', 'rgb(200,0,0)');
+                $("#cc_address_city-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
+            else if (error_array[i].field == "cc_state"){
+                $("#cc_address_state-label").css('color', 'rgb(200,0,0)');
+                $("#cc_address_state-label").append("<br>" + error_array[i].msg);
+                page = set_page_redirect(page, 2);
+            }
             else if (error_array[i].field == "cc_zip"){
                 $("#cc_zip-label").css('color', 'rgb(200,0,0)');
                 $("#cc_zip-label").append("<br>" + error_array[i].msg);
@@ -531,19 +585,6 @@ $("#submit-create-account").on("click", function(e) {
             var parsedstring= $.parseJSON(data);
 
             if(parsedstring) {
-
-
-               alert("This email address is already in use, please select a new one");
-
-               alert("This email address is already in use, please select a new one");
-
-
-               alert("This email address is already in use, please select a new one");
-
-
-               alert("This email address is already in use, please select a new one");
-
-
                alert("This email address is already in use, please select a new one");
             }
             if(!parsedstring)  {
