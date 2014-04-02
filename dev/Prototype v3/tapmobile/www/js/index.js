@@ -1300,13 +1300,188 @@ $("#account-settings").on("pagecreate", function(event) {
 
 /* Called by update account form submit button */
 $("#update-account-form").on("submit", function(e) {
-    validateAccountForm();
+    validateAccountUpdate();
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
 /* TODO: Placeholder for account delete button */
 
+function set_error_update(field, msg, error_array, set_now){
+    var error_object = new Object();
+    error_object.field = field;
+    error_object.msg = msg;
+    error_array.push(error_object);
+}
 
+function validateAccountUpdate(){
+
+    $("#new-email-label").css('color', 'rgb(0,0,0)');
+    $("#new-email-confirm-label").css('color', 'rgb(0,0,0)');
+    $("#new-password-label").css('color', 'rgb(0,0,0)');
+    $("#new-password-confirm-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_name-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_num-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_cvv-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_month-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_street-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_city-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_state-label").css('color', 'rgb(0,0,0)');
+    $("#update_cc_zip-label").css('color', 'rgb(0,0,0)');
+
+    $("#new-email-label").html("New Email Address:");
+    $("#new-email-confirm-label").html("Confirm New Email Address:");
+    $("#new-password-label").html("New Password:");
+    $("#new-password-confirm-label").html("Confirm New Password:");
+    $("#update_cc_name-label").html("Cardholder Name:");
+    $("#update_cc_num-label").html("Number:");
+    $("#update_cc_cvv-label").html("CVV:");
+    $("#update_cc_month-label").html("Expiration Date:");
+    $("#update_cc_street-label").html("Street Address:");
+    $("#update_cc_city-label").html("City:");
+    $("#update_cc_state-label").html("State:");
+    $("#update_cc_zip-label").html("Zip Code:");
+
+
+    var error_array = [];
+    var MAX_LENGTH = 255;
+
+    //determine what to send ajax later based on user changes
+    var email_changed = true;
+    var pass_changed = true;
+    var payment_changed = true;
+
+    var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
+    var email2 = document.forms["AccountSettingsForm"]["new-email-confirm"].value;
+
+    if (email1 || email2){
+        var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
+        var result_test_email = regex_email.test(email1);
+        if (!result_test_email){
+            set_error_update("email1", "Please enter a valid email address", error_array, false);
+        }
+        else if (email1 != email2){
+            set_error_update("email2", "Email addresses do not match", error_array, false);
+        }
+    }
+    else{
+        email_changed = false;
+    }
+
+    var pass1 = document.forms["AccountSettingsForm"]["new-password"].value;
+    var pass2 = document.forms["AccountSettingsForm"]["new-password-confirm"].value;
+
+    if (pass1 || pass2){
+        if (pass1.length < 5 || pass1.length > MAX_LENGTH){
+            set_error_update("pass1", "Please enter a password over 5 characters", error_array, false);
+         }
+        else if (pass1 != pass2){
+            set_error_update("pass2", "Passwords do not match", error_array, false);
+         }
+    }
+    else{
+        pass_changed = false;
+    }
+
+    var cc_cardholder = document.forms["AccountSettingsForm"]["update_cc_name"].value;
+    var cc_num = document.forms["AccountSettingsForm"]["update_cc_num"].value;
+    var cc_cvv = document.forms["AccountSettingsForm"]["update_cc_cvv"].value;
+    var cc_exp_month = document.forms["AccountSettingsForm"]["update_cc_month"].value;
+    var cc_exp_year = document.forms["AccountSettingsForm"]["expiration-year"].value;
+    var cc_street = document.forms["AccountSettingsForm"]["update_cc_street"].value;
+    var cc_city = document.forms["AccountSettingsForm"]["update_cc_city"].value;
+    var cc_state = document.forms["AccountSettingsForm"]["update_cc_state"].value;
+    var cc_zip = document.forms["AccountSettingsForm"]["update_cc_zip"].value;
+
+    if (cc_cardholder || cc_num || cc_cvv || cc_street || cc_city || cc_zip){
+
+    }
+    else{
+        payment_changed = false;
+    }
+
+    //Check for Errors and if found redirect user
+    if (error_array.length > 0){
+
+        //for each field in array set according field to red with error message
+        for (var i = 0; i < error_array.length; i++){
+            if (error_array[i].field == "email1"){
+                $("#new-email-label").css('color', 'rgb(200,0,0)');
+                $("#new-email-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "email2"){
+                $("#new-email-confirm-label").css('color', 'rgb(200,0,0)');
+                $("#new-email-confirm-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "pass1"){
+                $("#new-password-label").css('color', 'rgb(200,0,0)');
+                $("#new-password-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "pass2"){
+                $("#new-password-confirm-label").css('color', 'rgb(200,0,0)');
+                $("#new-password-confirm-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_cardholder"){
+                $("#update_cc_name-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_name-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_num"){
+                $("#update_cc_num-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_num-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_cvv"){
+                $("#update_cc_cvv-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_cvv-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_exp_month"){
+                $("#update_cc_month-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_month-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_street"){
+                $("#update_cc_street-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_street-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_city"){
+                $("#update_cc_city-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_city-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_state"){
+                $("#update_cc_state-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_state-label").append("<br>" + error_array[i].msg);
+            }
+            else if (error_array[i].field == "cc_zip"){
+                $("#update_cc_zip-label").css('color', 'rgb(200,0,0)');
+                $("#update_cc_zip-label").append("<br>" + error_array[i].msg);
+            }
+
+        }
+    }
+    else{
+    //If front end validation passes fire Ajax
+        if (email_changed || pass_changed || payment_changed){
+         $.ajax({
+            type:'POST',
+            url:'http://tapmobile.co.nf/back_end/updateAccountSettings.php',
+            //dataType:'json',
+            data: {
+                email_changed:email_changed,
+                pass_changed:pass_changed,
+                payment_changed:payment_changed
+            },
+            success : function(msg) {
+
+                alert("Success! " + msg);
+                document.forms["AccountSettingsForm"].reset();
+
+            },
+            error: function(data, textStatus) {
+            alert("server error has occured");
+
+            }
+            });
+        }  
+    }
+
+}
 /* Validation */
 function validateAccountForm() {
     var email1 = document.forms["AccountSettingsForm"]["new-email"].value;
@@ -1362,8 +1537,6 @@ function validateAccountForm() {
     document.getElementById('AccountCardNameAlert').innerHTML = cardnameWarning;
 
     //alert(finalAlert);
-
-    return false;
 }
 
 function validateName(fn) {
