@@ -355,12 +355,16 @@
         </div>
 
         <div id="home-content" data-role="content">
-            <ul id="nearest-station" data-role="listview" data-inset="true">
-                <li id="nearest-station-desc" data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: blue; color: white; text-shadow: none;"></li>
-                <li><p id="nearest-station-time-A" class="ui-li-aside"></p><h2 id="nearest-station-dest-A" style="overflow:visible;"></h2></li>
-                <li><p id="nearest-station-time-B" class="ui-li-aside"></p><h2 id="nearest-station-dest-B" style="overflow:visible;"></h2></li>
-            </ul>
-            <p style="text-align:center; font-size: 75%; color: grey;">Swipe to see other nearby stations</p>
+            <div class="ui-grid-b my-breakpoint">
+                <div class="ui-block-a" style="text-align: right; background: rgba(0,0,0,0); font-size: 5em; padding-right: 1%; line-height: 200%; color: #888;"></div>
+                <ul id="nearest-station" data-role="listview" data-inset="true" class="ui-block-b">
+                    <li id="nearest-station-desc" data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: blue; color: white; text-shadow: none;"></li>
+                    <li><p id="nearest-station-time-A" class="ui-li-aside"></p><h2 id="nearest-station-dest-A" style="overflow:visible;"></h2></li>
+                    <li><p id="nearest-station-time-B" class="ui-li-aside"></p><h2 id="nearest-station-dest-B" style="overflow:visible;"></h2></li>
+                </ul>
+                <div class="ui-block-c" style=" background: rgba(0,0,0,0); font-size: 5em; padding-left: 1%; line-height: 200%; color: #888;"></div>
+            </div>
+            <p style="text-align:center; font-size: 75%; color: grey;">Click below to flip tapMobile pass</p>
 
             <div id="qr-rotation-tile">
                 <div id="qr-front" class="rotationContent">
