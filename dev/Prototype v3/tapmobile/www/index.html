@@ -53,7 +53,26 @@
             </form>
 
             <a href="#account-create-1" data-role="button" data-transition="slideup">Sign Up</a>
+
+            <a href="#" data-transition="slideup" id="forgot-password">Forgot Password? Click Here</a>
         </div>
+
+        <!-- Forgot password invalid email popup -->
+        <div data-role="popup" id="popup-forgotpass-email">
+            <div data-role="content">
+                <p>Please enter a valid email address.</p>
+                <a data-role="button" data-rel="back" id="button-confirm-forgotpass-email">Ok</a>
+            </div>
+        </div>
+
+        <!-- Confirm password sent popup -->
+        <div data-role="popup" id="popup-confirm-passSent">
+            <div data-role="content">
+                <p>Instructions on how to retrieve your password have been sent to your email address.</p>
+                <a data-role="button" data-rel="back" id="button-cconfirm-passSent">Ok</a>
+            </div>
+        </div>
+
     </div>
 
     <!-- Account creation page -->

@@ -330,6 +330,45 @@ $("#log-in-form").on("submit", function(e) {
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
+$("#forgot-password").on("click", function(e){
+    
+    //get email address from login field
+    var user_email = $("#loginemail").val();
+
+    //validate it's a real email address
+    var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
+    var result_test_email = regex_email.test(user_email);
+    if (!result_test_email){
+       //tell user to enter email address
+       $("#popup-forgotpass-email").popup({ theme: "b" });
+       $("#popup-forgotpass-email").popup("open");
+    }
+    else{
+        //go ahead and send email with password to user's stored email address
+        $.ajax({
+            type:'POST',
+            url:'http://tapmobile.co.nf/back_end/forgotPassword.php',
+            data: {
+                email:user_email
+            },
+            success : function(msg) {
+                //show confirmation that it has been sent
+                $("#popup-confirm-passSent").popup({ theme: "b" });
+                $("#popup-confirm-passSent").popup("open");
+
+                //clear log-in form
+                $("#log-in-form").trigger("reset");
+
+            },
+            error: function(data, textStatus) {
+                alert("Server error has occurred");
+
+            }
+        });
+    }
+
+});
+
 // ========================================================================================================================
 // ACCOUNT CREATION PAGE
 // ========================================================================================================================
