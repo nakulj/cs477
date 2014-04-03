@@ -1304,7 +1304,38 @@ $("#update-account-form").on("submit", function(e) {
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
-/* TODO: Placeholder for account delete button */
+/* account delete button popup */
+$("#delete-account").on("click", function(e){
+    //show popup to confirm delete account
+    $("#popup-delete-account-confirmation").popup({ theme: "a" });
+    $("#popup-delete-account-confirmation").popup("open");
+});
+
+/* account delete button confirmation */
+$(".delete-account-confirmed").on("click", function(e){
+    //fire Ajax to delete account in back end
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/deleteAccount.php',
+        //dataType:'json',
+        data: {
+            user: userSession
+        },
+        success : function(msg) {
+            //redirect user to log-in
+            alert("User deleted: " + msg);
+            document.forms["AccountSettingsForm"].reset();
+            $.mobile.changePage("#log-in", {transition: "slidedown"});
+
+        },
+        error: function(data, textStatus) {
+            $("#popup-delete-account-confirmation").popup("close");
+            alert("server error has occured");
+        }
+    });
+    return false;
+});
+
 
 function set_error_update(field, msg, error_array){
     var error_object = new Object();
@@ -1372,7 +1403,7 @@ function validateAccountUpdate(){
 
     //Check for errors and if found display errors to user
     if (error_array.length > 0){
-        
+
         //for each field in array set according field to red with error message
         for (var i = 0; i < error_array.length; i++){
             set_error_message(error_array[i].field, error_array[i].msg);
@@ -1380,12 +1411,14 @@ function validateAccountUpdate(){
     }
     else{
     //If front end validation passes fire Ajax
+    //validate and update corresponding fields in the backend
         if (email_changed || pass_changed || payment_changed){
-         $.ajax({
+        $.ajax({
             type:'POST',
             url:'http://tapmobile.co.nf/back_end/updateAccountSettings.php',
             //dataType:'json',
             data: {
+                user: userSession,
                 email_changed:email_changed,
                 pass_changed:pass_changed,
                 payment_changed:payment_changed,
@@ -1405,7 +1438,11 @@ function validateAccountUpdate(){
             },
             success : function(msg) {
 
-                alert("Success! " + msg);
+                //let user know account has been successfully updated
+                $("#popup-account-settings-update").popup({ theme: "b" });
+                $("#popup-account-settings-update").popup("open");
+
+                //reset the update account form
                 document.forms["AccountSettingsForm"].reset();
 
             },
@@ -1413,7 +1450,8 @@ function validateAccountUpdate(){
             alert("server error has occured");
 
             }
-            });
+        });
+
         }  
     }
 }

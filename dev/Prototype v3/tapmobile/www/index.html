@@ -840,9 +840,27 @@
             <br><br>
             
             <button data-theme="g" type="submit">Update Account Information</button>
-            <button type="submit" id="update-password" data-theme="r">Delete Account</button>
+            <button type="submit" id="delete-account" data-theme="r">Delete Account</button>
         </form>
         </div>
+
+        <!-- Account update popup -->
+        <div data-role="popup" id="popup-account-settings-update">
+            <div data-role="content">
+                <p>Your account settings have been updated</p>
+                <a data-role="button" data-rel="back" id="button-confirm-account-settings-update">Ok</a>
+            </div>
+        </div>
+
+        <!-- Delete account confirmation popup -->
+        <div data-role="popup" id="popup-delete-account-confirmation">
+            <div data-role="content">
+                <p>Your account will be permanently deleted, proceed?</p>
+                <a href="#" class="delete-account-confirmed" data-role="button" data-inline="true" data-transition="flow" data-theme="a">Yes</a>
+                <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="b">No</a>
+            </div>
+        </div>
+
     </div>
 
     <!-- About page -->
