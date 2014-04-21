@@ -48,11 +48,16 @@ var app = {
 };
 
 process(str) {
+    alert("processing");
   words= str.split(" ");
   uid= words[0];
+  alert("validating user: "+uid)
   nguests= words[1];
+  alert("nguests: "+nguests)
   time= words[2]
+  alert("at time:"+times)
   hmac= words[3]
+  alert("hash: "+hmac)
 
   if(!validateTime(time))
     fail();
