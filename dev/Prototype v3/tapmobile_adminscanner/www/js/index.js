@@ -60,9 +60,9 @@ function process(str) {
   alert("hash: "+hmac);
 
   if(!validateTime(time))
-    fail();
+    alert("QR too old");
   if(!validateHMAC(uid,nguests,time,hash))
-    fail();
+    alert("Invalid QR");
 
   confirmTAP(uid);
 }
@@ -78,10 +78,6 @@ function validateHash(uid,nguests,time,hash) {
   toHash= uid+nguests+time;
   var passphrase= "1337password";
   return(hash == CryptoJS.HmacSHA1(toHash, passphrase));
-}
-
-function fail() {
-  alert("Invalid QR.");
 }
 
 function confirmTAP(uid) {
