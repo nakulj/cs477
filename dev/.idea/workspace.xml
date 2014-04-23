@@ -26,7 +26,7 @@
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1431" column="14" selection-start="51177" selection-end="51177" vertical-scroll-proportion="0.42713568" vertical-offset="20870" max-vertical-offset="23385">
+            <state line="1432" column="30" selection-start="51311" selection-end="51311" vertical-scroll-proportion="0.5985401" vertical-offset="20733" max-vertical-offset="23430">
               <folding />
             </state>
           </provider>
@@ -79,6 +79,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -179,7 +180,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -187,6 +187,14 @@
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -197,23 +205,15 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -375,7 +375,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1431" column="14" selection-start="51177" selection-end="51177" vertical-scroll-proportion="0.42713568" vertical-offset="20870" max-vertical-offset="23385">
+        <state line="1432" column="30" selection-start="51311" selection-end="51311" vertical-scroll-proportion="0.5985401" vertical-offset="20733" max-vertical-offset="23430">
           <folding />
         </state>
       </provider>
