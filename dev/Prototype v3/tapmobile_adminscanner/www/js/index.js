@@ -37,8 +37,8 @@ var app = {
         alert("scan");
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-                alert(result.txt);
-                process(result.txt);
+                alert(result.text);
+                process(result.text);
             }, 
             function (error) {
                 alert("Scanning failed: " + error);
