@@ -55,7 +55,7 @@ function process(str) {
   nguests= words[1];
   alert("nguests: "+nguests);
   time= words[2];
-  alert("at time: "+times);
+  alert("at time: "+time);
   hmac= words[3];
   alert("hash: "+hmac);
 
