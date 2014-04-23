@@ -34,7 +34,6 @@ var app = {
         app.scan();
     },
     scan: function () {
-        alert("scan");
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert(result.text);
@@ -48,16 +47,11 @@ var app = {
 };
 
 function process(str) {
-    alert("processing");
   words= str.split(" ");
   uid= words[0];
-  alert("validating user: "+uid);
   nguests= words[1];
-  alert("nguests: "+nguests);
   time= words[2];
-  alert("at time: "+time);
   hmac= words[3];
-  alert("hash: "+hmac);
 
   if(!validateTime(time))
     alert("QR too old");
@@ -71,7 +65,7 @@ function validateTime(time) {
   var cutoff= 5*60*1000;
   now= new Date().getTime();
   diff= now-time;
-  return(diff>cutoff);
+  return(diff<cutoff);
 }
 
 function validateHash(uid,nguests,time,hash) {
