@@ -409,6 +409,8 @@ function set_page_redirect(page, number){
     else return 1;
 }
 
+
+
 $("#submit-create-account").on("click", function(e) {
 
     //Clear previous error messages
@@ -514,13 +516,13 @@ $("#submit-create-account").on("click", function(e) {
         set_error("cc_cvv", "Please enter a valid cvv number", error_array, false);
     }
 
-    var test_cc_exp = cc_exp.split('-'); //value from input as yyyy-mm
+    /*var test_cc_exp = cc_exp.split('-'); //value from input as yyyy-mm
     if (test_cc_exp[0] < 2014 || test_cc_exp > 2200){
         set_error("cc_exp", "Please enter a valid expiration", error_array, false);
     }
     else if (test_cc_exp[1] < 1 || test_cc_exp[1] > 12){
         set_error("cc_exp", "Please enter a valid expiration", error_array, false);
-    }
+    }*/
 
     var regex_cc_street = /^[0-9a-zA-Z. ]+$/;
     var result_test_cc_street = regex_cc_street.test(cc_street);
@@ -1297,6 +1299,8 @@ $("#account-settings").on("pagecreate", function(event) {
         yearSelect.append("<option value=\"" + year + "\">" + year + "</option>");
     }
 });
+
+
 
 /* Called by update account form submit button */
 $("#update-account-form").on("submit", function(e) {
