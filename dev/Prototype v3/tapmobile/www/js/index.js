@@ -1345,7 +1345,6 @@ function set_error_update(field, msg, error_array){
 }
 
 function validateAccountUpdate(){
-
     reset_all_update_labels();
 
     var error_array = [];
@@ -1381,7 +1380,7 @@ function validateAccountUpdate(){
 
     //if password entered, validate
     if (pass1 || pass2){
-        validate_password(pass1, pass2, error_array);
+        validate_password(pass1, pass2, error_array, MAX_LENGTH);
     }
     else{
         pass_changed = false;
@@ -1403,7 +1402,6 @@ function validateAccountUpdate(){
 
     //Check for errors and if found display errors to user
     if (error_array.length > 0){
-
         //for each field in array set according field to red with error message
         for (var i = 0; i < error_array.length; i++){
             set_error_message(error_array[i].field, error_array[i].msg);
@@ -1504,6 +1502,7 @@ function reset_all_update_labels(){
 }
 
 function validate_email(email1, email2, error_array){
+    console.log("Validating email address");
     var regex_email = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/;
     var result_test_email = regex_email.test(email1);
     
@@ -1515,7 +1514,9 @@ function validate_email(email1, email2, error_array){
     }
 }
 
-function validate_password(pass1, pass2, error_array){
+function validate_password(pass1, pass2, error_array, MAX_LENGTH){
+    console.log("Validating password");
+
     if (pass1.length < 5 || pass1.length > MAX_LENGTH){
         set_error_update("#new-password-label", "Please enter a password over 5 characters", error_array);
      }
@@ -1525,6 +1526,7 @@ function validate_password(pass1, pass2, error_array){
 }
 
 function validate_cc(cc_num, cc_cvv, cc_exp_year, cc_exp_month, error_array){
+    console.log("Validating credit card");
     var regex_cc_num = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
     var result_test_cc_num = regex_cc_num.test(cc_num);
     
@@ -1548,6 +1550,7 @@ function validate_cc(cc_num, cc_cvv, cc_exp_year, cc_exp_month, error_array){
 }
 
 function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_array){
+    console.log("Validating billing address");
     var regex_cc_street = /^[0-9a-zA-Z. ]+$/;
     var result_test_cc_street = regex_cc_street.test(cc_street);
     
