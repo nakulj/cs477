@@ -47,7 +47,7 @@ var app = {
     }
 };
 
-process(str) {
+var process(str) {
     alert("processing");
   words= str.split(" ");
   uid= words[0];
@@ -67,23 +67,23 @@ process(str) {
   confirmTAP(uid);
 }
 
-validateTime(time) {
+var validateTime(time) {
   var cutoff= 5*60*1000;
   now= new Date().getTime();
   diff= now-time;
   return(diff>cutoff);
 }
 
-validateHash(uid,nguests,time,hash) {
+var validateHash(uid,nguests,time,hash) {
   toHash= uid+nguests+time;
   var passphrase= "1337password";
   return(hash == CryptoJS.HmacSHA1(toHash, passphrase));
 }
 
-fail() {
+var fail() {
   alert("Invalid QR.");
 }
 
-confirmTAP(uid) {
+var confirmTAP(uid) {
   alert("Confirm user "+uid);
 }
