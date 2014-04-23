@@ -12,6 +12,11 @@ $first_name = trim($_POST["fname"]);
 $last_name = trim($_POST["lname"]);
 $email = trim($_POST["email"]);
 $password = trim($_POST["password"]);
+$cc_name = trim($_POST["cardholder_name"]);
+$bStreet = trim($_POST["street"]);
+$bCity = trim($_POST["city"]);
+$bState = trim($_POST["state"]);
+$bZip = trim($_POST["zip"]);
 $error = false;
 $errormessage = 0;
 
@@ -107,8 +112,8 @@ if(!isset($password) || strlen($password) < 1){
 
 #ADD USER TO DB IF NO ERRORS DETECTED
 if (!$error){
-   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance)
-   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0')");
+   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip)
+   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip')");
 
 	//echo '<script type="text/javascript">alert("user is created"); </script>';
 
