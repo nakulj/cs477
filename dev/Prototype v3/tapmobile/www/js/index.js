@@ -724,12 +724,24 @@ $("#submit-create-account").on("click", function (e) {
  * Error: N/A
  */
 function purchaseFunds(charge_amount){
-    //To Do: link to payment gateway
-
-
-
-    console.log("Charged $" + charge_amount);
+    console.log("Attempting to charge user's credit card for " + charge_amount);
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/chargeCard.php',
+        data: {
+            userSession:userSession
+        },
+        success : function(data) {
+            console.log("Charged $" + charge_amount);
+            //TO DO: update balance
+            //TO DO: add transaction to purchase history
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    }); 
 }
+
 
 /*
  * Description: Aux function to convert radio button choice to fund amount
