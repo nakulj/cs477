@@ -411,8 +411,35 @@ function set_page_redirect(page, number){
 }
 
 
+var stripeResponseHandler = function (status, response) {
+    var $form = $('#payment-info-account-create');
 
-$("#submit-create-account").on("click", function(e) {
+    if (response.error) {
+        // Show the errors on the form
+        
+        alert(response.error.message);
+        $('#submit-create-account').prop('disabled', false);
+    } else {
+        // token contains id, last4, and card type
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        // and re-submit
+        $form.get(0).submit();
+    }
+};
+
+
+$("#submit-create-account").on("click", function (e) {
+
+    var $form = $('#payment-info-account-create');
+
+    // Disable the submit button to prevent repeated clicks
+    $(this).prop('disabled', true);
+
+    Stripe.card.createToken($form, stripeResponseHandler);
+    // end Stripe token creation
+  
 
     //Clear previous error messages
     $("#fname-label").css('color', 'rgb(0,0,0)');
