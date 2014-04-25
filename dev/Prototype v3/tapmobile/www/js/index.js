@@ -410,7 +410,7 @@ function set_page_redirect(page, number){
     else return 1;
 }
 
-
+var stripeToken;
 var stripeResponseHandler = function (status, response) {
     var $form = $('#payment-info-account-create');
 
@@ -421,12 +421,9 @@ var stripeResponseHandler = function (status, response) {
         $('#submit-create-account').prop('disabled', false);
     } else {
         // token contains id, last4, and card type
-        var token = response.id;
-        // Insert the token into the form so it gets submitted to the server
-        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-        // and re-submit
-        $form.get(0).submit();
-    }
+        stripeToken = response.id;
+        
+           }
 };
 
 
@@ -673,7 +670,8 @@ $("#submit-create-account").on("click", function (e) {
     //If front end validation passes fire Ajax
     //Writes new user to server through PHP script
      $.ajax({
-        type:'POST',
+        
+         type: 'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
         data: {
@@ -685,7 +683,8 @@ $("#submit-create-account").on("click", function (e) {
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
-            zip:$('#cc_zip').val()
+            zip: $('#cc_zip').val(),
+            stripeToken: stripeToken
         },
         success : function(data) {
 
