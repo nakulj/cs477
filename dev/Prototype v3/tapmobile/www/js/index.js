@@ -77,6 +77,7 @@ $(function() {
 
     var testInitTickets = [];
 
+
     testInitTickets[0] = new AvailableTicket(1, "Metro 30 Day Full Fare (API)", 65);
     //addAvailableTicket(testInitTickets[0]);
 
@@ -273,7 +274,7 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 var balance;
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
-    /*
+
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateLogin.php',
@@ -321,11 +322,11 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-    },3000);*/
+    },3000);
 
 
     // Bypass login for testing.
-    $.mobile.changePage("#home", {transition: "slideup"});
+    //$.mobile.changePage("#home", {transition: "slideup"});
 
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
@@ -409,9 +410,33 @@ function set_page_redirect(page, number){
     else return 1;
 }
 
+var stripeToken;
+var stripeResponseHandler = function (status, response) {
+    var $form = $('#payment-info-account-create');
+
+    if (response.error) {
+        // Show the errors on the form
+        
+        alert(response.error.message);
+        $('#submit-create-account').prop('disabled', false);
+    } else {
+        // token contains id, last4, and card type
+        stripeToken = response.id;
+        
+           }
+};
 
 
-$("#submit-create-account").on("click", function(e) {
+$("#submit-create-account").on("click", function (e) {
+
+    var $form = $('#payment-info-account-create');
+
+    // Disable the submit button to prevent repeated clicks
+    $(this).prop('disabled', true);
+
+    Stripe.card.createToken($form, stripeResponseHandler);
+    // end Stripe token creation
+  
 
     //Clear previous error messages
     $("#fname-label").css('color', 'rgb(0,0,0)');
@@ -645,7 +670,8 @@ $("#submit-create-account").on("click", function(e) {
     //If front end validation passes fire Ajax
     //Writes new user to server through PHP script
      $.ajax({
-        type:'POST',
+        
+         type: 'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
         data: {
@@ -657,7 +683,8 @@ $("#submit-create-account").on("click", function(e) {
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
-            zip:$('#cc_zip').val()
+            zip: $('#cc_zip').val(),
+            stripeToken: stripeToken
         },
         success : function(data) {
 
@@ -696,12 +723,24 @@ $("#submit-create-account").on("click", function(e) {
  * Error: N/A
  */
 function purchaseFunds(charge_amount){
-    //To Do: link to payment gateway
-
-
-
-    console.log("Charged $" + charge_amount);
+    console.log("Attempting to charge user's credit card for " + charge_amount);
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/chargeCard.php',
+        data: {
+            userSession:userSession
+        },
+        success : function(data) {
+            console.log("Charged $" + charge_amount);
+            //TO DO: update balance
+            //TO DO: add transaction to purchase history
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    }); 
 }
+
 
 /*
  * Description: Aux function to convert radio button choice to fund amount
@@ -1404,7 +1443,7 @@ function validateAccountUpdate(){
         payment_changed = false;
     }
 
-    //Check for errors and if found display errors to user
+    //Check fosr errors and if found display errors to user
     if (error_array.length > 0){
         //for each field in array set according field to red with error message
         for (var i = 0; i < error_array.length; i++){
@@ -1425,8 +1464,9 @@ function validateAccountUpdate(){
                 pass_changed:pass_changed,
                 payment_changed:payment_changed,
                 email: email1,
-                pass: pass1,
-                cc_cardholder: cc_cardholder,
+                pass: pass1
+                /*
+                cc_cardholder: cc_cardholder
                 cc_num: cc_num,
                 cc_cvv: cc_cvv, 
                 cc_exp_month: cc_exp_month,
@@ -1435,15 +1475,17 @@ function validateAccountUpdate(){
                 cc_city: cc_city,
                 cc_state: cc_state,
                 cc_zip: cc_zip
+                */
             },
             success : function(msg) {
 
                 //let user know account has been successfully updated
+
                 $("#popup-account-settings-update").popup({ theme: "b" });
                 $("#popup-account-settings-update").popup("open");
-
                 //reset the update account form
                 document.forms["AccountSettingsForm"].reset();
+                $.mobile.changePage("#log-in", {transition: "slidedown"});
 
             },
             error: function(data, textStatus) {

@@ -17,6 +17,7 @@ $bStreet = trim($_POST["street"]);
 $bCity = trim($_POST["city"]);
 $bState = trim($_POST["state"]);
 $bZip = trim($_POST["zip"]);
+$stripeToken = $_POST["stripeToken"];
 $error = false;
 $errormessage = 0;
 
@@ -112,8 +113,8 @@ if(!isset($password) || strlen($password) < 1){
 
 #ADD USER TO DB IF NO ERRORS DETECTED
 if (!$error){
-   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip)
-   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip')");
+   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip, stripeToken)
+   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip', '$stripeToken')");
 
 	//echo '<script type="text/javascript">alert("user is created"); </script>';
 
