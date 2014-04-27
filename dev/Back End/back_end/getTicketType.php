@@ -8,9 +8,16 @@ or die("Could not connect: " . mysql_error());
 mysql_select_db("1616563_tap", $con)
 or die("Could not find database: " . mysql_error());
 
-$query1 = mysql_query("SELECT ticket_description FROM Ticket WHERE ticket_id=0 ");
-$row = mysql_fetch_assoc($query1);
-$tapbalance = $row['tap_balance'];
+$result = mysql_query("SELECT * FROM Ticket  ");
+$data=array();
+while($row = mysql_fetch_array($result)) {
+    $data[]=$row;
 
-echo json_encode($tapbalance);
+}
+echo json_encode($data);
+
+
+
+
+
 

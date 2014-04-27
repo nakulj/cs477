@@ -75,25 +75,39 @@ $(function() {
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
 
-    var testInitTickets = [];
+    $.ajax({
+        type:'GET',
+        url:'http://tapmobile.co.nf/back_end/getTicketType.php',
+        success : function(data) {
+
+            var ticketTypes= $.parseJSON(data);
+            console.log(ticketTypes)
+            var InitTickets = [];
+            InitTickets[0] = new AvailableTicket(1, ticketTypes[0].ticket_description, ticketTypes[0].ticket_price);
+            addAvailableTicket(InitTickets[0]);
 
 
-    testInitTickets[0] = new AvailableTicket(1, "Metro 30 Day Full Fare (API)", 65);
-    //addAvailableTicket(testInitTickets[0]);
+            InitTickets[1] = new AvailableTicket(2, ticketTypes[1].ticket_description, ticketTypes[1].ticket_price);
+            addAvailableTicket(InitTickets[1]);
 
-    testInitTickets[1] = new AvailableTicket(2, "Metro 30 Day Pass with 1 Zone (API)", 55);
-    //addAvailableTicket(testInitTickets[1]);
+            InitTickets[2] = new AvailableTicket(3,  ticketTypes[2].ticket_description, ticketTypes[2].ticket_price);
+            addAvailableTicket(InitTickets[2]);
 
-    testInitTickets[2] = new AvailableTicket(3, "Metro 7 Day Pass (API)", 20);
-    //addAvailableTicket(testInitTickets[2]);
+            InitTickets[3] = new AvailableTicket(4,ticketTypes[2].ticket_description, ticketTypes[2].ticket_price);
+            addAvailableTicket(InitTickets[3]);
+            setAvailableTickets(InitTickets);
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
 
-    testInitTickets[3] = new AvailableTicket(4, "Metro 3 Day Pass (API)", 10);
-    //addAvailableTicket(testInitTickets[3]);
+            }
+    });
 
-    setAvailableTickets(testInitTickets);
+
+
 
     // Hardcoded default balance value
-    setTAPBalance(0.00);
+    //setTAPBalance(0.00);
 
     // Hardcoded front QR caption value
     setFrontQRCaption(new FrontQRCaption("Metro Pass", "3/16/2014", 0));
@@ -313,7 +327,7 @@ $("#log-in-form").on("submit", function(e) {
 
             var parsedbalance= $.parseJSON(data);
             balance=parsedbalance;
-            console.log(parsedbalance);
+            //console.log(parsedbalance);
             setTAPBalance(parsedbalance);
 
         },
@@ -788,7 +802,6 @@ $("#add-funds-form").on("submit", function(e) {
 
 /*Complete add funds transaction if user confirms purchase*/
 $("#dialog-confirm-purchase-funds").on("click", function(e) {
-    
     var fund_amount = determineFundAmount();
     purchaseFunds(fund_amount);
     
