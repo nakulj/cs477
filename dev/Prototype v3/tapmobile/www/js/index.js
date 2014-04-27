@@ -1356,7 +1356,16 @@ $("#account-settings").on("pagecreate", function(event) {
 
 /* Called by update account form submit button */
 $("#update-account-form").on("submit", function(e) {
-    validateAccountUpdate();
+   
+   var $form = $(this);
+
+    // Disable the submit button to prevent repeated clicks
+    $form.find('button').prop('disabled', true);
+
+    Stripe.card.createToken($form, stripeResponseHandler);
+    // end Stripe token creation
+	
+   validateAccountUpdate();
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
 
@@ -1477,7 +1486,8 @@ function validateAccountUpdate(){
                 pass_changed:pass_changed,
                 payment_changed:payment_changed,
                 email: email1,
-                pass: pass1
+                pass: pass1,
+				stripeToken: stripeToken
                 /*
                 cc_cardholder: cc_cardholder
                 cc_num: cc_num,
