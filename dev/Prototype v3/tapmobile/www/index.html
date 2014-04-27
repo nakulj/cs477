@@ -37,41 +37,7 @@
         // This identifies your website in the createToken call below
         Stripe.setPublishableKey('pk_test_boQgtwVwK8Z4QgAggIBupnjW');
         // ...
-        
-       /* var stripeResponseHandler = function(status, response) {
-            var $form = $('#payment-info-account-create');
- 
-            if (response.error) {
-                // Show the errors on the form
-                // $form.find('.payment-errors').text(response.error.message);
-                alert(response.error.message);
-                $form.find('button').prop('disabled', false);
-            } else {
-                // token contains id, last4, and card type
-                var token = response.id;
-                // Insert the token into the form so it gets submitted to the server
-                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-                // and re-submit
-                $form.get(0).submit();
-            }
-        };
-
-        jQuery(function($) {
-            $('#payment-info-account-create').submit(function (event) {
-                var $form = $(this);
-
-                // Disable the submit button to prevent repeated clicks
-                $form.find('button').prop('disabled', true);
-
-                Stripe.card.createToken($form, stripeResponseHandler);
-
-                // Prevent the form from submitting with the default action
-                return false;
-            });}); */
-
-        
-       
-
+               
         </script>
 
 
@@ -919,15 +885,15 @@
                 </li>
                 <li data-role="fieldcontain">
                     <label for="update_cc_num" id="update_cc_num-label">Number:</label>
-                    <input type="text" pattern="[0-9]*"  name="update_cc_num" id="update_cc_num" value="" data-clear-btn="true">
+                    <input type="text" pattern="[0-9]*"  name="update_cc_num" id="update_cc_num" value="" data-clear-btn="true" data-stripe="number">
                     <br><br>
                     <label for="update_cc_cvv" id="update_cc_cvv-label">CVV:</label>
-                    <input type="text" pattern="[0-9]*" name="update_cc_cvv" id="update_cc_cvv" value="" data-clear-btn="true">
+                    <input type="text" pattern="[0-9]*" name="update_cc_cvv" id="update_cc_cvv" value="" data-clear-btn="true" data-stripe="cvc">
                     <br><br>
                      <fieldset data-role="controlgroup" data-type="horizontal">
                         <legend>Expiration Date:</legend>
                         <label for="update_cc_month" id="update_cc_month-label">Test</label>
-                        <select name="update_cc_month" id="update_cc_month">
+                        <select name="update_cc_month" id="update_cc_month" data-stripe ="exp-month">
                             <option value="jan">January</option>
                             <option value="feb">February</option>
                             <option value="mar">March</option>
@@ -941,7 +907,7 @@
                             <option value="nov">November</option>
                             <option value="dec">December</option>
                         </select>
-                        <select name="expiration-year" id="expiration-year">
+                        <select name="expiration-year" id="expiration-year" data-stripe ="exp-year">
                         </select> 
                     </fieldset>
                 </li>
