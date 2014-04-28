@@ -19,7 +19,7 @@ $token = $row['stripeToken'];
 //Stripe Charge
 
 //keys here https://manage.stripe.com/account
-Stripe::setApiKey("sk_test_NDC9d8FxEtCPnpdR3FMHv0bP");
+Stripe::setApiKey("sk_live_dfqOIc2ZtwVAjreZdLg0XqmE");
 
 // Create the charge on Stripe's servers - this will charge the user's card
 try {
@@ -32,5 +32,6 @@ $charge = Stripe_Charge::create(array(
 } catch(Stripe_CardError $e) {
   // The card has been declined
 }
+
 
 ?>
