@@ -77,9 +77,9 @@
       <file leaf-file-name="getTicketType.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="412" selection-end="412" vertical-scroll-proportion="0.37542662" vertical-offset="0" max-vertical-offset="879">
+            <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.39249146" vertical-offset="0" max-vertical-offset="879">
               <folding>
-                <marker date="1398477802000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+                <marker date="1398559747000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
               </folding>
             </state>
           </provider>
@@ -110,8 +110,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="468" />
-    <option name="y" value="76" />
+    <option name="x" value="665" />
+    <option name="y" value="723" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -191,7 +191,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="468" y="76" width="1400" height="1000" extended-state="0" />
+    <frame x="665" y="723" width="1400" height="1000" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -276,7 +276,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="34" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="330">
           <folding>
-            <marker date="1398477802000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398559747000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -326,7 +326,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="0" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="330">
           <folding>
-            <marker date="1398477802000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398559747000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -466,9 +466,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="412" selection-end="412" vertical-scroll-proportion="0.37542662" vertical-offset="0" max-vertical-offset="879">
+        <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.39249146" vertical-offset="0" max-vertical-offset="879">
           <folding>
-            <marker date="1398477802000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398559747000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
