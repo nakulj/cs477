@@ -19,6 +19,9 @@
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
+    <feature name="BarcodeScanner">
+        <param name="ios-package" value="CDVBarcodeScanner" />
+    </feature>
     <name>scanTAP</name>
     <description>
         Hello World sample application that responds to the deviceready event.
@@ -68,7 +71,4 @@
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <gap:plugin name="com.phonegap.plugins.barcodescanner" value="CDVBarcodeScanner" />
     <access origin="http://127.0.0.1*" />
-    <feature name="BarcodeScanner">
-        <param name="ios-package" value="CDVBarcodeScanner" />
-    </feature>
 </widget>
