@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Bad Generator Prototype</title>
+</head>
+
+<body>
+
+<div id= "userid">User ID: 123456789</div>
+<div id= "countdown">Renew code in: 5</div>
+<div id= "time">Time:</div>
+<div id= "HMAC">HMAC:</div>
+<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+
+<script src="lib/CryptoJS v3/rollups/hmac-sha1.js"></script>
+<script src="lib/davidshimjs-qrcodejs-07f829d/qrcode.js"></script>
+<script >
+var userid= "1234567890";
+var numGuests= "3";
+var timestamp;
+var message;
+var passphrase= "1337password";
+var hash;
+var qrmessage;
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 100,
+	height : 100,
+	correctLevel: QRCode.CorrectLevel.L
+});
+
+var refreshTime=20;
+var countdown=-1;
+
+function updateTimeQR() {
+	countdown=(countdown+1)%refreshTime;
+	document.getElementById("countdown").innerHTML="Renew code in: "+(refreshTime-countdown);
+	if(countdown != 0) return;
+	qrcode.clear();
+	timestamp= Date.now()-24*60*60*1000;
+	message= userid+numGuests+timestamp;
+	hash= CryptoJS.HmacSHA1(message, passphrase);
+	qrmessage= userid+" "+numGuests+" "+timestamp+" "+hash;
+	document.getElementById("time").innerHTML="Time: " + timestamp;
+	document.getElementById("HMAC").innerHTML="HMAC: " + hash;
+	qrcode.makeCode(qrmessage);
+}
+updateTimeQR();
+setInterval("updateTimeQR()",1000);
+
+</script>
+
+
+</body>
+</html>
