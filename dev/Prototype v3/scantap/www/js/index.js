@@ -53,6 +53,7 @@ var app = {
 };
 
 var ready;
+//var okBox=document.getElementById(ok);
 
 function scanForCodes() {
     ready= false;
@@ -79,9 +80,16 @@ function process(str) {
     var nguests= words[1];
     var time= words[2]; 
     var hmac= words[3];
-    setText('ok','okay?');
+    //setText('ok','okay?');
     var ok= validate(uid, nguests,time,hmac);
-    setText('ok',(ok?'yes':'no'));
+    if(ok) {
+        setOkBoxText("GO.<br /> TAP validated for "+nguests+" guests.");
+        setOkBoxColor('white','green');
+    }
+    else {
+        setOkBoxText("INVALID QR.");
+        setOkBoxColor('white','red');
+    }
     ready= true;
 }
 
@@ -115,6 +123,10 @@ function confirmTAP(uid) {
     alert("Confirm user "+uid);
 }
 
-function setText(id,text) {
-    document.getElementById(id).innerHTML=text;
+function setOkBoxText(text) {
+    document.getElementById('ok').innerHTML=text;
+}
+function setOkBoxColor(color,backgroundColor) {
+    document.getElementById('ok').style.color=color;
+    document.getElementById('ok').style.backgroundColor=backgroundColor;
 }
