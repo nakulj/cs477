@@ -53,7 +53,7 @@ var app = {
                 alert("Scanning failed: " + error);
             }
         );
-        alert("finish");
+        //alert("finish");
     }
 };
 
