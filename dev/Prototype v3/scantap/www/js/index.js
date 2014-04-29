@@ -52,7 +52,10 @@ var app = {
     }
 };
 
+var ready;
+
 function scanForCodes() {
+    ready= false;
     cordova.plugins.barcodeScanner.scan(
         function (result) {
             process(result.text);
@@ -61,7 +64,14 @@ function scanForCodes() {
             alert("Scanning failed: " + error);
         }
     );
+    wait();
 }
+
+function wait() {
+    if(!ready) setTimeout(wait,1000);
+    else setTimeout(scanForCodes,5000);
+}
+
 
 function process(str) {
     var words= str.split(" ");
@@ -72,7 +82,7 @@ function process(str) {
     setText('ok','okay?');
     var ok= validate(uid, nguests,time,hmac);
     setText('ok',(ok?'yes':'no'));
-    
+    ready= true;
 }
 
 function validate(uid, nguests,time,hmac) {
