@@ -45,17 +45,23 @@ var app = {
         // receivedElement.setAttribute('style', 'display:block;');
 
         // console.log('Received Event: ' + id);
-        cordova.plugins.barcodeScanner.scan(
-            function (result) {
-                process(result.text);
-            }, 
-            function (error) {
-                alert("Scanning failed: " + error);
-            }
-        );
+
+        scanForCodes();
+
         //alert("finish");
     }
 };
+
+function scanForCodes() {
+    cordova.plugins.barcodeScanner.scan(
+        function (result) {
+            process(result.text);
+        }, 
+        function (error) {
+            alert("Scanning failed: " + error);
+        }
+    );
+}
 
 function process(str) {
     var words= str.split(" ");
