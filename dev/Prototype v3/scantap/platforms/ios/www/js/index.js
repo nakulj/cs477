@@ -136,7 +136,6 @@ function testAndDeduct() {
     var uid= 9;
     var nguests=0;
     var cost= 1.5*(nguests+1);
-            setOkBoxText('still trying...');
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateDeductBalance.php',
@@ -146,13 +145,13 @@ function testAndDeduct() {
         },
         success: function(data) {
             var validateTAP=$.parseJSON(data);
-            setOkBoxText('okay!');
-            //alert('No worries, mate');
-            //alert(validateTAP);
+            alert('No worries, mate?');
+            alert(validateTAP);
         },
         error: function(data, textStatus) {
-            alert(textStatus);
-        }
+            alert(data+'xx'+textStatus);
+        },
+        timeout:5000
     });
 }
 

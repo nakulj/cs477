@@ -11,7 +11,7 @@ function testAndDeduct() {
         },
         success: function(data) {
             var validateTAP=$.parseJSON(data);
-            alert('No worries, mate');
+            alert('No worries, mate?');
             alert(validateTAP);
         },
         error: function(data, textStatus) {
