@@ -116,13 +116,17 @@ $(function() {
     addPastTap(new PastTapItem("Single Fare", "Culver Station", "12/01/14", "9:15pm", 2));
     addPastTap(new PastTapItem("Single Fare", "Jefferson Station", "12/03/14", "6:10pm", 0));
 
-    clearTicketWallet();
+
+
+
+
+
+
+
     addTicketWalletItem(new TicketWalletItem(0, true, true, "3-Day Pass", 0, "12/10/14", "7:45pm"));
     addTicketWalletItem(new TicketWalletItem(1, false, false, "5-Day Pass", 1, "", ""));
     addTicketWalletItem(new TicketWalletItem(2, false, false, "Single Fare", 5, "", ""));
 
-    // Hardcoded default balance value
-    //setTAPBalance(0.00);
 
     // Hardcoded front QR caption value
     setFrontQRCaption(new FrontQRCaption("Metro Pass", "3/16/2014", 0));
@@ -354,7 +358,29 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-    
+    setTimeout(function() {
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/getTicketWallet.php',
+        data: {
+            user_name:userSession
+
+        },
+        success : function(data) {
+            /* Build the DOM */
+            var ticketInfo=$.parseJSON(data);
+            console.log(ticketInfo);
+            console.log(userSession);
+
+
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    });
+},3000);
+
+
 //Set Tap Balance
   setTimeout(function() {
     $.ajax({
@@ -362,6 +388,7 @@ $("#log-in-form").on("submit", function(e) {
         url:'http://tapmobile.co.nf/back_end/getBalance.php',
         data: {
             email:userSession
+
         },
         success : function(data) {
 
@@ -369,6 +396,7 @@ $("#log-in-form").on("submit", function(e) {
             balance=parsedbalance;
             //console.log(parsedbalance);
             setTAPBalance(parsedbalance);
+            console.log(userSession);
 
         },
         error: function(data, textStatus) {

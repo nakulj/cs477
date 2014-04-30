@@ -26,7 +26,7 @@
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2141" column="0" selection-start="76594" selection-end="76594" vertical-scroll-proportion="7.6047745" vertical-offset="26381" max-vertical-offset="32400">
+            <state line="1246" column="44" selection-start="45897" selection-end="45897" vertical-scroll-proportion="0.45225465" vertical-offset="18349" max-vertical-offset="32820">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -37,7 +37,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="562" column="70" selection-start="36048" selection-end="36048" vertical-scroll-proportion="0.0" vertical-offset="8430" max-vertical-offset="14535">
+            <state line="581" column="8" selection-start="37060" selection-end="37060" vertical-scroll-proportion="-2.76" vertical-offset="8577" max-vertical-offset="14550">
               <folding />
             </state>
           </provider>
@@ -59,7 +59,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="153" />
+    <option name="x" value="196" />
     <option name="y" value="22" />
     <option name="width" value="1299" />
     <option name="height" value="916" />
@@ -185,6 +185,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Prototype v3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tapmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -246,14 +272,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="153" y="22" width="1299" height="916" extended-state="6" />
-    <editor active="true" />
+    <frame x="196" y="22" width="1299" height="916" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26943803" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26943803" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -279,7 +305,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -393,14 +419,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="562" column="70" selection-start="36048" selection-end="36048" vertical-scroll-proportion="0.0" vertical-offset="8430" max-vertical-offset="14535">
+        <state line="581" column="8" selection-start="37060" selection-end="37060" vertical-scroll-proportion="-2.76" vertical-offset="8577" max-vertical-offset="14550">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2141" column="0" selection-start="76594" selection-end="76594" vertical-scroll-proportion="7.6047745" vertical-offset="26381" max-vertical-offset="32400">
+        <state line="1246" column="44" selection-start="45897" selection-end="45897" vertical-scroll-proportion="0.45225465" vertical-offset="18349" max-vertical-offset="32820">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
