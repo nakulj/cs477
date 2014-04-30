@@ -836,13 +836,40 @@ $("#dialog-confirm-purchase-funds").on("click", function(e) {
     
     var newBalance = parseFloat($(".tap-balance-value").html()) + fund_amount; //TO DO: pull amount from backend and add to it
     setTAPBalance(newBalance); // Back-end should be validating this value.
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if(dd<10) {
+        dd='0'+dd
+    } 
+
+    if(mm<10) {
+        mm='0'+mm
+    } 
+
+    today = mm+'/'+dd+'/'+yyyy;
+    var date = new Date();
+    var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+    //TO DO: hard code 
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/updateBalance.php',
         data: {
             newBalance:tapBalance,
-            userSession:userSession
+            userSession:userSession,
+            type: 0,
+            cc_num: 9999,
+            date: today,
+            time: strTime,
+            fare_amount: fund_amount
         },
         success : function(data) {
             document.getElementById("user-info-account-create").reset();
