@@ -1126,7 +1126,14 @@ function addAvailableTicket(ticket) {
     availableTicketList.push(ticket);
 
     // Add to DOM.
-    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + parseInt(ticket.ticketPrice, 10).toFixed(2) + "</a></li>");
+    var ticketPrice = parseInt(ticket.ticketPrice, 10);
+    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $<span class=\"availableTicketPrice\">" + ticketPrice.toFixed(2) + "</span></a></li>");
+    $("#ticketId" + ticket.ticketId).data("ticketPrice", ticketPrice);
+
+    $("#ticketId" + ticket.ticketId).click(function() {
+        var ticketPrice = $(this).data("ticketPrice");
+        $("#confirm-ticket-price").html(ticketPrice.toFixed(2));
+    });
 }
 
 /*
@@ -1699,6 +1706,10 @@ function teaseTicketContainer(duration) {
     $("#mytickets").animate({bottom: -ticketListHeight + ticketListHeight/5}, duration/2);
     $("#mytickets").animate({bottom: -ticketListHeight}, duration/2).delay(duration/2);
 }
+
+$("#dialog-confirm-ticket").on("pagebeforeshow", function(event) {
+    $("#confirm-ticket-price").html()
+});
 
 // ========================================================================================================================
 // ACCOUNT SETTINGS PAGE
