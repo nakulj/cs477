@@ -1199,10 +1199,14 @@ function addAvailableTicket(ticket) {
     var ticketPrice = parseInt(ticket.ticketPrice, 10);
     $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $<span class=\"availableTicketPrice\">" + ticketPrice.toFixed(2) + "</span></a></li>");
     $("#ticketId" + ticket.ticketId).data("ticketPrice", ticketPrice);
+    $("#ticketId" + ticket.ticketId).data("ticketName", ticket.ticketName);
 
     $("#ticketId" + ticket.ticketId).click(function() {
         var ticketPrice = $(this).data("ticketPrice");
+        var ticketName = $(this).data("ticketName");
+
         $("#confirm-ticket-price").html(ticketPrice.toFixed(2));
+        console.log(ticketName);
     });
 
 }
