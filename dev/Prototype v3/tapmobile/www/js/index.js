@@ -1125,7 +1125,7 @@ function addAvailableTicket(ticket) {
     availableTicketList.push(ticket);
 
     // Add to DOM.
-    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
+    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + parseInt(ticket.ticketPrice, 10).toFixed(2) + "</a></li>");
 }
 
 /*
@@ -1185,9 +1185,9 @@ function addBalanceHistoryItem(balanceHistoryItem) {
     // Add to DOM.
     if (balanceHistoryItem.transactionType == "addfunds")
     {
-        $("#balance_history_funds").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + balanceHistoryItem.transactionAmount + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
+        $("#balance_history_funds").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + parseInt(balanceHistoryItem.transactionAmount, 10).toFixed(2) + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
     } else if (balanceHistoryItem.transactionType == "purchase") {
-        $("#balance_history_purchases").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + balanceHistoryItem.transactionAmount + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
+        $("#balance_history_purchases").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + parseInt(balanceHistoryItem.transactionAmount, 10).toFixed(2) + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
     }
 }
 
