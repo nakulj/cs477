@@ -1146,6 +1146,13 @@ function addAvailableTicket(ticket) {
 
 }
 
+$("#button-confirm-ticket").click(function() {
+    var ticketPrice = parseInt($("#confirm-ticket-price").html(), 10);
+
+
+
+});
+
 /*
  * Description: Remove a ticket from the list.
  * Input: A ticket object.
