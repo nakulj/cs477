@@ -425,6 +425,7 @@ function set_page_redirect(page, number){
 }
 
 var stripeToken;
+Stripe.setPublishableKey('pk_live_xsVpP49WCs4qAWmiHn2If0WB');
 var stripeResponseHandler = function (status, response) {
     var $form = $('#payment-info-account-create');
 
