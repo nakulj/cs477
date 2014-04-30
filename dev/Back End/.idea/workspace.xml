@@ -46,7 +46,7 @@
       <file leaf-file-name="getBalance.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back_end/getBalance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="34" selection-start="392" selection-end="426" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="345">
+            <state line="14" column="34" selection-start="392" selection-end="426" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="345">
               <folding>
                 <marker date="1398278946000" expanded="true" signature="310:352" placeholder="SELECT * FRO..Users..." />
               </folding>
@@ -57,11 +57,8 @@
       <file leaf-file-name="validateDeductBalance.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="25" selection-start="732" selection-end="732" vertical-scroll-proportion="-17.5" vertical-offset="0" max-vertical-offset="510">
-              <folding>
-                <marker date="1398839366000" expanded="true" signature="356:401" placeholder="SELECT * FRO..Users..." />
-                <marker date="1398839366000" expanded="true" signature="631:699" placeholder="UPDATE Users..." />
-              </folding>
+            <state line="28" column="25" selection-start="732" selection-end="732" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="510">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -69,7 +66,7 @@
       <file leaf-file-name="newUser.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="1528" selection-end="1528" vertical-scroll-proportion="-0.0" vertical-offset="825" max-vertical-offset="2610">
+            <state line="55" column="0" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="2610">
               <folding />
             </state>
           </provider>
@@ -250,10 +247,7 @@
     <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="0" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="525">
-          <folding>
-            <marker date="1398839366000" expanded="true" signature="356:401" placeholder="SELECT * FRO..Users..." />
-            <marker date="1398839366000" expanded="true" signature="631:699" placeholder="UPDATE Users..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -328,9 +322,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/validateLogIn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645">
-          <folding />
-        </state>
+        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
@@ -374,9 +366,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/validateLogIn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645">
-          <folding />
-        </state>
+        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
@@ -420,9 +410,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/validateLogIn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645">
-          <folding />
-        </state>
+        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
@@ -466,9 +454,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/validateLogIn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645">
-          <folding />
-        </state>
+        <state line="22" column="0" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="645" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
@@ -595,9 +581,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/validateLogIn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="2" selection-start="878" selection-end="878" vertical-scroll-proportion="0.61433446" vertical-offset="0" max-vertical-offset="879">
-          <folding />
-        </state>
+        <state line="36" column="2" selection-start="878" selection-end="878" vertical-scroll-proportion="0.61433446" vertical-offset="0" max-vertical-offset="879" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/updateAccountSettings.php">
@@ -609,7 +593,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/getBalance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="34" selection-start="392" selection-end="426" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="345">
+        <state line="14" column="34" selection-start="392" selection-end="426" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="345">
           <folding>
             <marker date="1398278946000" expanded="true" signature="310:352" placeholder="SELECT * FRO..Users..." />
           </folding>
@@ -625,11 +609,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="25" selection-start="732" selection-end="732" vertical-scroll-proportion="-17.5" vertical-offset="0" max-vertical-offset="510">
-          <folding>
-            <marker date="1398839366000" expanded="true" signature="356:401" placeholder="SELECT * FRO..Users..." />
-            <marker date="1398839366000" expanded="true" signature="631:699" placeholder="UPDATE Users..." />
-          </folding>
+        <state line="28" column="25" selection-start="732" selection-end="732" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="510">
+          <folding />
         </state>
       </provider>
     </entry>

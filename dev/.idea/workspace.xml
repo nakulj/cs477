@@ -26,7 +26,7 @@
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1591" column="49" selection-start="57297" selection-end="57297" vertical-scroll-proportion="0.8819539" vertical-offset="23215" max-vertical-offset="28395">
+            <state line="1158" column="39" selection-start="42042" selection-end="42042" vertical-scroll-proportion="22.7654" vertical-offset="0" max-vertical-offset="30525">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -37,7 +37,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="930" column="0" selection-start="58662" selection-end="58662" vertical-scroll-proportion="-9.541667" vertical-offset="13721" max-vertical-offset="14520">
+            <state line="930" column="0" selection-start="58700" selection-end="58700" vertical-scroll-proportion="0.0" vertical-offset="13950" max-vertical-offset="14520">
               <folding />
             </state>
           </provider>
@@ -198,14 +198,6 @@
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -216,15 +208,23 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -393,14 +393,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="930" column="0" selection-start="58662" selection-end="58662" vertical-scroll-proportion="-9.541667" vertical-offset="13721" max-vertical-offset="14520">
+        <state line="930" column="0" selection-start="58700" selection-end="58700" vertical-scroll-proportion="0.0" vertical-offset="13950" max-vertical-offset="14520">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Prototype v3/tapmobile/www/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1591" column="49" selection-start="57297" selection-end="57297" vertical-scroll-proportion="0.8819539" vertical-offset="23215" max-vertical-offset="28395">
+        <state line="1158" column="39" selection-start="42042" selection-end="42042" vertical-scroll-proportion="22.7654" vertical-offset="0" max-vertical-offset="30525">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

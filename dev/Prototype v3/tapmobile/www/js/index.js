@@ -1124,10 +1124,9 @@ function addAvailableTicket(ticket) {
     // Add to array to access later.
     availableTicketList.push(ticket);
 
-<<<<<<< HEAD
-    // Add to DOM.f
+
     $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
-=======
+
     // Add to DOM.
     var ticketPrice = parseInt(ticket.ticketPrice, 10);
     $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $<span class=\"availableTicketPrice\">" + ticketPrice.toFixed(2) + "</span></a></li>");
@@ -1137,7 +1136,7 @@ function addAvailableTicket(ticket) {
         var ticketPrice = $(this).data("ticketPrice");
         $("#confirm-ticket-price").html(ticketPrice.toFixed(2));
     });
->>>>>>> FETCH_HEAD
+
 }
 
 /*
