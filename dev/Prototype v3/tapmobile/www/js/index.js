@@ -1039,7 +1039,7 @@ function addAvailableTicket(ticket) {
     // Add to array to access later.
     availableTicketList.push(ticket);
 
-    // Add to DOM.
+    // Add to DOM.f
     $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
 }
 
@@ -1567,6 +1567,7 @@ function teaseTicketContainer(duration) {
     $("#mytickets").animate({bottom: -ticketListHeight + ticketListHeight/5}, duration/2);
     $("#mytickets").animate({bottom: -ticketListHeight}, duration/2).delay(duration/2);
 }
+
 
 // ========================================================================================================================
 // ACCOUNT SETTINGS PAGE
