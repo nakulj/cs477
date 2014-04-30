@@ -24,21 +24,23 @@ $errormessage = 0;
 
 Stripe::setApiKey("sk_live_dfqOIc2ZtwVAjreZdLg0XqmE");
 
-//save customer on stripe account for easier charges later
+save customer on stripe account for easier charges later
 $token = $_POST['stripeToken'];
 
-// Create a Customer
+ Create a Customer
 $customer = Stripe_Customer::create(array(
   "card" => $token,
   "description" => "payinguser@example.com")
 );
 
-// Charge the Customer instead of the card
+
+Charge the Customer instead of the card
 Stripe_Charge::create(array(
   "amount" => 5, # amount in cents, again
   "currency" => "usd",
   "customer" => $customer->id)
 );
+
 
 // Save the customer ID in your database so you can use it later
 saveStripeCustomerId($user, $customer->id);
