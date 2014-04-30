@@ -1310,6 +1310,23 @@ function addTicketWalletItem(ticketWalletItem) {
             $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
         }
     }
+
+    $("#" + "ticketWalletItemId" + ticketWalletItem.ticketId).click(function(){
+        /* Change all back to normal */
+        $(("#ticket-wallet-list li")).attr("data-theme","c");
+        $("#ticket-wallet-list li").removeClass("ui-btn-hover-g ui-btn-up-g");
+
+        /* Change selected one to green */
+        $(this).addClass("ui-btn-hover-g ui-btn-up-g");
+        $(this).attr("data-theme","g");
+
+        /* Ajax call */
+
+
+
+
+        
+    });
 }
 
 /*
@@ -2042,13 +2059,3 @@ function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_ar
     }
 }
 
-// ========================================================================================================================
-// TICKET WALLET PAGE
-// ========================================================================================================================
-
-$("#ticket-wallet-list li").click(function(){
-        $("#ticket-wallet-list li").attr("data-theme","c");
-        $("#ticket-wallet-list li").removeClass("ui-btn-hover-g ui-btn-up-g");
-        $(this).addClass("ui-btn-hover-g ui-btn-up-g");
-        $(this).attr("data-theme","g");
-});
