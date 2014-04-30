@@ -1134,9 +1134,6 @@ function addAvailableTicket(ticket) {
     // Add to array to access later.
     availableTicketList.push(ticket);
 
-
-    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
-
     // Add to DOM.
     var ticketPrice = parseInt(ticket.ticketPrice, 10);
     $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $<span class=\"availableTicketPrice\">" + ticketPrice.toFixed(2) + "</span></a></li>");
@@ -1443,7 +1440,7 @@ $("#home").on("pageshow", function(event) {
             $("#mytickets-list").listview('refresh');
 
             /* Determine the height of the Buy Tickets container by taking the height of one element and multiplying by 3. */
-            ticketListHeight = $("#mytickets-list li").actual("height") * 3;
+            ticketListHeight = $("#mytickets-list li").actual("height") * 4.5;
 
             /* Set the ticket container scrollbox height */
             $("#mytickets-list-container").height(ticketListHeight);
