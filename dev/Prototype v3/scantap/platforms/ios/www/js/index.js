@@ -83,7 +83,7 @@ function process(str) {
     //setText('ok','okay?');
     var ok= validate(uid, nguests,time,hmac);
     if(ok) {
-        testAndDeduct();
+        testAndDeduct(uid, nguests);
     }
     else {
         setOkBoxText("INVALID QR.");
@@ -130,9 +130,7 @@ function setOkBoxColor(color,backgroundColor) {
     document.getElementById('ok').style.backgroundColor=backgroundColor;
 }
 
-function testAndDeduct() {
-    var uid= 9;
-    var nguests=0;
+function testAndDeduct(uid, nguests) {
     var cost= 1.5*(nguests+1);
     $.ajax({
         type:'POST',
