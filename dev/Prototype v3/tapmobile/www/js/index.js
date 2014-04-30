@@ -742,7 +742,7 @@ $("#submit-create-account").on("click", function (e) {
     //Writes new user to server through PHP script
      $.ajax({
         
-         type: 'POST',
+        type: 'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
         data: {
@@ -754,8 +754,7 @@ $("#submit-create-account").on("click", function (e) {
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
-            zip: $('#cc_zip').val(),
-            stripeToken: stripeToken
+            zip: $('#cc_zip').val()
         },
         success : function(data) {
 
