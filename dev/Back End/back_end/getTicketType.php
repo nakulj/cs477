@@ -11,8 +11,8 @@ or die("Could not find database: " . mysql_error());
 $result = mysql_query("SELECT * FROM Ticket  ");
 $data=array();
 while($row = mysql_fetch_array($result)) {
-    $data[]=$row;
-
+	$availableTicket = array("ticketId" => $row["ticket_id"], "ticketName" => $row["ticket_description"], "ticketPrice" => $row["ticket_price"]);
+	array_push($data, $availableTicket);
 }
 echo json_encode($data);
 

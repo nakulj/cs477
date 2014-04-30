@@ -102,27 +102,15 @@ $(function() {
         type:'GET',
         url:'http://tapmobile.co.nf/back_end/getTicketType.php',
         success : function(data) {
-
+            clearAvailableTickets();
             var ticketTypes= $.parseJSON(data);
-            var InitTickets = [];
-            InitTickets[0] = new AvailableTicket(1, ticketTypes[0].ticket_description, ticketTypes[0].ticket_price);
-            addAvailableTicket(InitTickets[0]);
-
-
-            InitTickets[1] = new AvailableTicket(2, ticketTypes[1].ticket_description, ticketTypes[1].ticket_price);
-            addAvailableTicket(InitTickets[1]);
-
-            InitTickets[2] = new AvailableTicket(3,  ticketTypes[2].ticket_description, ticketTypes[2].ticket_price);
-            addAvailableTicket(InitTickets[2]);
-
-            InitTickets[3] = new AvailableTicket(4,ticketTypes[2].ticket_description, ticketTypes[2].ticket_price);
-            addAvailableTicket(InitTickets[3]);
-            setAvailableTickets(InitTickets);
+            console.log(ticketTypes);
+            setAvailableTickets(ticketTypes);
+            setAvailableTickets([{ticketId:"0", ticketName:"test", ticketPrice:"3"}]);
         },
         error: function(data, textStatus) {
             alert("Server error has occurred");
-
-            }
+        }
     });
     
     // TODO: Back-end
