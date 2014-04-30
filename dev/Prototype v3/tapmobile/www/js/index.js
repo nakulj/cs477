@@ -563,7 +563,6 @@ $("#submit-create-account").on("click", function (e) {
     var cc_num = $("#cc_num").val();
     var cc_num_parse = cc_num.toString();
     cc_num_parse = cc_num_parse.substr(cc_num_parse.length - 4);
-    alert(cc_num_parse);
     var cc_cvv = $("#cc_cvv").val();
     var cc_exp = $("#cc_exp").val();
     var cc_street = $("#cc_address_street").val();
