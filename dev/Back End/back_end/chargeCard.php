@@ -15,6 +15,7 @@ $email = trim($_POST["email"]);
 $result = mysql_query("SELECT * FROM Users WHERE email = '$email' ");
 $row = mysql_fetch_assoc($result);
 $token = $row['stripeToken'];
+$customerId = $row['stripeCustomerID'];
 
 //Stripe Charge
 
@@ -22,6 +23,9 @@ $token = $row['stripeToken'];
 Stripe::setApiKey("sk_live_dfqOIc2ZtwVAjreZdLg0XqmE");
 
 // Create the charge on Stripe's servers - this will charge the user's card
+
+//Single Charge
+/*
 try {
 $charge = Stripe_Charge::create(array(
   "amount" => 5, // amount in cents, again
@@ -32,6 +36,13 @@ $charge = Stripe_Charge::create(array(
 } catch(Stripe_CardError $e) {
   // The card has been declined
 }
+*/
 
+//Charge based on customer ID
+Stripe_Charge::create(array(
+  "amount"   => 5,
+  "currency" => "usd",
+  "customer" => $customerId)
+  );
 
 ?>

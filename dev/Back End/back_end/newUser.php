@@ -8,6 +8,7 @@ $con = mysql_connect("fdb7.biz.nf", "1616563_tap", "tapmobile7")
 	    mysql_select_db("1616563_tap", $con)
 	       or die("Could not find database: " . mysql_error());
 
+Stripe::setApiKey("sk_live_dfqOIc2ZtwVAjreZdLg0XqmE");
 
 $first_name = trim($_POST["fname"]);
 $last_name = trim($_POST["lname"]);
@@ -22,10 +23,10 @@ $stripeToken = $_POST["stripeToken"];
 $error = false;
 $errormessage = 0;
 
-Stripe::setApiKey("sk_live_dfqOIc2ZtwVAjreZdLg0XqmE");
+
 
 //save customer on stripe account for easier charges later
-$token = $_POST['stripeToken'];
+$token = $_POST["stripeToken"];
 
 // Create a Customer
 $customer = Stripe_Customer::create(array(
@@ -46,12 +47,13 @@ saveStripeCustomerId($user, $customer->id);
 // Later...
 $customerId = getStripeCustomerId($user);
 
+/*
 Stripe_Charge::create(array(
   "amount"   => 5,
   "currency" => "usd",
   "customer" => $customerId)
 );
-
+*/
 //end Stripe
 
 #CHECK TO SEE IF FIRST NAME CONTAINS AT LEAST 1 CHAR
@@ -145,8 +147,8 @@ if(!isset($password) || strlen($password) < 1){
 
 #ADD USER TO DB IF NO ERRORS DETECTED
 if (!$error){
-   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip, stripeToken)
-   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip', '$stripeToken')");
+   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip, stripeToken, stripeCustomerID)
+   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip', '$stripeToken', '$customerId')");
 
 	//echo '<script type="text/javascript">alert("user is created"); </script>';
 
