@@ -17,4 +17,4 @@ $ticketDescription=trim($_POST["ticketDescription"]);
 $query = mysql_query("INSERT INTO balance_history(primary_key,user_id, date, time, fare_amount,aux, type)
    	VALUES ('NULL','$userName', '$balance_history_date', '$balance_history_time', '$ticketPrice','$ticketDescription', '1')");
 $query = mysql_query("INSERT INTO ticketWallet(pass_id,user_name, pass_description, pass_active, pass_selected,pass_expiration)
-   	VALUES ('NULL','$userName', '$ticketDescription', '0', '1','NULL')");
+   	VALUES ('NULL','$userName', '$ticketDescription', '0', '0','NULL')");
