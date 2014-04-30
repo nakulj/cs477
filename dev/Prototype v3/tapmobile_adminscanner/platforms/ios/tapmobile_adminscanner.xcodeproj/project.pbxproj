@@ -45,6 +45,7 @@
 		A557AC702FAA4F4AB907294B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022B4D7D8CE34E8D9A771926 /* AVFoundation.framework */; };
 		D66185D643014C1B8440C735 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 821B4BDD51444012ACFC51D7 /* CoreVideo.framework */; };
 		105270E6648F445D821A4971 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0AC864BC4E406B9D737946 /* QuartzCore.framework */; };
+		3E7CA69A56364782ACB80B9E /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BCEB376C264D3A8771D2FC /* CDVStatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,8 @@
 		022B4D7D8CE34E8D9A771926 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		821B4BDD51444012ACFC51D7 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreVideo.framework"; path = "System/Library/Frameworks/CoreVideo.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		3E0AC864BC4E406B9D737946 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		E9BCEB376C264D3A8771D2FC /* CDVStatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVStatusBar.m"; path = "com.phonegap.plugin.statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		BC1951351A7440B7B3AAED8C /* CDVStatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVStatusBar.h"; path = "com.phonegap.plugin.statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 				409832D3AB424AED964206CB /* CDVBarcodeScanner.mm */,
 				6B639421DCAD425A8E1B1CC3 /* zxing-all-in-one.cpp */,
 				A4BB0B24B80248D29515BE60 /* zxing-all-in-one.h */,
+				E9BCEB376C264D3A8771D2FC /* CDVStatusBar.m */,
+				BC1951351A7440B7B3AAED8C /* CDVStatusBar.h */,
 			);
 			name = Plugins;
 			path = "tapmobile_adminscanner/Plugins";
@@ -446,6 +451,7 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				3EC5E2A1AB8F4E4D9E0EB506 /* CDVBarcodeScanner.mm in Resources */,
 				A3F0F3995D6447E8A7FE0AE4 /* zxing-all-in-one.cpp in Resources */,
+				3E7CA69A56364782ACB80B9E /* CDVStatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
