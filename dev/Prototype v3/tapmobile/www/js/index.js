@@ -1746,7 +1746,7 @@ function validateAccountUpdate(){
 
             },
             error: function(data, textStatus) {
-            alert("server error has occured");
+            alert("Server error has occured");
 
             }
         });
