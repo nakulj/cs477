@@ -1823,6 +1823,8 @@ $("#ticketWallet li").click(function(){
         $(this).removeClass("ui-btn-hover-g ui-btn-up-g");
     }
     else {
+        $("#ticketWallet li").attr("data-theme","c");
+        $("#ticketWallet li").removeClass("ui-btn-hover-g ui-btn-up-g");
         $(this).addClass("ui-btn-hover-g ui-btn-up-g");
         $(this).attr("data-theme","g");
     }
