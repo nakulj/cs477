@@ -759,7 +759,7 @@ $("#submit-create-account").on("click", function (e) {
     //Writes new user to server through PHP script
      $.ajax({
         
-         type: 'POST',
+        type: 'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
         data: {
@@ -771,8 +771,7 @@ $("#submit-create-account").on("click", function (e) {
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
-            zip: $('#cc_zip').val(),
-            stripeToken: stripeToken
+            zip: $('#cc_zip').val()
         },
         success : function(data) {
 
@@ -1903,14 +1902,9 @@ function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_ar
 // TICKET WALLET PAGE
 // ========================================================================================================================
 
-$("#ticketWallet li").click(function(){
-    var theme = $(this).attr("data-theme")
-    if (theme == "g") {
-        $(this).attr("data-theme","c");
-        $(this).removeClass("ui-btn-hover-g ui-btn-up-g");
-    }
-    else {
+$("#ticket-wallet-list li").click(function(){
+        $("#ticket-wallet-list li").attr("data-theme","c");
+        $("#ticket-wallet-list li").removeClass("ui-btn-hover-g ui-btn-up-g");
         $(this).addClass("ui-btn-hover-g ui-btn-up-g");
         $(this).attr("data-theme","g");
-    }
 });
