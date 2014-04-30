@@ -81,7 +81,6 @@ $(function() {
         success : function(data) {
 
             var ticketTypes= $.parseJSON(data);
-            console.log(ticketTypes)
             var InitTickets = [];
             InitTickets[0] = new AvailableTicket(1, ticketTypes[0].ticket_description, ticketTypes[0].ticket_price);
             addAvailableTicket(InitTickets[0]);
