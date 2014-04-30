@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <title>tapMobile</title>
+
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="css/tapMobile.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  
+    <script type="text/javascript">
+
+        // This identifies your website in the createToken call below
+        Stripe.setPublishableKey('pk_test_boQgtwVwK8Z4QgAggIBupnjW');
+        // ...
+               
+        </script>
+
+
+</head>
+
+<body>
+    <!-- Log-in page -->
+    <div data-role="page" id="log-in">
+        <div data-role = "content" id="log-in-content" style = "text-align: center;">
+            <br />
+            <br />
+            <br />
+            <span style = "font-size: 2.5em;">tap<span style = "color: #eee;">Mobile</span></span>
+            <br />
+            <br />
+            <br />
+
+            <form id = "log-in-form" method="post" action="">
+                <div>
+                    <input type="text" name="loginemail" id="loginemail" value=""  placeholder = "email"/>
+                    <input type="password" name="loginpassword" id="loginpassword" value=""  placeholder = "password"/>
+                    <br />
+                    <input type="submit" value="Log In"/>
+                </div>
+            </form>
+
+            <a href="#account-create-1" data-role="button" data-transition="slideup">Sign Up</a>
+
+            <a href="#" data-transition="slideup" id="forgot-password">Forgot Password? Click Here</a>
+        </div>
+
+        <!-- Forgot password invalid email popup -->
+        <div data-role="popup" id="popup-forgotpass-email">
+            <div data-role="content">
+                <p>Please enter a valid email address.</p>
+                <a data-role="button" data-rel="back" id="button-confirm-forgotpass-email">Ok</a>
+            </div>
+        </div>
+
+        <!-- Confirm password sent popup -->
+        <div data-role="popup" id="popup-confirm-passSent">
+            <div data-role="content">
+                <p>Instructions on how to retrieve your password have been sent to your email address.</p>
+                <a data-role="button" data-rel="back" id="button-cconfirm-passSent">Ok</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Account creation page -->
+    <div data-role="page" id="account-create-1" class="account-create">
+        <div data-role ="content" id="account-content-1" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#signup-cancel-popup" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                <a href="#account-create-2" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a>
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Personal Info</a></li>
+                        <li><a href="#account-create-2" data-role="button" data-transition="slide">Payment Info</a></li>
+                        <li><a href="#account-create-3" data-role="button" data-transition="slide">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <form id="user-info-account-create">
+                <ul data-role="listview">
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-fname"><span id="fname-label"><b>First Name:</b></span></label>
+                        <input type="text" name="acc-create-fname" id="acc-create-fname" value="" placeholder="First Name"/>
+                        <div id="AccountEmail1Alert" style="color:red"></div>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-lname"><span id="lname-label"><b>Last Name:</b></span></label>
+                        <input type="text" name="acc-create-lname" id="acc-create-lname" value="" placeholder="Last Name" label="HI"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-email"><span id="email-label"><b>Email Address:</b></span></label>
+                        <input type="email" name="acc-create-email" id="acc-create-email" value="" placeholder="Email Address"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-password1"><span id="pass-label"><b>Password:</b></span></label>
+                        <input type="password" name="acc-create-password1" id="acc-create-password1" value="" placeholder="Password (at least 5 characters)"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="acc-create-password2"><span id="pass2-label"><b>Confirm Password:</b></span></label>
+                        <input type="password" name="acc-create-password2" id="acc-create-password2" value="" placeholder="Confirm Password"/>
+                    </li>
+                </ul>
+            </form>
+
+            <div data-role="popup" id="signup-cancel-popup" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" class="signup-cancel" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+
+        </div>
+    </div>
+
+    <!-- Account creation page 2-->
+    <div data-role="page" id="account-create-2" class="account-create">
+        <div data-role ="content" id="account-content-2" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#signup-cancel-popup" class="ui-btn-left" id="account-cancel" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                 <a href="#account-create-3" class="ui-btn-right" data-role="button" data-inline="true" data-transition="slide">Next</a> 
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#account-create-1" data-transition="slide" data-direction="reverse">Personal Info</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Payment Info</a></li>
+                        <li><a href="#account-create-3" data-transition="slide">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <form id="payment-info-account-create">
+                <ul data-role="listview">
+                    <li data-role="fieldcontain">
+                        <label for="cc_name"><span id="cc_name-label"><b>Cardholder Name:</b></span></label>
+                        <input type="text" name="cc_name" id="cc_name" value="" placeholder="Cardholder Name" data-stripe="number">
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_num"><span id="cc_num-label"><b>Credit Card Number:</b></span></label>
+                        <input type="text" name="cc_num" id="cc_num" value=""  maxlength="19" placeholder="Credit Card Number"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_cvv"><span id="cc_cvv-label"><b>CVV:</b></span></label>
+                        <input type="text" name="cc_cvv" id="cc_cvv" value=""  maxlength="4" placeholder="CVV" data-stripe="cvc">
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_exp"><span id="cc_exp-label"><b>Expiration Date:</b></span></label>
+                        <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date" >
+                    </li>
+                    <li data-role="fieldcontain">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                         <legend><b>Expiration Date:</b></legend>
+                        
+                        <select name="update_cc_month" id="Select1" data-stripe ="exp-month">
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <select name="expiration-year" id="Select2" data-stripe ="exp-year">
+                            <option value="2014">2014</option>
+                            <option value="2015">2015</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                        </select> 
+                            </fieldset>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_address_street"><span id="cc_address_street-label"><b>Street Address:</b></span></label>
+                        <input type="text" name="cc_address_street" id="cc_address_street" value="" placeholder="Street Address">
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_address_city"><span id="cc_address_city-label"><b>City:</b></span></label>
+                        <input type="text" name="cc_address_city" id="cc_address_city" value="" placeholder="City"/>
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_address_state"><span id="cc_address_state-label"><b>State:</b></span></label>
+                        <select name="cc_address_state" id="cc_address_state">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>           
+                    </li>
+                    <li data-role="fieldcontain">
+                        <label for="cc_zip"><span id="cc_zip-label"><b>Billing Zip Code:</b></span></label>
+                        <input type="text" name="cc_zip" id="cc_zip" value="" placeholder="Billing Zip Code"/>
+                    </li>
+                </ul>
+            </form>
+
+            <div data-role="popup" id="signup-cancel-popup" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" class="signup-cancel" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+
+        </div>
+    </div>
+
+    <!-- Account creation page 3 -->
+    <div data-role="page" id="account-create-3" class="account-create">
+        <div data-role ="content" id="account-content-3" style ="text-align:center;">
+            
+            <div data-role="header" data-id="account-header" data-position="fixed">
+                <a href="#signup-cancel-popup" class="ui-btn-left" id="account-cancel2" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Cancel</a>
+                <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+                
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#account-create-1" data-transition="slide" data-direction="reverse">Personal Info</a></li>
+                        <li><a href="#account-create-2" data-transition="slide" data-direction="reverse">Payment Info</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Create</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+
+            </div><!-- /header -->
+
+            <br>
+            <br>
+            By clicking below,
+            <br> 
+            you agree to the 
+            <br>
+            <a href="#terms-service" style="color:white;">terms of service</a> 
+            and 
+            <a href="#privacy-policy" style="color:white;">privacy policy</a>.
+            <br>
+            <br>
+            <br>
+            <a href="#" id="submit-create-account" data-role="button" data-mini="true">Create Account</a>
+
+
+            <div data-role="popup" id="signup-cancel-popup" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Cancel Account</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title">Are you sure you want to cancel creating your account?</h3>
+                    <p>This action cannot be undone.</p>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" class="signup-cancel" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+        
+        </div>
+    </div>
+
+    <!-- Terms of service page -->
+    <div data-role="page" id="terms-service" class="account-create">
+        <div data-role ="content" style ="text-align:center;">
+             <div data-role="header" data-id="account-header" data-position="fixed">
+                    <a href="#account-create-3" class="ui-btn-left" id="terms-back" data-role="button" data-inline="true" data-transition="fade">Back</a>
+                    <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+             </div>
+         
+         <div style="text-align:justify; color: white;">
+            
+            
+<h2>
+    Web Site Terms and Conditions of Use
+</h2>
+
+<h3>
+    1. Terms
+</h3>
+
+<p>
+    By accessing this web site, you are agreeing to be bound by these 
+    web site Terms and Conditions of Use, all applicable laws and regulations, 
+    and agree that you are responsible for compliance with any applicable local 
+    laws. If you do not agree with any of these terms, you are prohibited from 
+    using or accessing this site. The materials contained in this web site are 
+    protected by applicable copyright and trade mark law.
+</p>
+
+<h3>
+    2. Use License
+</h3>
+
+<ol type="a">
+    <li>
+        Permission is granted to temporarily download one copy of the materials 
+        (information or software) on TAP Mobile's web site for personal, 
+        non-commercial transitory viewing only. This is the grant of a license, 
+        not a transfer of title, and under this license you may not:
+        
+        <ol type="i">
+            <li>modify or copy the materials;</li>
+            <li>use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>
+            <li>attempt to decompile or reverse engineer any software contained on TAP Mobile's web site;</li>
+            <li>remove any copyright or other proprietary notations from the materials; or</li>
+            <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
+        </ol>
+    </li>
+    <li>
+        This license shall automatically terminate if you violate any of these restrictions and may be terminated by TAP Mobile at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.
+    </li>
+</ol>
+
+<h3>
+    3. Disclaimer
+</h3>
+
+<ol type="a">
+    <li>
+        The materials on TAP Mobile's web site are provided "as is". TAP Mobile makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, TAP Mobile does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.
+    </li>
+</ol>
+
+<h3>
+    4. Limitations
+</h3>
+
+<p>
+    In no event shall TAP Mobile or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on TAP Mobile's Internet site, even if TAP Mobile or a TAP Mobile authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.
+</p>
+            
+<h3>
+    5. Revisions and Errata
+</h3>
+
+<p>
+    The materials appearing on TAP Mobile's web site could include technical, typographical, or photographic errors. TAP Mobile does not warrant that any of the materials on its web site are accurate, complete, or current. TAP Mobile may make changes to the materials contained on its web site at any time without notice. TAP Mobile does not, however, make any commitment to update the materials.
+</p>
+
+<h3>
+    6. Links
+</h3>
+
+<p>
+    TAP Mobile has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by TAP Mobile of the site. Use of any such linked web site is at the user's own risk.
+</p>
+
+<h3>
+    7. Site Terms of Use Modifications
+</h3>
+
+<p>
+    TAP Mobile may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.
+</p>
+
+<h3>
+    8. Governing Law
+</h3>
+
+<p>
+    Any claim relating to TAP Mobile's web site shall be governed by the laws of the State of California without regard to its conflict of law provisions.
+</p>
+
+<p>
+    General Terms and Conditions applicable to Use of a Web Site.
+</p>
+
+
+            <!-- ////////////////////////////////// -->
+
+
+        </div>
+
+        </div>
+    </div>
+
+    <!-- Privacy policy page -->
+    <div data-role="page" id="privacy-policy" class="account-create">
+        <div data-role ="content" style ="text-align:center;">
+             <div data-role="header" data-id="account-header" data-position="fixed">
+                    <a href="#account-create-3" class="ui-btn-left" id="policy-back" data-role="button" data-inline="true" data-transition="fade">Back</a>
+                    <h1><span style="color:white;">tap</span><span style="color:#4F9CFF;">Mobile</span></h1>
+             </div>
+            <div style="text-align:justify; color: white;">
+<!-- START PRIVACY POLICY CODE --><strong>What information do we collect?</strong> <br /><br />We collect information from you when you register on our site, place an order or fill out a form.  <br /><br />When ordering or registering on our site, as appropriate, you may be asked to enter your: name, e-mail address, mailing address, phone number or credit card information. You may, however, visit our site anonymously.<br /><br /><strong>What do we use your information for?</strong> <br /><br />Any of the information we collect from you may be used in one of the following ways: <br /><br />; To process transactions<br /><blockquote>Your information, whether public or private, will not be sold, exchanged, transferred, or given to any other company for any reason whatsoever, without your consent, other than for the express purpose of delivering the purchased product or service requested.</blockquote><br />; To send periodic emails<br /><blockquote>The email address you provide for order processing, may be used to send you information and updates pertaining to your order, in addition to receiving occasional company news, updates, related product or service information, etc.</blockquote><br /><br /><strong>How do we protect your information?</strong> <br /><br />We implement a variety of security measures to maintain the safety of your personal information when you place an order or enter, submit, or access your personal information. <br /> <br />We offer the use of a secure server. All supplied sensitive/credit information is transmitted via Secure Socket Layer (SSL) technology and then encrypted into our Payment gateway providers database only to be accessible by those authorized with special access rights to such systems, and are required to?keep the information confidential.<br /><br />After a transaction, your private information (credit cards, social security numbers, financials, etc.) will be kept on file for more than 60 days in order to expedite future payments..<br /><br /><strong>Do we use cookies?</strong> <br /><br />Yes (Cookies are small files that a site or its service provider transfers to your computers hard drive through your Web browser (if you allow) that enables the sites or service providers systems to recognize your browser and capture and remember certain information<br /><br /> We use cookies to help us remember and process the items in your shopping cart and understand and save your preferences for future visits.<br /><br /><strong>Do we disclose any information to outside parties?</strong> <br /><br />We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. This does not include trusted third parties who assist us in operating our website, conducting our business, or servicing you, so long as those parties agree to keep this information confidential. We may also release your information when we believe release is appropriate to comply with the law, enforce our site policies, or protect ours or others rights, property, or safety. However, non-personally identifiable visitor information may be provided to other parties for marketing, advertising, or other uses.<br /><br /><strong>Third party links</strong> <br /><br /> Occasionally, at our discretion, we may include or offer third party products or services on our website. These third party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites. Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these sites.<br /><br /><strong>California Online Privacy Protection Act Compliance</strong><br /><br />Because we value your privacy we have taken the necessary precautions to be in compliance with the California Online Privacy Protection Act. We therefore will not distribute your personal information to outside parties without your consent.<br /><br />As part of the California Online Privacy Protection Act, all users of our site may make any changes to their information at anytime by logging into their control panel and going to the 'Edit Profile' page.<br /><br /><strong>Childrens Online Privacy Protection Act Compliance</strong> <br /><br />We are in compliance with the requirements of COPPA (Childrens Online Privacy Protection Act), we do not collect any information from anyone under 13 years of age. Our website, products and services are all directed to people who are at least 13 years old or older.<br /><br /><strong>Terms and Conditions</strong> <br /><br />Please also visit our Terms and Conditions section establishing the use, disclaimers, and limitations of liability governing the use of our website at <a href="www.metro.net" style="color: black;">www.metro.net</a><br /><br /><strong>Your Consent</strong> <br /><br />By using our site, you consent to our <a style='text-decoration:none; color: black;' href='http://www.freeprivacypolicy.com/' target='_blank'>websites privacy policy</a>.<br /><br /><strong>Changes to our Privacy Policy</strong> <br /><br />If we decide to change our privacy policy, we will post those changes on this page, and/or update the Privacy Policy modification date below. <br /><br />This policy was last modified on April 25, 2014<br /><br />metro.net<br /><br /><span></span><span></span><span></span><span></span><span></span><!-- END PRIVACY POLICY CODE -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Home page -->
+    <div data-role="page" id="home" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide" data-rel="close">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /left panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#home-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#add-funds" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+        </div>
+
+        <div id="home-content" data-role="content">
+        <div id="station-wrapper">
+                <div class="ui-grid-b my-breakpoint">
+                    <div class="ui-block-a arrow-div" id="destination-arrow">
+                        &#60;
+                    </div>
+                    <ul id="nearest-station" data-role="listview" data-inset="true" class="ui-block-b">
+                        <li id="nearest-station-desc" data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: blue; color: white; text-shadow: none;"></li>
+                        <li><p id="nearest-station-time-A" class="ui-li-aside"></p><h2 id="nearest-station-dest-A" style="overflow:visible;"></h2></li>
+                        <li><p id="nearest-station-time-B" class="ui-li-aside"></p><h2 id="nearest-station-dest-B" style="overflow:visible;"></h2></li>
+                    </ul>
+                    <div class="ui-block-c" id="destination-arrow"> 
+                        &#62; 
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center; font-size: 75%; color: grey;">Click below to flip tapMobile pass</p>
+
+            <div id="qr-rotation-tile">
+                <div id="qr-front" class="rotationContent">
+                    <div id="qr-code"></div>
+                    <div id="qr-code-disabled"><h2>You need an active ticket or more money in your TAP balance</h2></div>
+                </div>
+
+                <div id="qr-back" class="rotationContent">
+                    <h3 style="margin: 0;">Guest Passes</h3>
+                    <div data-role="fieldcontain">
+                        <label for="input-num-guests"># of Guests</label>
+                        <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+                            <button id="input-guest-dec" data-icon="arrow-d" data-iconpos="notext" data-theme="b"></button>
+                            <button><span id="output-guest-num">0</span></button>
+                            <button id="input-guest-inc" data-icon="arrow-u" data-iconpos="notext" data-theme="b"></button>
+                        </div>
+                    </div>
+                    <div data-role="fieldcontain" style="font-size: 75%;">
+                        <span>Total Price: </span>$<span id="output-total-price">0.00</span>
+                    </div>
+                    <div data-role="controlgroup" data-mini="true">
+                        <a href="" id="qr-guests-accept-btn" class="qrFlipBack" data-role="button" data-theme="g">Accept</a>
+                        <a href="" class="qrFlipBack" data-role="button" data-theme="a">Cancel</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <p id="qr-front-caption" class="qrCaption">
+                <span id="qr-front-caption-guests">+<span id="qr-front-caption-guests-num">2</span> Guests ($<span id="qr-front-caption-guests-price">0.00</span> extra)<br /></span>
+                <span id="qr-front-caption-ticket"></span><br />
+                <span style="font-size: 0.8em;">Expires on <span id="qr-front-caption-expdate"></span></span>
+            </p>
+            <p id="qr-back-caption" class="qrCaption"></p>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" id="mytickets">
+            <p id="mytickets-tab">Buy Ticket</p>
+            <div id="mytickets-list-container">
+                <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home page dialog confirm ticket -->
+    <div data-role="page" id="dialog-confirm-ticket">
+        <div data-role="content">
+            <p>Your credit card will be charged $X for this pass, continue?</p>
+            <a data-role="button" data-rel="back" id="button-confirm-ticket">Ok</a>
+            <a data-role="button" data-rel="back">Cancel</a>
+        </div>
+    </div>
+
+    <!-- Add Funds page -->
+    <div data-role="page" id="add-funds" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content" style="text-align: center;">
+            
+            <span style="font-size: 1.2em; font-weight: bold; line-height: 2.2em;">
+                Current Balance
+            </span>
+            <br>
+            <p id="funds_tap_balance_value">0.00</p>
+            
+            <br><br><br>
+            
+            <form id="add-funds-form" method="post" action=" " name="add-funds-form">
+            <h3>Add Funds</h3>
+                <fieldset data-role="controlgroup">
+                    <legend>Choose an amount:</legend>
+                        <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" />
+                        <label for="radio-choice-1">$1.50</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
+                        <label for="radio-choice-2">$5</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
+                        <label for="radio-choice-3">$10</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
+                        <label for="radio-choice-4">$20</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-5" value="choice-5"  />
+                        <label for="radio-choice-5">$50</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-6" value="choice-6"  />
+                        <label for="radio-choice-6">$100</label>
+                </fieldset>
+               <button data-theme="g" id="funds-submit" type="submit">Purchase Funds</button>
+            </form>
+
+        </div>
+
+        <div data-role="popup" id="dialog-confirm-add-funds" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all">
+                <div data-role="header" data-theme="a" class="ui-corner-top">
+                    <h1>Purchase Funds</h1>
+                </div>
+                <div role="main" class="ui-corner-bottom ui-content">
+                    <h3 class="ui-title" id="fund-confirm-message"></h3>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="a">No</a>
+                    <a href="#" id="dialog-confirm-purchase-funds" data-role="button" data-inline="true" data-theme="b">Yes</a>
+                </div>
+            </div> <!-- /popup -->
+    </div>
+
+    <!-- Purchase History page -->
+    <div data-role="page" id="purchase-history" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="balance_history_funds">        
+                <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(126,169,68); color: white; text-shadow: none;">Funds Added to Account</li>
+                <li >
+                    <h2 class="ui-li-heading">
+                    $10.00
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Card ending in xxxx</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    11/14/14 - 7:46am
+                    </p>
+                </li>
+            </ul>
+
+             <ul data-role="listview" data-inset="true" >
+             <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(161,59,57); color: white; text-shadow: none;">Purchases from Account Balance</li>
+                <li >
+                    <p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
+                    <h2 class="ui-li-heading">
+                    $4.50
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Single Fare</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/15/14 - 11:55am
+                    </p>
+                </li>
+                <li >
+                    <p class="ui-li-aside ui-li-desc"><strong></strong></p>
+                    <h2 class="ui-li-heading">
+                    $1.50
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Single Fare</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/15/14 - 8:00am
+                    </p>
+                </li>
+                </ul>
+        </div>
+    </div>
+
+    <!-- Past Taps page -->
+    <div data-role="page" id="past-taps" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Past<br>Taps</a></li>
+                        <li><a href="#payment-info" data-role="button" data-transition="fade">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+           <ul data-role="listview" data-inset="true" data-split-icon="delete" data-split-theme="c">        
+                <li>
+                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
+                    <h2 class="ui-li-heading">
+                    Single Fare
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Culver Station</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    12/01/14 - 9:15pm
+                    </p></a>
+                    <a href="#"></a>
+                </li>
+                <li>
+                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong></strong></p>
+                    <h2 class="ui-li-heading">
+                    5-Day Pass
+                    </h2>
+                    <p class="ui-li-desc">
+                    <strong>Jefferson Station</strong>
+                    </p>
+                    <p class="ui-li-desc">
+                    10/05/14 - 10:15pm
+                    </p></a>
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Ticket Wallet page -->
+    <div data-role="page" id="payment-info" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+            <a href="#home" id="tap-balance-header-btn" class="ui-btn-right" data-role="button" data-inline="true" data-transition="fade">$<span class="tap-balance-value">0.00</span></a>
+            <div data-role="navbar">
+                    <ul>
+                        <li><a href="#add-funds" data-role="button" data-transition="fade">Add<br>Funds</a></li>
+                        <li><a href="#purchase-history" data-role="button" data-transition="fade">Balance<br>History</a></li>
+                        <li><a href="#past-taps" data-role="button" data-transition="fade">Past<br>Taps</a></li>
+                        <li><a href="#" class="ui-btn-active ui-state-persist">Ticket<br>Wallet</a></li>
+                    </ul>
+            </div><!-- /navbar -->
+        </div><!-- /header -->
+
+        
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true">        
+            <li data-theme="g">
+                <p class="ui-li-aside ui-li-desc"><strong>0 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                3-Day Pass
+                </h2>
+                <p class="ui-li-desc">
+                Expires on 12/10/14 at 7:45pm
+                </p>
+            </li>
+            <li>
+                <p class="ui-li-aside ui-li-desc"><strong>1 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                5-Day Pass
+                </h2>
+                <p class="ui-li-desc">
+                Not Yet Activated
+                </p>
+            </li>
+             <li>
+               <p class="ui-li-aside ui-li-desc"><strong>5 Remaining</strong></p>
+                <h2 class="ui-li-heading">
+                Single Fare
+                </h2>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <!-- Account settings page -->
+    <div data-role="page" id="account-settings" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide" data-rel="close">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#account-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+        </div>
+
+        <div data-role="content">
+            <form id="update-account-form" action="" method="post" name="AccountSettingsForm">
+            <h3>Email Address</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-email" id="new-email-label">New Email Address: </label>
+                    <input type="text" name="new-email" id="new-email" value="" data-clear-btn="true">
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-email-confirm" id="new-email-confirm-label">Confirm New Email Address: </label>
+                    <input type="text" name="new-email-confirm" id="new-email-confirm" value="" data-clear-btn="true">
+                </li>
+            </ul>
+            <br />
+            <h3>Password</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="new-password" id="new-password-label">New Password: </label>
+                    <input type="password" name="new-password" id="new-password" value="" data-clear-btn="true">
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="new-password-confirm" id="new-password-confirm-label">Confirm New Password: </label>
+                    <input type="password" name="new-password-confirm" id="new-password-confirm" value="" data-clear-btn="true">
+                </li>
+            </ul>
+            <br />
+            <h3>Payment Information</h3>
+            <ul data-role="listview">
+                <li data-role="fieldcontain">
+                    <label for="update_cc_name" id="update_cc_name-label">Cardholder Name:</label>
+                    <input type="text" name="update_cc_name" id="update_cc_name" value="" data-clear-btn="true">
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="update_cc_num" id="update_cc_num-label">Number:</label>
+                    <input type="text" pattern="[0-9]*"  name="update_cc_num" id="update_cc_num" value="" data-clear-btn="true" data-stripe="number">
+                    <br><br>
+                    <label for="update_cc_cvv" id="update_cc_cvv-label">CVV:</label>
+                    <input type="text" pattern="[0-9]*" name="update_cc_cvv" id="update_cc_cvv" value="" data-clear-btn="true" data-stripe="cvc">
+                    <br><br>
+                     <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Expiration Date:</legend>
+                        <label for="update_cc_month" id="update_cc_month-label">Test</label>
+                        <select name="update_cc_month" id="update_cc_month" data-stripe ="exp-month">
+                            <option value="jan">January</option>
+                            <option value="feb">February</option>
+                            <option value="mar">March</option>
+                            <option value="apr">April</option>
+                            <option value="may">May</option>
+                            <option value="jun">June</option>
+                            <option value="jul">July</option>
+                            <option value="aug">August</option>
+                            <option value="sept">September</option>
+                            <option value="oct">October</option>
+                            <option value="nov">November</option>
+                            <option value="dec">December</option>
+                        </select>
+                        <select name="expiration-year" id="expiration-year" data-stripe ="exp-year">
+                        </select> 
+                    </fieldset>
+                </li>
+                <li data-role="fieldcontain">
+                    <label for="update_cc_street" id="update_cc_street-label">Street Address:</label>
+                    <input type="text" name="update_cc_street" id="update_cc_street" value="" data-clear-btn="true">
+                    <br><br>
+                    <label for="update_cc_city" id="update_cc_city-label">City:</label>
+                    <input type="text" name="update_cc_city" id="update_cc_city" value="" data-clear-btn="true">
+                    <br><br>
+                    <label for="update_cc_state" id="update_cc_state-label">State:</label>
+                    <select name="update_cc_state" id="update_cc_state">
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                    </select>  
+                    <br><br>
+                    <label for="update_cc_zip" id="update_cc_zip-label">Zip Code:</label>
+                    <input type="text" pattern="[0-9]*" name="update_cc_zip" id="update_cc_zip" value="" data-clear-btn="true">
+                </li>
+            </ul>
+            <br><br>
+            
+            <button data-theme="g" type="submit">Update Account Information</button>
+            <button type="submit" id="delete-account" data-theme="r">Delete Account</button>
+        </form>
+        </div>
+
+        <!-- Account update popup -->
+        <div data-role="popup" id="popup-account-settings-update">
+            <div data-role="content">
+                <p>Your account settings have been updated</p>
+                <a data-role="button" data-rel="back" id="button-confirm-account-settings-update">Ok</a>
+            </div>
+        </div>
+
+        <!-- Delete account confirmation popup -->
+        <div data-role="popup" id="popup-delete-account-confirmation">
+            <div data-role="content">
+                <p>Your account will be permanently deleted, proceed?</p>
+                <a href="#" class="delete-account-confirmed" data-role="button" data-inline="true" data-transition="flow" data-theme="a">Yes</a>
+                <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="b">No</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- About page -->
+    <div data-role="page" id="about" class="sidePanelAccessible">
+        <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
+            <ul data-role="listview" data-icon="false">
+                <li><a href="#home" data-transition="slide">Home</a></li>
+                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
+                <li><a href="#about" data-transition="slide" data-rel="close">About</a></li>
+                <li><a href="#log-in" data-transition="slide">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+
+        <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
+            <a href="#about-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>
+            <h1><span style="color:white;">tap</span>Mobile</h1>
+
+        </div>
+
+        <div data-role="content">
+            TAP Mobile was founded in 2013 at the University of Southern California. The company's mission is to enhance use of public transportation by providing a virtual fare service. TAP Mobile's goal is to provide the highest level quality of service to each of our customers. If at any point you have comments, questions or other feedback, you can e-mail us at <a href="mailto:tapmobile@metro.net">tapmobile@metro.net</a>.
+        </div>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="lib/ui/jquery-ui.js"></script>
+    <script src="lib/jquery.mobile-1.3.2.js"></script>
+    <script src="http://ziplookup.googlecode.com/git/public/ziplookup/zipLookup.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="lib/jquery.actual.js"></script>
+    <script type="text/javascript" src="lib/fastclick.js"></script>
+    <script type="text/javascript" src="lib/handlebars.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS v3/rollups/hmac-sha1.js"></script>
+    <script type="text/javascript" src="lib/davidshimjs-qrcodejs-07f829d/qrcode.js"></script>
+    <script type="text/javascript" src="lib/stripev2.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        /* this way we are sure that both jquery and phonegap are available before initialization */
+        $(document).ready(function() {
+            app.initialize();
+        });
+    </script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuBcTJ0Qn0YoisT0_93at06maGlOSNbM4&libraries=geometry,places&sensor=true">
+    </script>
+    <script type="text/javascript">
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</body>
+</html>

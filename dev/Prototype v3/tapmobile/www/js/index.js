@@ -33,6 +33,8 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        document.addEventListener("online", app.onOnline, false);
+        document.addEventListener("offline", app.onOffline, false);
         document.addEventListener("backbutton", app.onBackKeyDown, false);
     },
 
@@ -44,6 +46,27 @@ var app = {
         } else { // Default "go back"
             navigator.app.backHistory();
         }
+    },
+
+    onOnline: function() {
+        $.unblockUI();
+    },
+
+    /* Connection error timeout message */
+    onOffline: function() {
+        $.blockUI({
+            message: '<img src="css/images/ajax-loader.gif" />Establishing internet connection...',
+            css: {
+                width: '75%',
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
     }
 };
 
@@ -172,6 +195,9 @@ var tapBalance = 0.00;
 /* If the user has an active ticket this should be set to true. */
 var hasActiveTicket = false;
 
+/* Contains the latest GPS location of user.  */
+var lastUpdatedPosition = 0;
+
 var userSession;
 
 
@@ -288,7 +314,7 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 var balance;
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
-
+/*
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateLogin.php',
@@ -314,7 +340,7 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-
+    */
 //Set Tap Balance
   setTimeout(function() {
     $.ajax({
@@ -340,7 +366,7 @@ $("#log-in-form").on("submit", function(e) {
 
 
     // Bypass login for testing.
-    //$.mobile.changePage("#home", {transition: "slideup"});
+    $.mobile.changePage("#home", {transition: "slideup"});
 
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
@@ -849,6 +875,25 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
 // ----------------------------------------------------------------------
 
 /*
+ * Description: Use the phone's GPS to store current position information.
+ * Input: N/A
+ * Output: Updates lastUpdatedPosition with fresh data.
+ * Error: Sends an alert if this fails for any reason.
+ */
+function refreshLocation() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        //position.coords.latitude
+        //position.coords.longitude
+        lastUpdatedPosition = position;
+
+    }, function(error) {
+
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    });
+}
+
+/*
  * Description: Set the ticket text in the caption displayed under the front-facing QR code.
  * Input: Text identifying the ticket being used.
  * Output: N/A
@@ -1131,6 +1176,13 @@ function handleHomeScreenBackBtn() {
         flipQRCodeToFront();
     }
 }
+
+/* Refresh location */
+
+$(".refreshLocation").click(function() {
+    //var refreshBtn = $(this);
+    refreshLocation();
+});
 
 /* Nearest transit station */
 
