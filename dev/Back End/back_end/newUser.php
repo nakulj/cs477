@@ -1,8 +1,9 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
+require_once("/srv/disk2/1616563/www/tapmobile.co.nf/back_end/stripeapi/lib/Stripe.php");
 $con = mysql_connect("fdb7.biz.nf", "1616563_tap", "tapmobile7")
-	       or die("Could not connect: " . mysql_error()); 
+	       or die("Could not connect: " . mysql_error());
 
 	    mysql_select_db("1616563_tap", $con)
 	       or die("Could not find database: " . mysql_error());
@@ -46,7 +47,7 @@ saveStripeCustomerId($user, $customer->id);
 $customerId = getStripeCustomerId($user);
 
 Stripe_Charge::create(array(
-  "amount"   => 5, 
+  "amount"   => 5,
   "currency" => "usd",
   "customer" => $customerId)
 );
