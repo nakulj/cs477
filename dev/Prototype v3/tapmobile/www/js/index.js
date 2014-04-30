@@ -1371,7 +1371,6 @@ function processedTicketFailed(errorCode) {
 // ----------------------------------------------------------------------
 
 // QR Code generation
-var userid= userSession;
 var timestamp;
 var message;
 var passphrase= "1337password";
@@ -1390,6 +1389,7 @@ var refreshRate = 5000;
 
 
 function updateTimeQR() {
+    var userid=userSession;
     qrcode.clear();
     timestamp = Date.now();
     message = userid+numGuests+timestamp;
