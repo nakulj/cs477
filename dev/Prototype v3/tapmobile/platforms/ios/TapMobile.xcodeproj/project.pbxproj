@@ -33,6 +33,7 @@
 		F840E1F1165FE0F500CFE078 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = F840E1F0165FE0F500CFE078 /* config.xml */; };
 		6AE330F04E03465C8920B6B7 /* LocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 244F4E43F413477BAEA2F595 /* LocalNotification.m */; };
 		5BEA14C3DDBD449B8E2DF250 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2836A0156E814A2B8E1C74D7 /* CDVLocation.m */; };
+		297C9429ED0547269F69F65E /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCEC8F0BD18474582A6D413 /* CDVStatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		7C666DBE78294FA1B058E165 /* LocalNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LocalNotification.h"; path = "localnotification/LocalNotification.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		2836A0156E814A2B8E1C74D7 /* CDVLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLocation.m"; path = "org.apache.cordova.geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		40470DABD545449BAE3CD000 /* CDVLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocation.h"; path = "org.apache.cordova.geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1CCEC8F0BD18474582A6D413 /* CDVStatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVStatusBar.m"; path = "com.phonegap.plugin.statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		3E30E85EA2894A758C150B78 /* CDVStatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVStatusBar.h"; path = "com.phonegap.plugin.statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +213,8 @@
 				7C666DBE78294FA1B058E165 /* LocalNotification.h */,
 				2836A0156E814A2B8E1C74D7 /* CDVLocation.m */,
 				40470DABD545449BAE3CD000 /* CDVLocation.h */,
+				1CCEC8F0BD18474582A6D413 /* CDVStatusBar.m */,
+				3E30E85EA2894A758C150B78 /* CDVStatusBar.h */,
 			);
 			name = Plugins;
 			path = "TapMobile/Plugins";
@@ -379,6 +384,7 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				6AE330F04E03465C8920B6B7 /* LocalNotification.m in Sources */,
 				5BEA14C3DDBD449B8E2DF250 /* CDVLocation.m in Sources */,
+				297C9429ED0547269F69F65E /* CDVStatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
