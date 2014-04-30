@@ -125,9 +125,12 @@ $(function() {
 
             }
     });
-
-
-
+    
+    // TODO: Back-end
+    clearBalanceHistory();
+    addBalanceHistoryItem(new BalanceHistoryItem("addfunds", 10.00, "Card ending in xxxx", "11/14/14", "7:46am"));
+    addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
+    addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
 
     // Hardcoded default balance value
     //setTAPBalance(0.00);
@@ -176,6 +179,14 @@ var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
     this.ticketText = ticketText;
     this.expirationDate = expirationDate;
     this.numGuests = numGuests;
+}
+
+var BalanceHistoryItem = function(transactionType, transactionAmount, descriptionText, transactionDate, transactionTime) {
+    this.transactionType = transactionType;
+    this.transactionAmount = transactionAmount;
+    this.descriptionText = descriptionText;
+    this.transactionDate = transactionDate;
+    this.transactionTime = transactionTime;
 }
 
 // ========================================================================================================================
@@ -293,6 +304,9 @@ var nearestTransitStations = [];
 
 /* An index of which TransitStation the user is currently viewing in the home screen. */
 var nearestTransitStationIndex = 0;
+
+/* A list of all BalanceHistoryItem objects to be displayed in their balance history */
+var balanceHistoryList = [];
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
@@ -1067,6 +1081,39 @@ function clearAvailableTickets() {
 
     // Clear DOM.
     $("#mytickets-list").empty();
+}
+
+/*
+ * Description: Append a balance history item to the "Balance History" tab in account balance info.
+ * Input: A BalanceHistoryEntry object.
+ * Output: N/A
+ * Error: N/A
+ */
+function addBalanceHistoryItem(balanceHistoryItem) {
+    // Add to array to access later.
+    balanceHistoryList.push(balanceHistoryItem);
+
+    // Add to DOM.
+    if (balanceHistoryItem.transactionType == "addfunds")
+    {
+        $("#balance_history_funds").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + balanceHistoryItem.transactionAmount + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
+    } else if (balanceHistoryItem.transactionType == "purchase") {
+        $("#balance_history_purchases").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + balanceHistoryItem.transactionAmount + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
+    }
+}
+
+/*
+ * Description: Clear available tickets.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearBalanceHistory() {
+    // Clear list.
+    balanceHistoryList = [];
+
+    // Clear DOM.
+    $(".balanceHistoryItem").remove();
 }
 
 /*
