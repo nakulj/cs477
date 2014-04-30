@@ -35,7 +35,7 @@
     <script type="text/javascript">
 
         // This identifies your website in the createToken call below
-        Stripe.setPublishableKey('pk_test_boQgtwVwK8Z4QgAggIBupnjW');
+        Stripe.setPublishableKey('pk_live_xsVpP49WCs4qAWmiHn2If0WB');
         // ...
                
         </script>
@@ -170,19 +170,15 @@
                 <ul data-role="listview">
                     <li data-role="fieldcontain">
                         <label for="cc_name"><span id="cc_name-label"><b>Cardholder Name:</b></span></label>
-                        <input type="text" name="cc_name" id="cc_name" value="" placeholder="Cardholder Name" data-stripe="number">
+                        <input type="text" name="cc_name" id="cc_name" value="" placeholder="Cardholder Name" >
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_num"><span id="cc_num-label"><b>Credit Card Number:</b></span></label>
-                        <input type="text" name="cc_num" id="cc_num" value=""  maxlength="19" placeholder="Credit Card Number"/>
+                        <input type="text" name="cc_num" id="cc_num" value=""  maxlength="19" placeholder="Credit Card Number" data-stripe="number"/>
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_cvv"><span id="cc_cvv-label"><b>CVV:</b></span></label>
                         <input type="text" name="cc_cvv" id="cc_cvv" value=""  maxlength="4" placeholder="CVV" data-stripe="cvc">
-                    </li>
-                    <li data-role="fieldcontain">
-                        <label for="cc_exp"><span id="cc_exp-label"><b>Expiration Date:</b></span></label>
-                        <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date" >
                     </li>
                     <li data-role="fieldcontain">
                         <fieldset data-role="controlgroup" data-type="horizontal">
@@ -485,7 +481,7 @@
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="home-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide" data-rel="close">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -525,7 +521,7 @@
                 <div id="qr-back" class="rotationContent">
                     <h3 style="margin: 0;">Guest Passes</h3>
                     <div data-role="fieldcontain">
-                        <label for="input-num-guests"># of Guests</label>
+                        <label> # of Guests</label>
                         <div data-role="controlgroup" data-type="horizontal" data-mini="true">
                             <button id="input-guest-dec" data-icon="arrow-d" data-iconpos="notext" data-theme="b"></button>
                             <button><span id="output-guest-num">0</span></button>
@@ -552,7 +548,7 @@
         </div>
 
         <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" id="mytickets">
-            <p id="mytickets-tab">Buy Ticket</p>
+            <p id="mytickets-tab">Buy Pass</p>
             <div id="mytickets-list-container">
                 <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list">
                 </ul>
@@ -563,7 +559,7 @@
     <!-- Home page dialog confirm ticket -->
     <div data-role="page" id="dialog-confirm-ticket">
         <div data-role="content">
-            <p>Your credit card will be charged $X for this pass, continue?</p>
+            <p>Your credit card will be charged $<span id="confirm-ticket-price"></span> for this pass, continue?</p>
             <a data-role="button" data-rel="back" id="button-confirm-ticket">Ok</a>
             <a data-role="button" data-rel="back">Cancel</a>
         </div>
@@ -574,7 +570,7 @@
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -645,12 +641,12 @@
             </div> <!-- /popup -->
     </div>
 
-    <!-- Purchase History page -->
+    <!-- Balance History page -->
     <div data-role="page" id="purchase-history" class="sidePanelAccessible">
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -674,47 +670,11 @@
         
         <div data-role="content">
             <ul data-role="listview" data-inset="true" id="balance_history_funds">        
-                <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(126,169,68); color: white; text-shadow: none;">Funds Added to Account</li>
-                <li >
-                    <h2 class="ui-li-heading">
-                    $10.00
-                    </h2>
-                    <p class="ui-li-desc">
-                    <strong>Card ending in xxxx</strong>
-                    </p>
-                    <p class="ui-li-desc">
-                    11/14/14 - 7:46am
-                    </p>
-                </li>
+                <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(126,169,68); color: white; text-shadow: none;">Funds Added</li>
             </ul>
 
-             <ul data-role="listview" data-inset="true" >
-             <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(161,59,57); color: white; text-shadow: none;">Purchases from Account Balance</li>
-                <li >
-                    <p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
-                    <h2 class="ui-li-heading">
-                    $4.50
-                    </h2>
-                    <p class="ui-li-desc">
-                    <strong>Single Fare</strong>
-                    </p>
-                    <p class="ui-li-desc">
-                    12/15/14 - 11:55am
-                    </p>
-                </li>
-                <li >
-                    <p class="ui-li-aside ui-li-desc"><strong></strong></p>
-                    <h2 class="ui-li-heading">
-                    $1.50
-                    </h2>
-                    <p class="ui-li-desc">
-                    <strong>Single Fare</strong>
-                    </p>
-                    <p class="ui-li-desc">
-                    12/15/14 - 8:00am
-                    </p>
-                </li>
-                </ul>
+             <ul data-role="listview" data-inset="true" id="balance_history_purchases">
+             <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-first-child" style="background: rgb(161,59,57); color: white; text-shadow: none;">Purchased Passes</li>
         </div>
     </div>
 
@@ -723,7 +683,7 @@
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -746,33 +706,7 @@
 
         
         <div data-role="content">
-           <ul data-role="listview" data-inset="true" data-split-icon="delete" data-split-theme="c">        
-                <li>
-                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong>2 guests</strong></p>
-                    <h2 class="ui-li-heading">
-                    Single Fare
-                    </h2>
-                    <p class="ui-li-desc">
-                    <strong>Culver Station</strong>
-                    </p>
-                    <p class="ui-li-desc">
-                    12/01/14 - 9:15pm
-                    </p></a>
-                    <a href="#"></a>
-                </li>
-                <li>
-                    <a href="#"><p class="ui-li-aside ui-li-desc"><strong></strong></p>
-                    <h2 class="ui-li-heading">
-                    5-Day Pass
-                    </h2>
-                    <p class="ui-li-desc">
-                    <strong>Jefferson Station</strong>
-                    </p>
-                    <p class="ui-li-desc">
-                    10/05/14 - 10:15pm
-                    </p></a>
-                    <a href="#"></a>
-                </li>
+           <ul data-role="listview" data-inset="true" data-split-icon="delete" data-split-theme="c" id="past-tap-list">        
             </ul>
         </div>
     </div>
@@ -782,7 +716,7 @@
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="payment-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -805,32 +739,8 @@
 
         
         <div data-role="content">
-            <ul data-role="listview" data-inset="true">        
-            <li data-theme="g">
-                <p class="ui-li-aside ui-li-desc"><strong>0 Remaining</strong></p>
-                <h2 class="ui-li-heading">
-                3-Day Pass
-                </h2>
-                <p class="ui-li-desc">
-                Expires on 12/10/14 at 7:45pm
-                </p>
-            </li>
-            <li>
-                <p class="ui-li-aside ui-li-desc"><strong>1 Remaining</strong></p>
-                <h2 class="ui-li-heading">
-                5-Day Pass
-                </h2>
-                <p class="ui-li-desc">
-                Not Yet Activated
-                </p>
-            </li>
-             <li>
-               <p class="ui-li-aside ui-li-desc"><strong>5 Remaining</strong></p>
-                <h2 class="ui-li-heading">
-                Single Fare
-                </h2>
-            </li>
-        </ul>
+            <ul data-role="listview" data-inset="true" id="ticket-wallet-list">
+            </ul>
         </div>
     </div>
 
@@ -839,7 +749,7 @@
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="account-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide" data-rel="close">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -1008,7 +918,7 @@
         <div data-role="panel" data-position="left" data-display="reveal" class="settings-panel" id="about-settings-panel">
             <ul data-role="listview" data-icon="false">
                 <li><a href="#home" data-transition="slide">Home</a></li>
-                <li><a href="#home" data-transition="slide" data-rel="close">Refresh Location</a></li>
+                <li><a href="#home" class="refreshLocation" data-transition="slide" data-rel="close">Refresh Location</a></li>
                 <li><a href="#account-settings" data-transition="slide">Account Settings</a></li>
                 <li><a href="#about" data-transition="slide" data-rel="close">About</a></li>
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
@@ -1032,6 +942,7 @@
     <script src="lib/jquery.mobile-1.3.2.js"></script>
     <script src="http://ziplookup.googlecode.com/git/public/ziplookup/zipLookup.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="lib/jquery.actual.js"></script>
+    <script type="text/javascript" src="lib/jquery.blockUI.js"></script>
     <script type="text/javascript" src="lib/fastclick.js"></script>
     <script type="text/javascript" src="lib/handlebars.js"></script>
     <script type="text/javascript" src="lib/CryptoJS v3/rollups/hmac-sha1.js"></script>
@@ -1046,9 +957,6 @@
     </script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuBcTJ0Qn0YoisT0_93at06maGlOSNbM4&libraries=geometry,places&sensor=true">
-    </script>
-    <script type="text/javascript">
-        google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-cordova.define("localnotification.LocalNotification", function(require, exports, module) {/*!
+cordova.define("localnotification.LocalNotification", function(require, exports, module) { /*!
  * Cordova/PhoneGap 3.0.0+ LocalNotification Plugin
  * Original author: Olivier Lesnicki
  */
@@ -77,4 +77,5 @@ localNotifier.cancelNotification = function(str, callback) {
 //------------------------------------------------------------------------------  
 localNotifier.cancelAllNotifications = function(callback) {
     cordova.exec(callback, null, "LocalNotification", "cancelAllNotifications", []);
-};});
+};
+});

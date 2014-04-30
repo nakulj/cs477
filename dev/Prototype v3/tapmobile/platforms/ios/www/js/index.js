@@ -33,6 +33,8 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        document.addEventListener("online", app.onOnline, false);
+        document.addEventListener("offline", app.onOffline, false);
         document.addEventListener("backbutton", app.onBackKeyDown, false);
     },
 
@@ -44,8 +46,37 @@ var app = {
         } else { // Default "go back"
             navigator.app.backHistory();
         }
+    },
+
+    onOnline: function() {
+        $.unblockUI();
+    },
+
+    /* Connection error timeout message */
+    onOffline: function() {
+        $.blockUI({
+            message: '<img src="css/images/ajax-loader.gif" />Establishing internet connection...',
+            css: {
+                width: '75%',
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
     }
 };
+
+/**
+ * jQuery.browser.mobile (http://detectmobilebrowser.com/)
+ *
+ * jQuery.browser.mobile will be true if the browser is a mobile device
+ *
+ **/
+(function(a){(jQuery.browser=jQuery.browser||{}).mobile=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))})(navigator.userAgent||navigator.vendor||window.opera);
 
 $(function() {
     /* Attach FastClick to the buttons on the page when it's initialized. */
@@ -56,54 +87,39 @@ $(function() {
     // Hardcoded Metro Expo Line
     var metroExpoLineStations = [];
 
-    metroExpoLineStations[0] = new TransitStation(1, "7th St/Metro Center", "Metro Expo Line", 34.0497597, -118.2594994, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[1] = new TransitStation(2, "Pico", "Metro Expo Line", 34.0407045, -118.2661995, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[2] = new TransitStation(3, "Jefferson/USC", "Metro Expo Line", 34.0229463, -118.2776492, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[3] = new TransitStation(4, "Expo Park/USC", "Metro Expo Line", 34.0183678, -118.284, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[4] = new TransitStation(5, "Expo/Vermont", "Metro Expo Line", 34.0184147, -118.2927447, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[5] = new TransitStation(6, "23rd St", "Metro Expo Line", 34.028762, -118.2738277, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[6] = new TransitStation(7, "Expo/Western", "Metro Expo Line", 34.018471, -118.3083753, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[7] = new TransitStation(8, "Expo/Crenshaw", "Metro Expo Line", 34.0222831, -118.3333312, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[8] = new TransitStation(9, "Farmdale", "Metro Expo Line", 34.0236457, -118.3445348, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[9] = new TransitStation(10, "Expo/La Brea", "Metro Expo Line", 34.0247601, -118.3538159, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[10] = new TransitStation(11, "La Cienega/Jefferson", "Metro Expo Line", 34.0263983, -118.3701157, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[11] = new TransitStation(12, "Culver City", "Metro Expo Line", 34.0280633, -118.3866186, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[0] = new TransitStation(1, "7th St/Metro Center", "Metro Expo Line", new google.maps.LatLng(34.0497597, -118.2594994), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[1] = new TransitStation(2, "Pico", "Metro Expo Line", new google.maps.LatLng(34.0407045, -118.2661995), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[2] = new TransitStation(3, "Jefferson/USC", "Metro Expo Line", new google.maps.LatLng(34.0229463, -118.2776492), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[3] = new TransitStation(4, "Expo Park/USC", "Metro Expo Line", new google.maps.LatLng(34.0183678, -118.284), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[4] = new TransitStation(5, "Expo/Vermont", "Metro Expo Line", new google.maps.LatLng(34.0184147, -118.2927447), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[5] = new TransitStation(6, "23rd St", "Metro Expo Line", new google.maps.LatLng(34.028762, -118.2738277), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[6] = new TransitStation(7, "Expo/Western", "Metro Expo Line", new google.maps.LatLng(34.018471, -118.3083753), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[7] = new TransitStation(8, "Expo/Crenshaw", "Metro Expo Line", new google.maps.LatLng(34.0222831, -118.3333312), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[8] = new TransitStation(9, "Farmdale", "Metro Expo Line", new google.maps.LatLng(34.0236457, -118.3445348), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[9] = new TransitStation(10, "Expo/La Brea", "Metro Expo Line", new google.maps.LatLng(34.0247601, -118.3538159), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[10] = new TransitStation(11, "La Cienega/Jefferson", "Metro Expo Line", new google.maps.LatLng(34.0263983, -118.3701157), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[11] = new TransitStation(12, "Culver City", "Metro Expo Line", new google.maps.LatLng(34.0280633, -118.3866186), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
     
-    // Adds Google version of Coordinates to list above ^
-    setStationLocation(metroExpoLineStations);
+    // Add to DOM.
     setNearestTransitStations(metroExpoLineStations);
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
-
-    $.ajax({
-        type:'GET',
-        url:'http://tapmobile.co.nf/back_end/getTicketType.php',
-        success : function(data) {
-
-            var ticketTypes= $.parseJSON(data);
-            var InitTickets = [];
-            InitTickets[0] = new AvailableTicket(1, ticketTypes[0].ticket_description, ticketTypes[0].ticket_price);
-            addAvailableTicket(InitTickets[0]);
+    
+    // TODO: Back-end
+    clearBalanceHistory();
+    //addBalanceHistoryItem(new BalanceHistoryItem("addfunds", 10.00, "Card ending in xxxx", "11/14/14", "7:46am"));
+    //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
+    //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
 
 
-            InitTickets[1] = new AvailableTicket(2, ticketTypes[1].ticket_description, ticketTypes[1].ticket_price);
-            addAvailableTicket(InitTickets[1]);
+    clearPastTaps();
+    addPastTap(new PastTapItem("Single Fare", "Culver Station", "12/01/14", "9:15pm", 2));
+    addPastTap(new PastTapItem("Single Fare", "Jefferson Station", "12/03/14", "6:10pm", 0));
 
-            InitTickets[2] = new AvailableTicket(3,  ticketTypes[2].ticket_description, ticketTypes[2].ticket_price);
-            addAvailableTicket(InitTickets[2]);
-
-            InitTickets[3] = new AvailableTicket(4,ticketTypes[2].ticket_description, ticketTypes[2].ticket_price);
-            addAvailableTicket(InitTickets[3]);
-            setAvailableTickets(InitTickets);
-        },
-        error: function(data, textStatus) {
-            alert("Server error has occurred");
-
-            }
-    });
-
-
-
+    clearTicketWallet();
+    addTicketWalletItem(new TicketWalletItem(0, true, true, "3-Day Pass", 0, "12/10/14", "7:45pm"));
+    addTicketWalletItem(new TicketWalletItem(1, false, false, "5-Day Pass", 1, "", ""));
+    addTicketWalletItem(new TicketWalletItem(2, false, false, "Single Fare", 5, "", ""));
 
     // Hardcoded default balance value
     //setTAPBalance(0.00);
@@ -121,19 +137,15 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
-
-
 // ========================================================================================================================
 // OBJECT PROTOTYPES
 // ========================================================================================================================
 
 /* Define transit line object prototype */
-var TransitStation = function(stationId, stationDescription, transitLine, latitude, longitude, stationLocation, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
+var TransitStation = function(stationId, stationDescription, transitLine, stationLocation, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
     this.stationId = stationId;
     this.stationDescription = stationDescription;
     this.transitLine = transitLine;
-    this.latitude = latitude;
-    this.longitude = longitude;
     this.stationLocation = stationLocation;
     this.transitDestA = transitDestA;
     this.arrivalTimeA = arrivalTimeA;
@@ -154,6 +166,32 @@ var FrontQRCaption = function(ticketText, expirationDate, numGuests) {
     this.numGuests = numGuests;
 }
 
+var BalanceHistoryItem = function(transactionType, transactionAmount, descriptionText, transactionDate, transactionTime) {
+    this.transactionType = transactionType;
+    this.transactionAmount = transactionAmount;
+    this.descriptionText = descriptionText;
+    this.transactionDate = transactionDate;
+    this.transactionTime = transactionTime;
+}
+
+var PastTapItem = function(ticketText, stationDescription, tapDate, tapTime, numGuests) {
+    this.ticketText = ticketText;
+    this.stationDescription = stationDescription;
+    this.tapDate = tapDate;
+    this.tapTime = tapTime;
+    this.numGuests = numGuests;
+}
+
+var TicketWalletItem = function(ticketId, ticketActivated, ticketSelected, ticketText, ticketsRemaining, expirationDate, expirationTime) {
+    this.ticketId = ticketId;
+    this.ticketActivated = ticketActivated;
+    this.ticketSelected = ticketSelected;
+    this.ticketText = ticketText;
+    this.ticketsRemaining = ticketsRemaining;
+    this.expirationDate = expirationDate;
+    this.expirationTime = expirationTime;
+}
+
 // ========================================================================================================================
 // GLOBAL VARIABLES
 // ========================================================================================================================
@@ -171,25 +209,16 @@ var tapBalance = 0.00;
 /* If the user has an active ticket this should be set to true. */
 var hasActiveTicket = false;
 
+/* Contains the latest GPS location of user.  */
+var lastUpdatedPosition = 0;
+
 var userSession;
 
 
 // ========================================================================================================================
 // GLOBAL SETTERS
 // ========================================================================================================================
-/*
- * Description: Add google coordinate location to expo line list.
- * Input: List of stations
- * Output: N/A
- * Error: N/A
- */
-function setStationLocation(stationsList) {
-    for(var i=0; i < stationsList.length; i++){
-        var lat = stationsList[i].latitude;
-        var lon = stationsList[i].longitude;
-        stationsList[i].stationLocation = new google.maps.LatLng(lat, lon);
-    }
-}
+
 /*
  * Description: Modify the max number of guests allowed on a single QR scan.
  * Input: An integer upper bound for number of guest spots.
@@ -267,6 +296,18 @@ var nearestTransitStations = [];
 /* An index of which TransitStation the user is currently viewing in the home screen. */
 var nearestTransitStationIndex = 0;
 
+/* A list of all BalanceHistoryItem objects to be displayed in their balance history */
+var balanceHistoryList = [];
+
+/* A list of all PastTapItem objects to be displayed in their past taps. */
+var pastTapList = [];
+
+/* A list of all TicketWalletItem objects to be displayed in the "Ticket Wallet." */
+var ticketWalletList = [];
+
+/* Miliseconds between GPS location refreshing. */
+var GPSRefreshRate = 30000;
+
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
 $(".sidePanelAccessible").on( "pagecreate", function() {
@@ -313,7 +354,7 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-
+    
 //Set Tap Balance
   setTimeout(function() {
     $.ajax({
@@ -424,6 +465,7 @@ function set_page_redirect(page, number){
 }
 
 var stripeToken;
+Stripe.setPublishableKey('pk_live_xsVpP49WCs4qAWmiHn2If0WB');
 var stripeResponseHandler = function (status, response) {
     var $form = $('#payment-info-account-create');
 
@@ -684,7 +726,7 @@ $("#submit-create-account").on("click", function (e) {
     //Writes new user to server through PHP script
      $.ajax({
         
-         type: 'POST',
+        type: 'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
         data: {
@@ -696,8 +738,7 @@ $("#submit-create-account").on("click", function (e) {
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
-            zip: $('#cc_zip').val(),
-            stripeToken: stripeToken
+            zip: $('#cc_zip').val()
         },
         success : function(data) {
 
@@ -806,13 +847,40 @@ $("#dialog-confirm-purchase-funds").on("click", function(e) {
     
     var newBalance = parseFloat($(".tap-balance-value").html()) + fund_amount; //TO DO: pull amount from backend and add to it
     setTAPBalance(newBalance); // Back-end should be validating this value.
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if(dd<10) {
+        dd='0'+dd
+    } 
+
+    if(mm<10) {
+        mm='0'+mm
+    } 
+
+    today = mm+'/'+dd+'/'+yyyy;
+    var date = new Date();
+    var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+    //TO DO: hard code 
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/updateBalance.php',
         data: {
             newBalance:tapBalance,
-            userSession:userSession
+            userSession:userSession,
+            type: 0,
+            cc_num: 9999,
+            date: today,
+            time: strTime,
+            fare_amount: fund_amount
         },
         success : function(data) {
             document.getElementById("user-info-account-create").reset();
@@ -838,6 +906,50 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
     $("#balance_history_funds").append("<li class='ui-li ui-li-static ui-btn-up-c ui-last-child'><h2 class='ui-li-heading'>$" + charge_amount.toFixed(2) + "</h2><p class='ui-li-desc'><strong>Card ending in " + card_number + "</strong></p><p class='ui-li-desc'>" + date + "-" + time + "</p></li>");
 }
 
+$(document).delegate('#purchase-history', 'pageshow', function () {
+    //alert("user: " + userSession);
+    var usernum = userSession;
+     $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/getBalanceHistory.php',
+        //dataType:'json',
+        data: {
+            usernum: usernum
+        },
+        success : function(balance_data) {
+            //redirect user to log-in
+            var balance = JSON.parse(balance_data);
+
+           for (var i = 0; i < (balance.length/5); i++){
+            var index = i * 5;
+            var date = balance[index];
+            var time = balance[index+1];
+            var fare_amount = balance[index+2];
+            var aux = balance[index+3];
+            var type = balance[index+4];
+                        
+            if (type == 0)
+                addBalanceHistoryItem(new BalanceHistoryItem("addfunds", fare_amount, "Card ending in " + aux, date, time));
+            else if (type == 1)
+                addBalanceHistoryItem(new BalanceHistoryItem("purchase", fare_amount, aux, date, time));
+            else alert("Error in balance history!");
+           }
+
+            $("#balance_history_funds").listview('refresh');
+            $("#balance_history_purchases").listview('refresh');
+            
+
+
+
+
+        },
+        error: function(data, textStatus) {
+            alert("server error has occured" + data + textStatus);
+        }
+    });
+
+});
+
 // ========================================================================================================================
 // HOME PAGE
 // ========================================================================================================================
@@ -845,6 +957,26 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
 // ----------------------------------------------------------------------
 // API
 // ----------------------------------------------------------------------
+
+/*
+ * Description: Use the phone's GPS to store current position information.
+ * Input: N/A
+ * Output: Updates lastUpdatedPosition with fresh data.
+ * Error: Sends an alert if this fails for any reason.
+ */
+function refreshLocation() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        lastUpdatedPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        sortNearestTransitLinesByDistance();
+    }, function(error) {
+
+        if (jQuery.browser.mobile) {
+            alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+    });
+}
 
 /*
  * Description: Set the ticket text in the caption displayed under the front-facing QR code.
@@ -961,6 +1093,20 @@ function clearTransitStations() {
     $("").empty();
 }
 
+/*
+ * Description: Sort the nearest transit station swipe list by closest distance.
+ * Input: N/A
+ * Output: True if able to sort, false if missing information (like list of stations or user GPS position)
+ * Error: N/A
+ */
+function sortNearestTransitLinesByDistance() {
+    if (nearestTransitStations.length > 0 && lastUpdatedPosition != 0) {
+        nearestTransitStations.sort(sortByClosestDistance);
+        updateTransitStationElement(nearestTransitStationIndex);
+        return true;
+    }
+    return false;
+}
 
 /* QR/dependents */
 
@@ -989,8 +1135,23 @@ function addAvailableTicket(ticket) {
     availableTicketList.push(ticket);
 
     // Add to DOM.
-    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $" + ticket.ticketPrice + "</a></li>");
+    var ticketPrice = parseInt(ticket.ticketPrice, 10);
+    $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $<span class=\"availableTicketPrice\">" + ticketPrice.toFixed(2) + "</span></a></li>");
+    $("#ticketId" + ticket.ticketId).data("ticketPrice", ticketPrice);
+
+    $("#ticketId" + ticket.ticketId).click(function() {
+        var ticketPrice = $(this).data("ticketPrice");
+        $("#confirm-ticket-price").html(ticketPrice.toFixed(2));
+    });
+
 }
+
+$("#button-confirm-ticket").click(function() {
+    var ticketPrice = parseInt($("#confirm-ticket-price").html(), 10);
+
+
+
+});
 
 /*
  * Description: Remove a ticket from the list.
@@ -1022,6 +1183,165 @@ function clearAvailableTickets() {
     $("#mytickets-list").empty();
 }
 
+/* Balance History */
+
+/*
+ * Description: Define a list of ticket objects to make available in the "Balance History" tab in the account balance screen.
+ * Input: A list of BalanceHistoryItem objects.
+ * Output: N/A
+ * Error: N/A
+ */
+function setBalanceHistory(balanceList) {
+    for (var i = 0; i < balanceHistoryList.length; i++) {
+        addBalanceHistoryItem(balanceList[i]);
+    }
+}
+
+/*
+ * Description: Append a balance history item to the "Balance History" tab in account balance info.
+ * Input: A BalanceHistoryEntry object.
+ * Output: N/A
+ * Error: N/A
+ */
+function addBalanceHistoryItem(balanceHistoryItem) {
+    // Add to array to access later.
+    balanceHistoryList.push(balanceHistoryItem);
+
+    // Add to DOM.
+    if (balanceHistoryItem.transactionType == "addfunds")
+    {
+        $("#balance_history_funds").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + parseInt(balanceHistoryItem.transactionAmount, 10).toFixed(2) + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
+    } else if (balanceHistoryItem.transactionType == "purchase") {
+        $("#balance_history_purchases").append("<li class=\"balanceHistoryItem\"><h2 class=\"ui-li-heading\">$" + parseInt(balanceHistoryItem.transactionAmount, 10).toFixed(2) + "</h2><p class=\"ui-li-desc\"><strong>" + balanceHistoryItem.descriptionText + "</strong></p><p class=\"ui-li-desc\">" + balanceHistoryItem.transactionDate + " - " + balanceHistoryItem.transactionTime + "</p>");
+    }
+}
+
+/*
+ * Description: Clear balance history.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearBalanceHistory() {
+    // Clear list.
+    balanceHistoryList = [];
+
+    // Clear DOM.
+    $(".balanceHistoryItem").remove();
+}
+
+/* Past Taps */
+
+/*
+ * Description: Define a list of PastTap objects to make available in the "Past Taps" tab on the account balance screen.
+ * Input: A list of PastTap objects.
+ * Output: N/A
+ * Error: N/A
+ */
+function setPastTaps(tapList) {
+    for (var i = 0; i < pastTapList.length; i++) {
+        addPastTap(tapList[i]);
+    }
+}
+
+/*
+ * Description: Append a past tap item to the "Past Taps" tab in account balance info.
+ * Input: A PastTap object.
+ * Output: N/A
+ * Error: N/A
+ */
+function addPastTap(pastTapItem) {
+    // Add to array to access later.
+    pastTapList.push(pastTapItem);
+
+    // Add to DOM.
+    $("#past-tap-list").append("<li><a href=\"#\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + pastTapItem.numGuests + " guests</strong></p><h2 class=\"ui-li-heading\">" + pastTapItem.ticketText + "</h2><p class=\"ui-li-desc\"><strong>" + pastTapItem.stationDescription + "</strong></p><p class=\"ui-li-desc\">" + pastTapItem.tapDate + " - " + pastTapItem.tapTime + "</p></a><a href=\"#\"></a></li>");
+}
+
+/*
+ * Description: Clear past taps.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearPastTaps() {
+    // Clear list.
+    pastTapList = [];
+
+    // Clear DOM.
+    $("#past-tap-list").empty();
+}
+
+/* Ticket Wallet */
+
+/*
+ * Description: Define a list of TicketWalletItem objects to make available in the "Ticket Wallet" tab on the account balance screen.
+ * Input: A list of TicketWalletItem objects.
+ * Output: N/A
+ * Error: N/A
+ */
+function setTicketWallet(walletList) {
+    for (var i = 0; i < ticketWalletList.length; i++) {
+        addTicketWalletItem(walletList[i]);
+    }
+}
+
+/*
+ * Description: Append a ticket wallet item to the "Ticket Wallet" tab in account balance info.
+ * Input: A TicketWalletItem object.
+ * Output: N/A
+ * Error: N/A
+ */
+function addTicketWalletItem(ticketWalletItem) {
+    // Add to array to access later.
+    ticketWalletList.push(ticketWalletItem);
+
+    // Add to DOM.
+    if (ticketWalletItem.ticketActivated) {
+        if (ticketWalletItem.ticketSelected) {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Expires on " + ticketWalletItem.expirationDate + " at " + ticketWalletItem.expirationTime + "</p></li>");
+        } else {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Expires on " + ticketWalletItem.expirationDate + " at " + ticketWalletItem.expirationTime + "</p></li>");
+        }
+    } else {
+        if (ticketWalletItem.ticketSelected) {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
+        } else {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
+        }
+    }
+}
+
+/*
+ * Description: Remove an item from the ticket wallet.
+ * Input: A ticket object.
+ * Output: N/A
+ * Error: N/A
+ */
+function removeTicketWalletItem(ticketWalletItem) {
+    for (var i = 0; i < ticketWalletList.length; i++) {
+        if (ticketWalletList[i].ticketId == ticketWalletItem.ticketId) {
+            --i;
+            ticketWalletList.splice(i, 1);
+            $("#ticketWalletItemId" + ticketWalletItem.ticketId).remove();
+        }
+    }
+}
+
+/*
+ * Description: Clear ticket wallet.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearTicketWallet() {
+    // Clear list.
+    ticketWalletList = [];
+
+    // Clear DOM.
+    $("#ticket-wallet-list").empty();
+}
+
 /*
  * Description: Call this when a ticket QR code was successfully processed and payed for by admin application.
  * Input: Boolean to indicate if TAP balance was used (so front end can deduct it) and the remaining TAP balance (if tapBalanceUsed is true).
@@ -1051,7 +1371,7 @@ function processedTicketFailed(errorCode) {
 // ----------------------------------------------------------------------
 
 // QR Code generation
-var userid= "1234567890";
+var userid= userSession;
 var timestamp;
 var message;
 var qrcode;
@@ -1066,7 +1386,7 @@ var refreshRate = 5000;
 function updateTimeQR() {
     qrcode.clear();
     timestamp = Date.now();
-    message = userid + timestamp;
+    message = userid+numGuests+timestamp;
     qrcode.makeCode(message);
 }
 
@@ -1079,6 +1399,9 @@ $("#home").on("pagecreate", function(event) {
     });
     updateTimeQR();
     setInterval("updateTimeQR()", refreshRate);
+
+    refreshLocation();
+    setInterval("updateTimeQR()", GPSRefreshRate);
 });
 
 /* Called right when transition to home page begins */
@@ -1111,14 +1434,32 @@ $("#home").on("pageshow", function(event) {
     //$("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
     //$("#qr-rotation-tile").animate({left: ($("#home-content").width()/2 - $(window).width()/4) + "px"}, 200);
 
-    /* Determine the height of the Buy Tickets container by taking the height of one element and multiplying by 3. */
-    ticketListHeight = $("#mytickets-list li").actual("height") * 3;
+    $.ajax({
+        type:'GET',
+        url:'http://tapmobile.co.nf/back_end/getTicketType.php',
+        success : function(data) {
+            /* Build the DOM */
+            clearAvailableTickets();
+            var ticketTypes= $.parseJSON(data);
+            setAvailableTickets(ticketTypes);
 
-    /* Set the ticket container scrollbox height */
-    $("#mytickets-list-container").height(ticketListHeight);
+            // Refresh jquery UI styling.
+            $("#mytickets-list").listview('refresh');
 
-    /* Twitch the ticket tab to indicate its existence to user */
-    teaseTicketContainer(600);
+            /* Determine the height of the Buy Tickets container by taking the height of one element and multiplying by 3. */
+            ticketListHeight = $("#mytickets-list li").actual("height") * 4.5;
+
+            /* Set the ticket container scrollbox height */
+            $("#mytickets-list-container").height(ticketListHeight);
+
+            /* Twitch the ticket tab to indicate its existence to user */
+            teaseTicketContainer(600);
+
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    });
 });
 
 /* Handle back button presses on Android when on the home screen. */
@@ -1129,6 +1470,13 @@ function handleHomeScreenBackBtn() {
         flipQRCodeToFront();
     }
 }
+
+/* Refresh location */
+
+$(".refreshLocation").click(function() {
+    //var refreshBtn = $(this);
+    refreshLocation();
+});
 
 /* Nearest transit station */
 
@@ -1181,6 +1529,52 @@ function updateTransitStationElement(transitStationIndex) {
     $("#nearest-station-dest-B").html("Eastbound to " + transitStation.transitDestB);
     $("#nearest-station-time-B").html(transitStation.arrivalTimeB);
 }
+
+/** Converts numeric degrees to radians */
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRadians = function() {
+    return this * Math.PI / 180;
+  }
+}
+
+function sortByClosestDistance(a, b) {
+    var distA = haversineDistanceKm(lastUpdatedPosition, a.stationLocation);
+    var distB = haversineDistanceKm(lastUpdatedPosition, b.stationLocation);
+
+    if (distA < distB) {
+        return -1;
+    } else if (distA > distB) {
+        return 1;
+    }
+    console.log("same");
+    return 0;
+}
+
+// Accepts Google LatLng objects.
+function haversineDistanceKm(position1, position2) {
+    var R = 6371; // km radius of Earth
+
+    // Google LatLng to variables.
+    var lat1 = position1.lat();
+    var lon1 = position1.lng();
+    var lat2 = position2.lat();
+    var lon2 = position2.lng();
+
+    var phi1 = lat1.toRadians();
+    var phi2 = lat2.toRadians();
+    var deltaphi = (lat2-lat1).toRadians();
+    var deltalambda = (lon2-lon1).toRadians();
+
+    var a = Math.sin(deltaphi/2) * Math.sin(deltaphi/2) +
+            Math.cos(phi1) * Math.cos(phi2) *
+            Math.sin(deltalambda/2) * Math.sin(deltalambda/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = R * c;
+
+    return d;
+}
+
 
 /* Custom incrementor/decrementor */
 
@@ -1332,6 +1726,7 @@ function teaseTicketContainer(duration) {
     $("#mytickets").animate({bottom: -ticketListHeight + ticketListHeight/5}, duration/2);
     $("#mytickets").animate({bottom: -ticketListHeight}, duration/2).delay(duration/2);
 }
+
 
 // ========================================================================================================================
 // ACCOUNT SETTINGS PAGE
@@ -1511,7 +1906,7 @@ function validateAccountUpdate(){
 
             },
             error: function(data, textStatus) {
-            alert("server error has occured");
+            alert("Server error has occured");
 
             }
         });
@@ -1639,3 +2034,13 @@ function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_ar
     }
 }
 
+// ========================================================================================================================
+// TICKET WALLET PAGE
+// ========================================================================================================================
+
+$("#ticket-wallet-list li").click(function(){
+        $("#ticket-wallet-list li").attr("data-theme","c");
+        $("#ticket-wallet-list li").removeClass("ui-btn-hover-g ui-btn-up-g");
+        $(this).addClass("ui-btn-hover-g ui-btn-up-g");
+        $(this).attr("data-theme","g");
+});
