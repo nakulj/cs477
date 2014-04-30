@@ -151,19 +151,9 @@ function testAndDeduct() {
             //alert(validateTAP);
         },
         error: function(data, textStatus) {
-            alert("EPIC FAIL");
+            alert(textStatus);
         }
-    }).always(function(data, textStatus, jqXHR){
-   switch(textStatus) {
-     case 200:
-         case 0:
-         alert('Success.');
-             break;
-         case 404:
-             alert('oops');
-             break;
-   }
- });
+    });
 }
 
 
