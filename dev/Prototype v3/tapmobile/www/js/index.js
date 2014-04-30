@@ -1740,3 +1740,18 @@ function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_ar
     }
 }
 
+// ========================================================================================================================
+// TICKET WALLET PAGE
+// ========================================================================================================================
+
+$("#ticketWallet li").click(function(){
+    var theme = $(this).attr("data-theme")
+    if (theme == "g") {
+        $(this).attr("data-theme","c");
+        $(this).removeClass("ui-btn-hover-g ui-btn-up-g");
+    }
+    else {
+        $(this).addClass("ui-btn-hover-g ui-btn-up-g");
+        $(this).attr("data-theme","g");
+    }
+});
