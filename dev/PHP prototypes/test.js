@@ -4,7 +4,7 @@ function testAndDeduct() {
     var cost= 1.5*(nguests+1);
     $.ajax({
         type:'POST',
-        url:'http://tapmobile.co.nf/nack_end/validateDeductBalance',
+        url:'http://tapmobile.co.nf/back_end/validateDeductBalance.php',
         data: {
             userid: uid,
             cost: cost
