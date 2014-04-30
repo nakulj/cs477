@@ -149,9 +149,12 @@ function testAndDeduct() {
             alert(validateTAP);
         },
         error: function(data, textStatus) {
-            alert(data+'xx'+textStatus);
+            alert(data.status+'xx'+textStatus);
         },
-        timeout:5000
+        timeout:5000,
+        cache : false,
+        async: false
+
     });
 }
 
