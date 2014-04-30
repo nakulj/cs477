@@ -129,8 +129,6 @@ $(function() {
     //campaign_template = Handlebars.compile(campaign_source);
 });
 
-
-
 // ========================================================================================================================
 // OBJECT PROTOTYPES
 // ========================================================================================================================
@@ -886,14 +884,16 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
  */
 function refreshLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
-        //position.coords.latitude
-        //position.coords.longitude
-        lastUpdatedPosition = position;
+        lastUpdatedPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
+        sortNearestTransitLines();
     }, function(error) {
 
         alert('code: '    + error.code    + '\n' +
               'message: ' + error.message + '\n');
+
+        lastUpdatedPosition = new google.maps.LatLng(34.0184147, -118.2927447);
+        sortNearestTransitLines();
     });
 }
 
@@ -1012,6 +1012,20 @@ function clearTransitStations() {
     $("").empty();
 }
 
+/*
+ * Description: Sort the nearest transit station swipe list by closest distance.
+ * Input: N/A
+ * Output: True if able to sort, false if missing information (like list of stations or user GPS position)
+ * Error: N/A
+ */
+function sortNearestTransitLinesByDistance() {
+    if (nearestTransitStations.length > 0 && lastUpdatedPosition != 0) {
+        nearestTransitStations.sort(sortByClosestDistance);
+        updateTransitStationElement(nearestTransitStationIndex);
+        return true;
+    }
+    return false;
+}
 
 /* QR/dependents */
 
@@ -1416,6 +1430,52 @@ function updateTransitStationElement(transitStationIndex) {
     $("#nearest-station-dest-B").html("Eastbound to " + transitStation.transitDestB);
     $("#nearest-station-time-B").html(transitStation.arrivalTimeB);
 }
+
+/** Converts numeric degrees to radians */
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRadians = function() {
+    return this * Math.PI / 180;
+  }
+}
+
+function sortByClosestDistance(a, b) {
+    var distA = haversineDistanceKm(lastUpdatedPosition, a.stationLocation);
+    var distB = haversineDistanceKm(lastUpdatedPosition, b.stationLocation);
+
+    if (distA < distB) {
+        return -1;
+    } else if (distA > distB) {
+        return 1;
+    }
+    console.log("same");
+    return 0;
+}
+
+// Accepts Google LatLng objects.
+function haversineDistanceKm(position1, position2) {
+    var R = 6371; // km radius of Earth
+
+    // Google LatLng to variables.
+    var lat1 = position1.lat();
+    var lon1 = position1.lng();
+    var lat2 = position2.lat();
+    var lon2 = position2.lng();
+
+    var phi1 = lat1.toRadians();
+    var phi2 = lat2.toRadians();
+    var deltaphi = (lat2-lat1).toRadians();
+    var deltalambda = (lon2-lon1).toRadians();
+
+    var a = Math.sin(deltaphi/2) * Math.sin(deltaphi/2) +
+            Math.cos(phi1) * Math.cos(phi2) *
+            Math.sin(deltalambda/2) * Math.sin(deltalambda/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = R * c;
+
+    return d;
+}
+
 
 /* Custom incrementor/decrementor */
 
