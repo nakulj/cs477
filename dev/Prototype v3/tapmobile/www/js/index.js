@@ -132,6 +132,11 @@ $(function() {
     addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
     addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
 
+
+    clearPastTaps();
+    addPastTap(new PastTapItem("Single Fare", "Culver Station", "12/01/14", "9:15pm", 2));
+    addPastTap(new PastTapItem("Single Fare", "Jefferson Station", "12/03/14", "6:10pm", 0));
+
     // Hardcoded default balance value
     //setTAPBalance(0.00);
 
@@ -187,6 +192,14 @@ var BalanceHistoryItem = function(transactionType, transactionAmount, descriptio
     this.descriptionText = descriptionText;
     this.transactionDate = transactionDate;
     this.transactionTime = transactionTime;
+}
+
+var PastTapItem = function(ticketText, stationDescription, tapDate, tapTime, numGuests) {
+    this.ticketText = ticketText;
+    this.stationDescription = stationDescription;
+    this.tapDate = tapDate;
+    this.tapTime = tapTime;
+    this.numGuests = numGuests;
 }
 
 // ========================================================================================================================
@@ -307,6 +320,9 @@ var nearestTransitStationIndex = 0;
 
 /* A list of all BalanceHistoryItem objects to be displayed in their balance history */
 var balanceHistoryList = [];
+
+/* A list of all PastTapItem objects to be displayed in their past taps. */
+var pastTapList = [];
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
@@ -1083,6 +1099,20 @@ function clearAvailableTickets() {
     $("#mytickets-list").empty();
 }
 
+/* Balance History */
+
+/*
+ * Description: Define a list of ticket objects to make available in the "Balance History" tab in the account balance screen.
+ * Input: A list of BalanceHistoryItem objects.
+ * Output: N/A
+ * Error: N/A
+ */
+function setBalanceHistory(balanceList) {
+    for (var i = 0; i < balanceHistoryList.length; i++) {
+        addBalanceHistoryItem(balanceList[i]);
+    }
+}
+
 /*
  * Description: Append a balance history item to the "Balance History" tab in account balance info.
  * Input: A BalanceHistoryEntry object.
@@ -1103,7 +1133,7 @@ function addBalanceHistoryItem(balanceHistoryItem) {
 }
 
 /*
- * Description: Clear available tickets.
+ * Description: Clear balance history.
  * Input: N/A
  * Output: N/A
  * Error: N/A
@@ -1114,6 +1144,48 @@ function clearBalanceHistory() {
 
     // Clear DOM.
     $(".balanceHistoryItem").remove();
+}
+
+/* Past Taps */
+
+/*
+ * Description: Define a list of PastTap objects to make available in the "Past Taps" tab on the account balance screen.
+ * Input: A list of PastTap objects.
+ * Output: N/A
+ * Error: N/A
+ */
+function setPastTaps(tapList) {
+    for (var i = 0; i < pastTapList.length; i++) {
+        addPastTap(tapList[i]);
+    }
+}
+
+/*
+ * Description: Append a past tap item to the "Past Taps" tab in account balance info.
+ * Input: A PastTap object.
+ * Output: N/A
+ * Error: N/A
+ */
+function addPastTap(pastTapItem) {
+    // Add to array to access later.
+    pastTapList.push(pastTapItem);
+
+    // Add to DOM.
+    $("#past-tap-list").append("<li><a href=\"#\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + pastTapItem.numGuests + " guests</strong></p><h2 class=\"ui-li-heading\">" + pastTapItem.ticketText + "</h2><p class=\"ui-li-desc\"><strong>" + pastTapItem.stationDescription + "</strong></p><p class=\"ui-li-desc\">" + pastTapItem.tapDate + " - " + pastTapItem.tapTime + "</p></a><a href=\"#\"></a></li>");
+}
+
+/*
+ * Description: Clear past taps.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearPastTaps() {
+    // Clear list.
+    pastTapList = [];
+
+    // Clear DOM.
+    $("#past-tap-list").empty();
 }
 
 /*
