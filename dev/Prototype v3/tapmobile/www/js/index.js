@@ -561,8 +561,6 @@ $("#submit-create-account").on("click", function (e) {
     //Get account page 2 values
     var cc_name = $("#cc_name").val();
     var cc_num = $("#cc_num").val();
-    var cc_num_parse = cc_num.toString();
-    cc_num_parse = cc_num_parse.substr(cc_num_parse.length - 4);
     var cc_cvv = $("#cc_cvv").val();
     var cc_exp = $("#cc_exp").val();
     var cc_street = $("#cc_address_street").val();
@@ -716,6 +714,7 @@ $("#submit-create-account").on("click", function (e) {
     //If front end validation passes fire Ajax
     //Writes new user to server through PHP script
      $.ajax({
+        
         type: 'POST',
         url:'http://tapmobile.co.nf/back_end/newUser.php',
         //dataType:'json',
@@ -728,8 +727,7 @@ $("#submit-create-account").on("click", function (e) {
             street:$('#cc_address_street').val(),
             city:$('#cc_address_city').val(),
             state:$('#cc_address_state').val(),
-            zip: $('#cc_zip').val(),
-            cc_num: cc_num_parse
+            zip: $('#cc_zip').val()
         },
         success : function(data) {
 
@@ -821,9 +819,10 @@ function determineFundAmount(){
 /* Open confirmation when user clicks to purchase funds*/
 $("#add-funds-form").on("submit", function(e) {
    
+    var card_number = 4444; //TO DO: pull from database
     var fund_amount = determineFundAmount();
 
-    $("#fund-confirm-message").html("Your credit card on file will be charged $" + fund_amount.toFixed(2) + ", continue?");
+    $("#fund-confirm-message").html("Your credit card ending in " + card_number + " will be charged $" + fund_amount.toFixed(2) + ", continue?");
     $("#dialog-confirm-add-funds").popup({ theme: "a" });
     $("#dialog-confirm-add-funds").popup("open");
     
@@ -1706,10 +1705,6 @@ function teaseTicketContainer(duration) {
     $("#mytickets").animate({bottom: -ticketListHeight + ticketListHeight/5}, duration/2);
     $("#mytickets").animate({bottom: -ticketListHeight}, duration/2).delay(duration/2);
 }
-
-$("#dialog-confirm-ticket").on("pagebeforeshow", function(event) {
-    $("#confirm-ticket-price").html()
-});
 
 // ========================================================================================================================
 // ACCOUNT SETTINGS PAGE
