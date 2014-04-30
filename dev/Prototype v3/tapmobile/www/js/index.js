@@ -99,9 +99,9 @@ $(function() {
     
     // TODO: Back-end
     clearBalanceHistory();
-    addBalanceHistoryItem(new BalanceHistoryItem("addfunds", 10.00, "Card ending in xxxx", "11/14/14", "7:46am"));
-    addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
-    addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
+    //addBalanceHistoryItem(new BalanceHistoryItem("addfunds", 10.00, "Card ending in xxxx", "11/14/14", "7:46am"));
+    //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
+    //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
 
 
     clearPastTaps();
@@ -317,7 +317,7 @@ $(".sidePanelAccessible").on( "pagecreate", function() {
 var balance;
 /* Called by log-in submit button */
 $("#log-in-form").on("submit", function(e) {
-/*
+
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateLogin.php',
@@ -343,7 +343,7 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-    */
+    
 //Set Tap Balance
   setTimeout(function() {
     $.ajax({
@@ -369,7 +369,7 @@ $("#log-in-form").on("submit", function(e) {
 
 
     // Bypass login for testing.
-    $.mobile.changePage("#home", {transition: "slideup"});
+    //$.mobile.changePage("#home", {transition: "slideup"});
 
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
@@ -867,6 +867,50 @@ $("#dialog-confirm-purchase-funds").on("click", function(e) {
 function addItemToBalanceHistory(charge_amount, card_number, time, date){
     $("#balance_history_funds").append("<li class='ui-li ui-li-static ui-btn-up-c ui-last-child'><h2 class='ui-li-heading'>$" + charge_amount.toFixed(2) + "</h2><p class='ui-li-desc'><strong>Card ending in " + card_number + "</strong></p><p class='ui-li-desc'>" + date + "-" + time + "</p></li>");
 }
+
+$(document).delegate('#purchase-history', 'pageshow', function () {
+    //alert("user: " + userSession);
+    var usernum = userSession;
+     $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/getBalanceHistory.php',
+        //dataType:'json',
+        data: {
+            usernum: usernum
+        },
+        success : function(balance_data) {
+            //redirect user to log-in
+            var balance = JSON.parse(balance_data);
+
+           for (var i = 0; i < (balance.length/5); i++){
+            var index = i * 5;
+            var date = balance[index];
+            var time = balance[index+1];
+            var fare_amount = balance[index+2];
+            var aux = balance[index+3];
+            var type = balance[index+4];
+                        
+            if (type == 0)
+                addBalanceHistoryItem(new BalanceHistoryItem("addfunds", fare_amount, "Card ending in " + aux, date, time));
+            else if (type == 1)
+                addBalanceHistoryItem(new BalanceHistoryItem("purchase", fare_amount, aux, date, time));
+            else alert("Error in balance history!");
+           }
+
+            $("#balance_history_funds").listview('refresh');
+            $("#balance_history_purchases").listview('refresh');
+            
+
+
+
+
+        },
+        error: function(data, textStatus) {
+            alert("server error has occured" + data + textStatus);
+        }
+    });
+
+});
 
 // ========================================================================================================================
 // HOME PAGE
