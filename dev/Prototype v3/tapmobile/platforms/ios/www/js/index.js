@@ -1371,10 +1371,12 @@ function processedTicketFailed(errorCode) {
 // ----------------------------------------------------------------------
 
 // QR Code generation
-var userid= userSession;
 var timestamp;
 var message;
+var passphrase= "1337password";
 var qrcode;
+var hash;
+var qrmessage;
 
 // Public data
 var qrImgHeight;
@@ -1383,11 +1385,17 @@ var ticketListHeight;
 /* QR Code Generator */
 var refreshRate = 5000;
 
+
+
+
 function updateTimeQR() {
+    var userid=userSession;
     qrcode.clear();
     timestamp = Date.now();
     message = userid+numGuests+timestamp;
-    qrcode.makeCode(message);
+    hash= CryptoJS.HmacSHA1(message, passphrase);
+    qrmessage= userid+" "+numGuests+" "+timestamp+" "+hash;
+    qrcode.makeCode(qrmessage);
 }
 
 $("#home").on("pagecreate", function(event) {
