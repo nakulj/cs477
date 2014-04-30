@@ -104,7 +104,6 @@ $(function() {
         success : function(data) {
 
             var ticketTypes= $.parseJSON(data);
-            console.log(ticketTypes)
             var InitTickets = [];
             InitTickets[0] = new AvailableTicket(1, ticketTypes[0].ticket_description, ticketTypes[0].ticket_price);
             addAvailableTicket(InitTickets[0]);
@@ -136,6 +135,11 @@ $(function() {
     clearPastTaps();
     addPastTap(new PastTapItem("Single Fare", "Culver Station", "12/01/14", "9:15pm", 2));
     addPastTap(new PastTapItem("Single Fare", "Jefferson Station", "12/03/14", "6:10pm", 0));
+
+    clearTicketWallet();
+    addTicketWalletItem(new TicketWalletItem(0, true, true, "3-Day Pass", 0, "12/10/14", "7:45pm"));
+    addTicketWalletItem(new TicketWalletItem(1, false, false, "5-Day Pass", 1, "", ""));
+    addTicketWalletItem(new TicketWalletItem(2, false, false, "Single Fare", 5, "", ""));
 
     // Hardcoded default balance value
     //setTAPBalance(0.00);
@@ -200,6 +204,16 @@ var PastTapItem = function(ticketText, stationDescription, tapDate, tapTime, num
     this.tapDate = tapDate;
     this.tapTime = tapTime;
     this.numGuests = numGuests;
+}
+
+var TicketWalletItem = function(ticketId, ticketActivated, ticketSelected, ticketText, ticketsRemaining, expirationDate, expirationTime) {
+    this.ticketId = ticketId;
+    this.ticketActivated = ticketActivated;
+    this.ticketSelected = ticketSelected;
+    this.ticketText = ticketText;
+    this.ticketsRemaining = ticketsRemaining;
+    this.expirationDate = expirationDate;
+    this.expirationTime = expirationTime;
 }
 
 // ========================================================================================================================
@@ -323,6 +337,9 @@ var balanceHistoryList = [];
 
 /* A list of all PastTapItem objects to be displayed in their past taps. */
 var pastTapList = [];
+
+/* A list of all TicketWalletItem objects to be displayed in the "Ticket Wallet." */
+var ticketWalletList = [];
 
 /* Enable the "swipe right" feature to open the side panel in the app. */
 
@@ -1186,6 +1203,76 @@ function clearPastTaps() {
 
     // Clear DOM.
     $("#past-tap-list").empty();
+}
+
+/* Ticket Wallet */
+
+/*
+ * Description: Define a list of TicketWalletItem objects to make available in the "Ticket Wallet" tab on the account balance screen.
+ * Input: A list of TicketWalletItem objects.
+ * Output: N/A
+ * Error: N/A
+ */
+function setTicketWallet(walletList) {
+    for (var i = 0; i < ticketWalletList.length; i++) {
+        addTicketWalletItem(walletList[i]);
+    }
+}
+
+/*
+ * Description: Append a ticket wallet item to the "Ticket Wallet" tab in account balance info.
+ * Input: A TicketWalletItem object.
+ * Output: N/A
+ * Error: N/A
+ */
+function addTicketWalletItem(ticketWalletItem) {
+    // Add to array to access later.
+    ticketWalletList.push(ticketWalletItem);
+
+    // Add to DOM.
+    if (ticketWalletItem.ticketActivated) {
+        if (ticketWalletItem.ticketSelected) {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Expires on " + ticketWalletItem.expirationDate + " at " + ticketWalletItem.expirationTime + "</p></li>");
+        } else {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Expires on " + ticketWalletItem.expirationDate + " at " + ticketWalletItem.expirationTime + "</p></li>");
+        }
+    } else {
+        if (ticketWalletItem.ticketSelected) {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
+        } else {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
+        }
+    }
+}
+
+/*
+ * Description: Remove an item from the ticket wallet.
+ * Input: A ticket object.
+ * Output: N/A
+ * Error: N/A
+ */
+function removeTicketWalletItem(ticketWalletItem) {
+    for (var i = 0; i < ticketWalletList.length; i++) {
+        if (ticketWalletList[i].ticketId == ticketWalletItem.ticketId) {
+            --i;
+            ticketWalletList.splice(i, 1);
+            $("#ticketWalletItemId" + ticketWalletItem.ticketId).remove();
+        }
+    }
+}
+
+/*
+ * Description: Clear ticket wallet.
+ * Input: N/A
+ * Output: N/A
+ * Error: N/A
+ */
+function clearTicketWallet() {
+    // Clear list.
+    ticketWalletList = [];
+
+    // Clear DOM.
+    $("#ticket-wallet-list").empty();
 }
 
 /*
