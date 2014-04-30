@@ -32,10 +32,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="updateBalance.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="updateBalance.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back_end/updateBalance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="464" selection-end="464" vertical-scroll-proportion="0.25597268" vertical-offset="0" max-vertical-offset="879">
+            <state line="10" column="41" selection-start="254" selection-end="295" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="315">
               <folding>
                 <marker date="1398278946000" expanded="true" signature="376:445" placeholder="UPDATE Users..." />
               </folding>
@@ -54,20 +54,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="validateDeductBalance.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="25" selection-start="732" selection-end="732" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="510">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newUser.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="newUser.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="2610">
-              <folding />
+            <state line="20" column="33" selection-start="624" selection-end="624" vertical-scroll-proportion="0.34642032" vertical-offset="0" max-vertical-offset="2070">
+              <folding>
+                <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+                <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,6 +70,17 @@
         <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
           <provider selected="true" editor-type-id="text-editor">
             <state line="23" column="0" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
+              <folding>
+                <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateTicketWallet.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back_end/updateTicketWallet.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="0" selection-start="498" selection-end="498" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="345">
               <folding />
             </state>
           </provider>
@@ -105,12 +110,13 @@
         <option value="$PROJECT_DIR$/back_end/validateLogin.php" />
         <option value="$PROJECT_DIR$/back_end/updateBalance.php" />
         <option value="$PROJECT_DIR$/back_end/validateDeductBalance.php" />
+        <option value="$PROJECT_DIR$/back_end/updateTicketWallet.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="229" />
+    <option name="x" value="504" />
     <option name="y" value="22" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
@@ -141,6 +147,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -165,7 +172,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -204,15 +210,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="229" y="22" width="1400" height="1000" extended-state="0" />
-    <editor active="false" />
+    <frame x="504" y="22" width="1400" height="1000" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -244,24 +250,22 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="742" selection-end="742" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="525">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="55" column="0" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="2610">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
-          <folding />
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -293,14 +297,19 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="55" column="0" selection-start="1470" selection-end="1470" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="2505">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
-          <folding />
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -328,7 +337,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="117" column="8" selection-start="2978" selection-end="2978" vertical-scroll-proportion="0.0" vertical-offset="1755" max-vertical-offset="2460">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -344,7 +356,9 @@
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
-          <folding />
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -372,7 +386,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="86" column="8" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.0" vertical-offset="1290" max-vertical-offset="1995">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -388,7 +405,9 @@
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
-          <folding />
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -416,7 +435,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="8" selection-start="2204" selection-end="2284" vertical-scroll-proportion="0.0" vertical-offset="1275" max-vertical-offset="1980">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -432,7 +454,9 @@
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="34" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="330">
-          <folding />
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -460,7 +484,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="8" selection-start="2204" selection-end="2284" vertical-scroll-proportion="0.0" vertical-offset="1114" max-vertical-offset="1980">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -476,7 +503,9 @@
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="0" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="330">
-          <folding />
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -499,7 +528,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="8" selection-start="2204" selection-end="2284" vertical-scroll-proportion="0.0" vertical-offset="1114" max-vertical-offset="1980">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -522,7 +554,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="8" selection-start="2204" selection-end="2284" vertical-scroll-proportion="0.0" vertical-offset="1114" max-vertical-offset="1980">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -545,7 +580,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="36" selection-start="276" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="1114" max-vertical-offset="1980">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -568,14 +606,10 @@
     <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="36" selection-start="276" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1980">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
-          <folding />
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -584,9 +618,9 @@
         <state line="36" column="2" selection-start="878" selection-end="878" vertical-scroll-proportion="0.61433446" vertical-offset="0" max-vertical-offset="879" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back_end/updateAccountSettings.php">
+    <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="645">
+        <state line="25" column="87" selection-start="699" selection-end="699" vertical-scroll-proportion="0.42662117" vertical-offset="0" max-vertical-offset="879">
           <folding />
         </state>
       </provider>
@@ -600,25 +634,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
+    <entry file="file://$PROJECT_DIR$/back_end/updateAccountSettings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.0" vertical-offset="825" max-vertical-offset="2610">
+        <state line="8" column="0" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="645">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
+    <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="25" selection-start="732" selection-end="732" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="510">
-          <folding />
+        <state line="23" column="0" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
+          <folding>
+            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back_end/updateBalance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="464" selection-end="464" vertical-scroll-proportion="0.25597268" vertical-offset="0" max-vertical-offset="879">
+        <state line="10" column="41" selection-start="254" selection-end="295" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="315">
           <folding>
             <marker date="1398278946000" expanded="true" signature="376:445" placeholder="UPDATE Users..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back_end/updateTicketWallet.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="498" selection-end="498" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back_end/newUser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="33" selection-start="624" selection-end="624" vertical-scroll-proportion="0.34642032" vertical-offset="0" max-vertical-offset="2070">
+          <folding>
+            <marker date="1398859394000" expanded="true" signature="2173:2216" placeholder="SELECT * FRO..Users..." />
+            <marker date="1398859394000" expanded="true" signature="3044:3479" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>

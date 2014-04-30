@@ -12,7 +12,7 @@ $userid = trim($_POST["userid"]);
 $cost = trim($_POST["cost"]);
 $validateTap;
 
-$result = mysql_query("SELECT * FROM Users WHERE user_id = '$userid' ");
+$result = mysql_query("SELECT * FROM Users WHERE email = '$userid' ");
 $row = mysql_fetch_assoc($result);
 $tapbalance = $row['tap_balance'];
 
@@ -23,7 +23,7 @@ if($cost>$tapbalance) {
 if($cost<$tapbalance) {
     $validateTap=True;
     $updatedBalance=$tapbalance-$cost;
-    mysql_query("UPDATE Users SET tap_balance=$updatedBalance WHERE user_id='$userid' ");
+    mysql_query("UPDATE Users SET tap_balance=$updatedBalance WHERE email='$userid' ");
 
 }
 echo json_encode($validateTap);

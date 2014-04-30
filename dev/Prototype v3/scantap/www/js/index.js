@@ -83,9 +83,7 @@ function process(str) {
     //setText('ok','okay?');
     var ok= validate(uid, nguests,time,hmac);
     if(ok) {
-        testAndDeduct();
-        setOkBoxText("GO.<br /> TAP validated for "+nguests+" guests.");
-        setOkBoxColor('white','green');
+        testAndDeduct(uid, nguests);
     }
     else {
         setOkBoxText("INVALID QR.");
@@ -132,11 +130,8 @@ function setOkBoxColor(color,backgroundColor) {
     document.getElementById('ok').style.backgroundColor=backgroundColor;
 }
 
-function testAndDeduct() {
-    var uid= 9;
-    var nguests=0;
-    var cost= 1.5*(nguests+1);
-            setOkBoxText('still trying...');
+function testAndDeduct(uid, nguests) {
+    var cost= 1.5*(parseInt(nguests)+1);
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateDeductBalance.php',
@@ -146,13 +141,16 @@ function testAndDeduct() {
         },
         success: function(data) {
             var validateTAP=$.parseJSON(data);
-            setOkBoxText('okay!');
-            //alert('No worries, mate');
-            //alert(validateTAP);
+            setOkBoxText("GO.<br /> TAP validated for "+nguests+" guests.");
+            setOkBoxColor('white','green');
         },
         error: function(data, textStatus) {
-            alert(textStatus);
-        }
+            alert(textStatus+" "+data.status);
+        },
+        timeout:5000,
+        cache : false,
+        async: false
+
     });
 }
 

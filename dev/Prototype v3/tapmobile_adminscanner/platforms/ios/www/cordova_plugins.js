@@ -6,12 +6,13 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.barcodeScanner"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugin.statusbar/www/statusbar.js",
+        "id": "com.phonegap.plugin.statusbar.statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
     }
-];
-module.exports.metadata = 
-// TOP OF METADATA
-{
-    "com.phonegap.plugins.barcodescanner": "1.0.1"
-}
-// BOTTOM OF METADATA
+]
 });
