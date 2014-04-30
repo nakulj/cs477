@@ -2,12 +2,16 @@
 
 header('Access-Control-Allow-Origin: *');
 
+//require_once("/srv/disk2/1616563/www/tapmobile.co.nf/back_end/stripeapi/lib/Stripe.php");
+require_once("/srv/disk2/1616563/www/tapmobile.co.nf/back_end/stripe-php-1.13.0/lib/Stripe.php");
 
 $con = mysql_connect("fdb7.biz.nf", "1616563_tap", "tapmobile7")
 	       or die("Could not connect: " . mysql_error());
 
 	    mysql_select_db("1616563_tap", $con)
 	       or die("Could not find database: " . mysql_error());
+
+Stripe::setApiKey("sk_live_dfqOIc2ZtwVAjreZdLg0XqmE");
 
 $first_name = trim($_POST["fname"]);
 $last_name = trim($_POST["lname"]);
@@ -18,14 +22,48 @@ $bStreet = trim($_POST["street"]);
 $bCity = trim($_POST["city"]);
 $bState = trim($_POST["state"]);
 $bZip = trim($_POST["zip"]);
+$stripeToken = $_POST["stripeToken"];
 $cc_num = trim($_POST["cc_num"]);
-
-$cardNumber = trim($_POST["cardNumber"]);
-$expMonth = trim($_POST["expMonth"]);
-$expYear = trim($_POST["expYear"]);
-
 $error = false;
 $errormessage = 0;
+
+
+//save customer on stripe account for easier charges later
+$token = $_POST["stripeToken"];
+
+//save customer on stripe account for easier charges later
+$token = $_POST['stripeToken'];
+
+
+// Create a Customer
+$customer = Stripe_Customer::create(array(
+  "card" => $token,
+  "description" => "payinguser@example.com")
+);
+
+
+//Charge the Customer instead of the card
+Stripe_Charge::create(array(
+  "amount" => 5, # amount in cents, again
+  "currency" => "usd",
+  "customer" => $customer->id)
+);
+
+
+// Save the customer ID in your database so you can use it later
+saveStripeCustomerId($user, $customer->id);
+
+// Later...
+$customerId = getStripeCustomerId($user);
+
+/*
+Stripe_Charge::create(array(
+  "amount"   => 5,
+  "currency" => "usd",
+  "customer" => $customerId)
+);
+*/
+//end Stripe
 
 #CHECK TO SEE IF FIRST NAME CONTAINS AT LEAST 1 CHAR
 
@@ -118,8 +156,8 @@ if(!isset($password) || strlen($password) < 1){
 
 #ADD USER TO DB IF NO ERRORS DETECTED
 if (!$error){
-   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip, stripeToken, stripeCustomerID, cc_num, cardNumber, expMonth, expYear)
-   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip', 'stripeToken', 'customerID', '$cc_num' , '$cardNumber' , '$expMonth' , '$expYear')");
+   $query = mysql_query("INSERT INTO Users (user_id,first_name, last_name, email, password,tap_balance, cardholder_name, billing_street, billing_city, billing_state, billing_zip, stripeToken, stripeCustomerID, cc_num)
+   	VALUES ('NULL','$first_name', '$last_name', '$email', '$password','0', '$cc_name', '$bStreet', '$bCity', '$bState', '$bZip', '$stripeToken', '$customerId', '$cc_num')");
 
 	//echo '<script type="text/javascript">alert("user is created"); </script>';
 
