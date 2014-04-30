@@ -34,5 +34,4 @@ $password = trim($_POST["password"]);
     echo json_encode($loginresult);
 
 
-
 ?>
