@@ -1371,7 +1371,7 @@ function processedTicketFailed(errorCode) {
 // ----------------------------------------------------------------------
 
 // QR Code generation
-var userid= "1234567890";
+var userid= userSession;
 var timestamp;
 var message;
 var qrcode;
@@ -1386,7 +1386,7 @@ var refreshRate = 5000;
 function updateTimeQR() {
     qrcode.clear();
     timestamp = Date.now();
-    message = userid + timestamp;
+    message = userid+numGuests+timestamp;
     qrcode.makeCode(message);
 }
 
