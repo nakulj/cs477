@@ -83,6 +83,7 @@ function process(str) {
     //setText('ok','okay?');
     var ok= validate(uid, nguests,time,hmac);
     if(ok) {
+        testAndDeduct();
         setOkBoxText("GO.<br /> TAP validated for "+nguests+" guests.");
         setOkBoxColor('white','green');
     }
@@ -130,3 +131,39 @@ function setOkBoxColor(color,backgroundColor) {
     document.getElementById('ok').style.color=color;
     document.getElementById('ok').style.backgroundColor=backgroundColor;
 }
+
+function testAndDeduct() {
+    var uid= 9;
+    var nguests=0;
+    var cost= 1.5*(nguests+1);
+            setOkBoxText('still trying...');
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/validateDeductBalance.php',
+        data: {
+            userid: uid,
+            cost: cost
+        },
+        success: function(data) {
+            var validateTAP=$.parseJSON(data);
+            setOkBoxText('okay!');
+            //alert('No worries, mate');
+            //alert(validateTAP);
+        },
+        error: function(data, textStatus) {
+            alert("EPIC FAIL");
+        }
+    }).always(function(data, textStatus, jqXHR){
+   switch(textStatus) {
+     case 200:
+         case 0:
+         alert('Success.');
+             break;
+         case 404:
+             alert('oops');
+             break;
+   }
+ });
+}
+
+
