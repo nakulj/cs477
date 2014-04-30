@@ -170,19 +170,15 @@
                 <ul data-role="listview">
                     <li data-role="fieldcontain">
                         <label for="cc_name"><span id="cc_name-label"><b>Cardholder Name:</b></span></label>
-                        <input type="text" name="cc_name" id="cc_name" value="" placeholder="Cardholder Name" data-stripe="number">
+                        <input type="text" name="cc_name" id="cc_name" value="" placeholder="Cardholder Name" >
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_num"><span id="cc_num-label"><b>Credit Card Number:</b></span></label>
-                        <input type="text" name="cc_num" id="cc_num" value=""  maxlength="19" placeholder="Credit Card Number"/>
+                        <input type="text" name="cc_num" id="cc_num" value=""  maxlength="19" placeholder="Credit Card Number" data-stripe="number"/>
                     </li>
                     <li data-role="fieldcontain">
                         <label for="cc_cvv"><span id="cc_cvv-label"><b>CVV:</b></span></label>
                         <input type="text" name="cc_cvv" id="cc_cvv" value=""  maxlength="4" placeholder="CVV" data-stripe="cvc">
-                    </li>
-                    <li data-role="fieldcontain">
-                        <label for="cc_exp"><span id="cc_exp-label"><b>Expiration Date:</b></span></label>
-                        <input type="month" name="cc_exp" id="cc_exp" value="" placeholder="Expiration Date" >
                     </li>
                     <li data-role="fieldcontain">
                         <fieldset data-role="controlgroup" data-type="horizontal">
