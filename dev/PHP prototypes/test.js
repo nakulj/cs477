@@ -1,6 +1,6 @@
 function testAndDeduct() {
     var uid= 9;
-    var nguests=3;
+    var nguests=0;
     var cost= 1.5*(nguests+1);
     $.ajax({
         type:'POST',
