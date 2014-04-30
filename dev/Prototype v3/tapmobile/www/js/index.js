@@ -104,7 +104,6 @@ $(function() {
         success : function(data) {
             clearAvailableTickets();
             var ticketTypes= $.parseJSON(data);
-            console.log(ticketTypes);
             setAvailableTickets(ticketTypes);
             setAvailableTickets([{ticketId:"0", ticketName:"test", ticketPrice:"3"}]);
         },
