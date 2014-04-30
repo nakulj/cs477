@@ -772,19 +772,19 @@ $("#submit-create-account").on("click", function (e) {
                if (!parsedstring) {
                    $.mobile.changePage("#home", { transition: "slideup" });
                }
-<<<<<<< HEAD
+
 
            },
            error: function (data, textStatus) {
                alert("server error has occured");
 
-=======
+
 
            },
            error: function (data, textStatus) {
                alert("server error has occured");
 
->>>>>>> FETCH_HEAD
+
            }
        });
      
@@ -1982,11 +1982,10 @@ function validateAccountUpdate(){
                 pass_changed:pass_changed,
                 payment_changed:payment_changed,
                 email: email1,
-<<<<<<< HEAD
+
                 pass: pass1
-=======
-                pass: pass1,
->>>>>>> FETCH_HEAD
+
+
 				//stripeToken: stripeToken
                 /*
                 cc_cardholder: cc_cardholder
@@ -2140,7 +2139,7 @@ function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_ar
     }
 }
 
-<<<<<<< HEAD
+
 
 // ========================================================================================================================
 // TICKET WALLET PAGE
@@ -2153,5 +2152,3 @@ $("#ticket-wallet-list li").click(function(){
         $(this).attr("data-theme","g");
 });
 
-=======
->>>>>>> FETCH_HEAD
