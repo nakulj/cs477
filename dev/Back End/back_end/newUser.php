@@ -25,21 +25,28 @@ $errormessage = 0;
 
 
 
+<<<<<<< HEAD
 //save customer on stripe account for easier charges later
 $token = $_POST["stripeToken"];
+=======
+save customer on stripe account for easier charges later
+$token = $_POST['stripeToken'];
+>>>>>>> 7ef9fb73935bc3136964160d766449a8f0adb3b4
 
-// Create a Customer
+ Create a Customer
 $customer = Stripe_Customer::create(array(
   "card" => $token,
   "description" => "payinguser@example.com")
 );
 
-// Charge the Customer instead of the card
+
+Charge the Customer instead of the card
 Stripe_Charge::create(array(
   "amount" => 5, # amount in cents, again
   "currency" => "usd",
   "customer" => $customer->id)
 );
+
 
 // Save the customer ID in your database so you can use it later
 saveStripeCustomerId($user, $customer->id);
