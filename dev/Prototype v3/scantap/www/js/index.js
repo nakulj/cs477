@@ -84,8 +84,6 @@ function process(str) {
     var ok= validate(uid, nguests,time,hmac);
     if(ok) {
         testAndDeduct();
-        setOkBoxText("GO.<br /> TAP validated for "+nguests+" guests.");
-        setOkBoxColor('white','green');
     }
     else {
         setOkBoxText("INVALID QR.");
@@ -145,11 +143,11 @@ function testAndDeduct() {
         },
         success: function(data) {
             var validateTAP=$.parseJSON(data);
-            alert('No worries, mate?');
-            alert(validateTAP);
+            setOkBoxText("GO.<br /> TAP validated for "+nguests+" guests.");
+            setOkBoxColor('white','green');
         },
         error: function(data, textStatus) {
-            alert(data.status+'xx'+textStatus);
+            alert(textStatus+" "+data.status);
         },
         timeout:5000,
         cache : false,
