@@ -106,7 +106,7 @@ $(function() {
     // TODO: Add tickets dynamically to list (to be done by backend later)
     
     // TODO: Back-end
-    clearBalanceHistory();
+
     //addBalanceHistoryItem(new BalanceHistoryItem("addfunds", 10.00, "Card ending in xxxx", "11/14/14", "7:46am"));
     //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
     //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
@@ -370,7 +370,6 @@ $("#log-in-form").on("submit", function(e) {
             /* Build the DOM */
             var ticketInfo=$.parseJSON(data);
             console.log(ticketInfo);
-            console.log(userSession);
 
 
         },
@@ -963,10 +962,12 @@ $("#dialog-confirm-purchase-funds").on("click", function (e) {
 
 //TO DO: this should be pushing to backend and then backend should be pulled everytime balance history is refreshed
 function addItemToBalanceHistory(charge_amount, card_number, time, date){
+
     $("#balance_history_funds").append("<li class='ui-li ui-li-static ui-btn-up-c ui-last-child'><h2 class='ui-li-heading'>$" + charge_amount.toFixed(2) + "</h2><p class='ui-li-desc'><strong>Card ending in " + card_number + "</strong></p><p class='ui-li-desc'>" + date + "-" + time + "</p></li>");
 }
 
 $(document).delegate('#purchase-history', 'pageshow', function () {
+    clearBalanceHistory();
     //alert("user: " + userSession);
     var usernum = userSession;
      $.ajax({
@@ -1211,7 +1212,7 @@ $("#button-confirm-ticket").click(function() {
 
     var ticketPrice = parseInt($("#confirm-ticket-price").html(), 10);
     var ticketType=document.getElementById("mytickets-list").innerHTML;
-    console.log(ticketType);
+    //console.log(ticketType);
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
