@@ -26,7 +26,7 @@
       <file leaf-file-name="updateBalance.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back_end/updateBalance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="41" selection-start="254" selection-end="295" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="315">
+            <state line="10" column="41" selection-start="254" selection-end="295" vertical-scroll-proportion="-0.0" vertical-offset="150" max-vertical-offset="315">
               <folding />
             </state>
           </provider>
@@ -53,10 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="validateDeductBalance.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="validateDeductBalance.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="404" selection-end="438" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="510">
+            <state line="15" column="0" selection-start="404" selection-end="438" vertical-scroll-proportion="0.25597268" vertical-offset="0" max-vertical-offset="879">
               <folding>
                 <marker date="1398860373000" expanded="true" signature="356:399" placeholder="SELECT * FRO..Users..." />
               </folding>
@@ -64,10 +64,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="updateTicketWallet.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="updateTicketWallet.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back_end/updateTicketWallet.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="913" selection-end="913" vertical-scroll-proportion="0.3504673" vertical-offset="0" max-vertical-offset="856">
+            <state line="20" column="0" selection-start="913" selection-end="913" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="390">
               <folding>
                 <marker date="1398876360000" expanded="true" signature="500:707" placeholder="INSERT INTO ..." />
                 <marker date="1398876360000" expanded="true" signature="733:909" placeholder="INSERT INTO ..." />
@@ -82,17 +82,6 @@
             <state line="14" column="0" selection-start="428" selection-end="428" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
               <folding>
                 <marker date="1398872171000" expanded="true" signature="310:364" placeholder="SELECT * FRO..ticketWallet..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="getTicketType.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="572" selection-end="572" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="435">
-              <folding>
-                <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
               </folding>
             </state>
           </provider>
@@ -267,7 +256,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -307,7 +296,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -352,7 +341,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -397,7 +386,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="435">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -442,7 +431,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="34" selection-start="406" selection-end="406" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="330">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -487,7 +476,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="0" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="330">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -617,15 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="404" selection-end="438" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="510">
-          <folding>
-            <marker date="1398860373000" expanded="true" signature="356:399" placeholder="SELECT * FRO..Users..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back_end/getBalance.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="34" selection-start="392" selection-end="426" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="345">
@@ -633,11 +613,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back_end/updateTicketWallet.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="0" selection-start="913" selection-end="913" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="390">
+          <folding>
+            <marker date="1398876360000" expanded="true" signature="500:707" placeholder="INSERT INTO ..." />
+            <marker date="1398876360000" expanded="true" signature="733:909" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back_end/getTicketType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="572" selection-end="572" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="435">
+        <state line="20" column="0" selection-start="572" selection-end="572" vertical-scroll-proportion="0.3558719" vertical-offset="0" max-vertical-offset="843">
           <folding>
-            <marker date="1398836638000" expanded="true" signature="277:297" placeholder="SELECT * FRO..Ticket..." />
+            <marker date="1398836638000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..Ticket..." />
           </folding>
         </state>
       </provider>
@@ -651,12 +641,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back_end/updateTicketWallet.php">
+    <entry file="file://$PROJECT_DIR$/back_end/validateDeductBalance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="913" selection-end="913" vertical-scroll-proportion="0.3504673" vertical-offset="0" max-vertical-offset="856">
+        <state line="15" column="0" selection-start="404" selection-end="438" vertical-scroll-proportion="0.25597268" vertical-offset="0" max-vertical-offset="879">
           <folding>
-            <marker date="1398876360000" expanded="true" signature="500:707" placeholder="INSERT INTO ..." />
-            <marker date="1398876360000" expanded="true" signature="733:909" placeholder="INSERT INTO ..." />
+            <marker date="1398860373000" expanded="true" signature="356:399" placeholder="SELECT * FRO..Users..." />
           </folding>
         </state>
       </provider>
