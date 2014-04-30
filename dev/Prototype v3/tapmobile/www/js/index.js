@@ -79,38 +79,23 @@ $(function() {
     // Hardcoded Metro Expo Line
     var metroExpoLineStations = [];
 
-    metroExpoLineStations[0] = new TransitStation(1, "7th St/Metro Center", "Metro Expo Line", 34.0497597, -118.2594994, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[1] = new TransitStation(2, "Pico", "Metro Expo Line", 34.0407045, -118.2661995, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[2] = new TransitStation(3, "Jefferson/USC", "Metro Expo Line", 34.0229463, -118.2776492, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[3] = new TransitStation(4, "Expo Park/USC", "Metro Expo Line", 34.0183678, -118.284, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[4] = new TransitStation(5, "Expo/Vermont", "Metro Expo Line", 34.0184147, -118.2927447, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[5] = new TransitStation(6, "23rd St", "Metro Expo Line", 34.028762, -118.2738277, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[6] = new TransitStation(7, "Expo/Western", "Metro Expo Line", 34.018471, -118.3083753, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[7] = new TransitStation(8, "Expo/Crenshaw", "Metro Expo Line", 34.0222831, -118.3333312, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[8] = new TransitStation(9, "Farmdale", "Metro Expo Line", 34.0236457, -118.3445348, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[9] = new TransitStation(10, "Expo/La Brea", "Metro Expo Line", 34.0247601, -118.3538159, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[10] = new TransitStation(11, "La Cienega/Jefferson", "Metro Expo Line", 34.0263983, -118.3701157, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
-    metroExpoLineStations[11] = new TransitStation(12, "Culver City", "Metro Expo Line", 34.0280633, -118.3866186, "temp", "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[0] = new TransitStation(1, "7th St/Metro Center", "Metro Expo Line", new google.maps.LatLng(34.0497597, -118.2594994), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[1] = new TransitStation(2, "Pico", "Metro Expo Line", new google.maps.LatLng(34.0407045, -118.2661995), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[2] = new TransitStation(3, "Jefferson/USC", "Metro Expo Line", new google.maps.LatLng(34.0229463, -118.2776492), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[3] = new TransitStation(4, "Expo Park/USC", "Metro Expo Line", new google.maps.LatLng(34.0183678, -118.284), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[4] = new TransitStation(5, "Expo/Vermont", "Metro Expo Line", new google.maps.LatLng(34.0184147, -118.2927447), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[5] = new TransitStation(6, "23rd St", "Metro Expo Line", new google.maps.LatLng(34.028762, -118.2738277), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[6] = new TransitStation(7, "Expo/Western", "Metro Expo Line", new google.maps.LatLng(34.018471, -118.3083753), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[7] = new TransitStation(8, "Expo/Crenshaw", "Metro Expo Line", new google.maps.LatLng(34.0222831, -118.3333312), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[8] = new TransitStation(9, "Farmdale", "Metro Expo Line", new google.maps.LatLng(34.0236457, -118.3445348), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[9] = new TransitStation(10, "Expo/La Brea", "Metro Expo Line", new google.maps.LatLng(34.0247601, -118.3538159), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[10] = new TransitStation(11, "La Cienega/Jefferson", "Metro Expo Line", new google.maps.LatLng(34.0263983, -118.3701157), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
+    metroExpoLineStations[11] = new TransitStation(12, "Culver City", "Metro Expo Line", new google.maps.LatLng(34.0280633, -118.3866186), "Santa Monica", "12:43pm", "Los Angeles", "12:49pm");
     
-    // Adds Google version of Coordinates to list above ^
-    setStationLocation(metroExpoLineStations);
+    // Add to DOM.
     setNearestTransitStations(metroExpoLineStations);
 
     // TODO: Add tickets dynamically to list (to be done by backend later)
-
-    $.ajax({
-        type:'GET',
-        url:'http://tapmobile.co.nf/back_end/getTicketType.php',
-        success : function(data) {
-            clearAvailableTickets();
-            var ticketTypes= $.parseJSON(data);
-            setAvailableTickets(ticketTypes);
-            setAvailableTickets([{ticketId:"0", ticketName:"test", ticketPrice:"3"}]);
-        },
-        error: function(data, textStatus) {
-            alert("Server error has occurred");
-        }
-    });
     
     // TODO: Back-end
     clearBalanceHistory();
@@ -151,12 +136,10 @@ $(function() {
 // ========================================================================================================================
 
 /* Define transit line object prototype */
-var TransitStation = function(stationId, stationDescription, transitLine, latitude, longitude, stationLocation, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
+var TransitStation = function(stationId, stationDescription, transitLine, stationLocation, transitDestA, arrivalTimeA, transitDestB, arrivalTimeB) {
     this.stationId = stationId;
     this.stationDescription = stationDescription;
     this.transitLine = transitLine;
-    this.latitude = latitude;
-    this.longitude = longitude;
     this.stationLocation = stationLocation;
     this.transitDestA = transitDestA;
     this.arrivalTimeA = arrivalTimeA;
@@ -229,19 +212,7 @@ var userSession;
 // ========================================================================================================================
 // GLOBAL SETTERS
 // ========================================================================================================================
-/*
- * Description: Add google coordinate location to expo line list.
- * Input: List of stations
- * Output: N/A
- * Error: N/A
- */
-function setStationLocation(stationsList) {
-    for(var i=0; i < stationsList.length; i++){
-        var lat = stationsList[i].latitude;
-        var lon = stationsList[i].longitude;
-        stationsList[i].stationLocation = new google.maps.LatLng(lat, lon);
-    }
-}
+
 /*
  * Description: Modify the max number of guests allowed on a single QR scan.
  * Input: An integer upper bound for number of guest spots.
@@ -1350,14 +1321,32 @@ $("#home").on("pageshow", function(event) {
     //$("#qr-rotation-tile").css("left", ($("#home-content").width()/2 - $(window).width()/4) + "px");
     //$("#qr-rotation-tile").animate({left: ($("#home-content").width()/2 - $(window).width()/4) + "px"}, 200);
 
-    /* Determine the height of the Buy Tickets container by taking the height of one element and multiplying by 3. */
-    ticketListHeight = $("#mytickets-list li").actual("height") * 3;
+    $.ajax({
+        type:'GET',
+        url:'http://tapmobile.co.nf/back_end/getTicketType.php',
+        success : function(data) {
+            /* Build the DOM */
+            clearAvailableTickets();
+            var ticketTypes= $.parseJSON(data);
+            setAvailableTickets(ticketTypes);
 
-    /* Set the ticket container scrollbox height */
-    $("#mytickets-list-container").height(ticketListHeight);
+            // Refresh jquery UI styling.
+            $("#mytickets-list").listview('refresh');
 
-    /* Twitch the ticket tab to indicate its existence to user */
-    teaseTicketContainer(600);
+            /* Determine the height of the Buy Tickets container by taking the height of one element and multiplying by 3. */
+            ticketListHeight = $("#mytickets-list li").actual("height") * 3;
+
+            /* Set the ticket container scrollbox height */
+            $("#mytickets-list-container").height(ticketListHeight);
+
+            /* Twitch the ticket tab to indicate its existence to user */
+            teaseTicketContainer(600);
+
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    });
 });
 
 /* Handle back button presses on Android when on the home screen. */
