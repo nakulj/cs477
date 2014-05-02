@@ -1354,14 +1354,14 @@ function addTicketWalletItem(ticketWalletItem) {
     ticketWalletList.push(ticketWalletItem);
 
     // Add to DOM.
-    if (parseInt(ticketWalletItem.ticketActivated), 10) {
+    if (parseInt(ticketWalletItem.ticketActivated, 10)) {
         if (parseInt(ticketWalletItem.ticketSelected), 10) {
             $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2></li>");
         } else {
             $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2></li>");
         }
     } else {
-        if (parseInt(ticketWalletItem.ticketSelected), 10) {
+        if (parseInt(ticketWalletItem.ticketSelected, 10)) {
             $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
         } else {
             $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
