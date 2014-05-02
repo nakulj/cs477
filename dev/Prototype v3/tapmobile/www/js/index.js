@@ -371,7 +371,6 @@ $("#log-in-form").on("submit", function(e) {
             var ticketInfo=$.parseJSON(data);
             console.log(ticketInfo);
 
-
         },
         error: function(data, textStatus) {
             alert("Server error has occurred");

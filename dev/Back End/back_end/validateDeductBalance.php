@@ -16,6 +16,8 @@ $result = mysql_query("SELECT * FROM Users WHERE email = '$userid' ");
 $row = mysql_fetch_assoc($result);
 $tapbalance = $row['tap_balance'];
 
+
+
 if($cost>$tapbalance) {
     $validateTap=False;
 }
