@@ -106,7 +106,7 @@ $(function() {
     // TODO: Add tickets dynamically to list (to be done by backend later)
     
     // TODO: Back-end
-    clearBalanceHistory();
+
     //addBalanceHistoryItem(new BalanceHistoryItem("addfunds", 10.00, "Card ending in xxxx", "11/14/14", "7:46am"));
     //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
     //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
@@ -116,13 +116,17 @@ $(function() {
     addPastTap(new PastTapItem("Single Fare", "Culver Station", "12/01/14", "9:15pm", 2));
     addPastTap(new PastTapItem("Single Fare", "Jefferson Station", "12/03/14", "6:10pm", 0));
 
-    clearTicketWallet();
+
+
+
+
+
+
+
     addTicketWalletItem(new TicketWalletItem(0, true, true, "3-Day Pass", 0, "12/10/14", "7:45pm"));
     addTicketWalletItem(new TicketWalletItem(1, false, false, "5-Day Pass", 1, "", ""));
     addTicketWalletItem(new TicketWalletItem(2, false, false, "Single Fare", 5, "", ""));
 
-    // Hardcoded default balance value
-    //setTAPBalance(0.00);
 
     // Hardcoded front QR caption value
     setFrontQRCaption(new FrontQRCaption("Metro Pass", "3/16/2014", 0));
@@ -354,7 +358,28 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
-    
+    setTimeout(function() {
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/getTicketWallet.php',
+        data: {
+            user_name:userSession
+
+        },
+        success : function(data) {
+            /* Build the DOM */
+            var ticketInfo=$.parseJSON(data);
+            console.log(ticketInfo);
+
+
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    });
+},3000);
+
+
 //Set Tap Balance
   setTimeout(function() {
     $.ajax({
@@ -362,6 +387,7 @@ $("#log-in-form").on("submit", function(e) {
         url:'http://tapmobile.co.nf/back_end/getBalance.php',
         data: {
             email:userSession
+
         },
         success : function(data) {
 
@@ -369,6 +395,7 @@ $("#log-in-form").on("submit", function(e) {
             balance=parsedbalance;
             //console.log(parsedbalance);
             setTAPBalance(parsedbalance);
+            console.log(userSession);
 
         },
         error: function(data, textStatus) {
@@ -464,11 +491,14 @@ function set_page_redirect(page, number){
     else return 1;
 }
 
-var stripeToken;
-Stripe.setPublishableKey('pk_live_xsVpP49WCs4qAWmiHn2If0WB');
-var stripeResponseHandler = function (status, response) {
-    var $form = $('#payment-info-account-create');
+//var stripeToken;
+//Stripe.setPublishableKey('pk_live_xsVpP49WCs4qAWmiHn2If0WB');
 
+
+//var stripeResponseHandler; = function (status, response) {
+   /* var $form = $('#payment-info-account-create');
+    //alert("HELLO" + status + " " + response.id);
+    console.log(response);
     if (response.error) {
         // Show the errors on the form
         
@@ -476,22 +506,36 @@ var stripeResponseHandler = function (status, response) {
         $('#submit-create-account').prop('disabled', false);
     } else {
         // token contains id, last4, and card type
-        stripeToken = response.id;
-        
-           }
+        setStripeToken(response.id);
+        alert("stripe Token alert A: "+ stripeToken);
+    }
+
 };
 
+function setStripeToken(id) {
+
+    stripeToken = id;
+
+} */
+
+function wait(waitsecs) {
+    setTimeout(donothing(), 'waitsecs');
+}
+
+function donothing() {
+
+}
 
 $("#submit-create-account").on("click", function (e) {
 
-    var $form = $('#payment-info-account-create');
+    //var $form = $('#payment-info-account-create');
 
     // Disable the submit button to prevent repeated clicks
     $(this).prop('disabled', true);
 
-    Stripe.card.createToken($form, stripeResponseHandler);
+   // Stripe.card.createToken($form, stripeResponseHandler);
     // end Stripe token creation
-  
+    
 
     //Clear previous error messages
     $("#fname-label").css('color', 'rgb(0,0,0)');
@@ -723,40 +767,54 @@ $("#submit-create-account").on("click", function (e) {
     else{
 
     //If front end validation passes fire Ajax
-    //Writes new user to server through PHP script
-     $.ajax({
+        //Writes new user to server through PHP script
+
         
-        type: 'POST',
-        url:'http://tapmobile.co.nf/back_end/newUser.php',
-        //dataType:'json',
-        data: {
-            fname:$('#acc-create-fname').val(),
-            lname:$('#acc-create-lname').val(),
-            email:$('#acc-create-email').val(),
-            password:$('#acc-create-password2').val(),
-            cardholder_name:$('#cc_name').val(),
-            street:$('#cc_address_street').val(),
-            city:$('#cc_address_city').val(),
-            state:$('#cc_address_state').val(),
-            zip: $('#cc_zip').val()
-        },
-        success : function(data) {
+       $.ajax({
+           type: 'POST',
+           url: 'http://tapmobile.co.nf/back_end/newUser.php',
+           //dataType:'json',
+           data: {
+               fname: $('#acc-create-fname').val(),
+               lname: $('#acc-create-lname').val(),
+               email: $('#acc-create-email').val(),
+               password: $('#acc-create-password2').val(),
+               cardholder_name: $('#cc_name').val(),
+               street: $('#cc_address_street').val(),
+               city: $('#cc_address_city').val(),
+               state: $('#cc_address_state').val(),
+               zip: $('#cc_zip').val(),
+               cardNumber: $('#cc_num').val(),
+               expMonth: $('#expiration-month').val(),
+               expYear: $('#expiration-year').val(),
+               cc_num: 9456
+           },
+           success: function (data) {
 
-            var parsedstring= $.parseJSON(data);
+               var parsedstring = $.parseJSON(data);
 
-            if(parsedstring) {
-               alert("This email address is already in use, please select a new one");
-            }
-            if(!parsedstring)  {
-                $.mobile.changePage("#home", {transition: "slideup"});
-            }
+               if (parsedstring) {
+                   alert("This email address is already in use, please select a new one");
+               }
+               if (!parsedstring) {
+                   $.mobile.changePage("#home", { transition: "slideup" });
+               }
 
-        },
-        error: function(data, textStatus) {
-        alert("server error has occured");
 
-        }
-        });
+           },
+           error: function (data, textStatus) {
+               alert("server error has occured");
+
+
+
+           },
+           error: function (data, textStatus) {
+               alert("server error has occured");
+
+
+           }
+       });
+     
   }
 
 
@@ -780,7 +838,7 @@ function purchaseFunds(charge_amount){
     console.log("Attempting to charge user's credit card for " + charge_amount);
     $.ajax({
         type:'POST',
-        url:'http://tapmobile.co.nf/back_end/chargeCard.php',
+        url:'http://tapmobile.co.nf/back_end/chargeCardBraintree.php',
         data: {
             userSession:userSession
         },
@@ -841,7 +899,8 @@ $("#add-funds-form").on("submit", function(e) {
 });
 
 /*Complete add funds transaction if user confirms purchase*/
-$("#dialog-confirm-purchase-funds").on("click", function(e) {
+$("#dialog-confirm-purchase-funds").on("click", function (e) {
+    alert("HELLO");
     var fund_amount = determineFundAmount();
     purchaseFunds(fund_amount);
     
@@ -903,10 +962,12 @@ $("#dialog-confirm-purchase-funds").on("click", function(e) {
 
 //TO DO: this should be pushing to backend and then backend should be pulled everytime balance history is refreshed
 function addItemToBalanceHistory(charge_amount, card_number, time, date){
+
     $("#balance_history_funds").append("<li class='ui-li ui-li-static ui-btn-up-c ui-last-child'><h2 class='ui-li-heading'>$" + charge_amount.toFixed(2) + "</h2><p class='ui-li-desc'><strong>Card ending in " + card_number + "</strong></p><p class='ui-li-desc'>" + date + "-" + time + "</p></li>");
 }
 
 $(document).delegate('#purchase-history', 'pageshow', function () {
+    clearBalanceHistory();
     //alert("user: " + userSession);
     var usernum = userSession;
      $.ajax({
@@ -1138,19 +1199,68 @@ function addAvailableTicket(ticket) {
     var ticketPrice = parseInt(ticket.ticketPrice, 10);
     $("#mytickets-list").append("<li id=\"ticketId" + ticket.ticketId + "\"><a href=\"#dialog-confirm-ticket\" data-rel=\"dialog\" data-transition=\"slidedown\">" + ticket.ticketName + " - $<span class=\"availableTicketPrice\">" + ticketPrice.toFixed(2) + "</span></a></li>");
     $("#ticketId" + ticket.ticketId).data("ticketPrice", ticketPrice);
+    $("#ticketId" + ticket.ticketId).data("ticketName", ticket.ticketName);
 
     $("#ticketId" + ticket.ticketId).click(function() {
         var ticketPrice = $(this).data("ticketPrice");
+        var ticketName = $(this).data("ticketName");
+
         $("#confirm-ticket-price").html(ticketPrice.toFixed(2));
+        console.log(ticketName);
     });
 
 }
 
+//TODO: BACK END TICKET WALLET
 $("#button-confirm-ticket").click(function() {
+
     var ticketPrice = parseInt($("#confirm-ticket-price").html(), 10);
+    var ticketType=document.getElementById("mytickets-list").innerHTML;
+    //console.log(ticketType);
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    }
+
+    if(mm<10) {
+        mm='0'+mm
+    }
+
+    today = mm+'/'+dd+'/'+yyyy;
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
 
 
+    $.ajax({
+        type:'POST',
+        url:'http://tapmobile.co.nf/back_end/updateTicketWallet.php',
+        data: {
+        ticketPrice:ticketPrice,
+        user_name:userSession,
+        date:today,
+        time:strTime,
+        ticketDescription:"Metro 3 Day Pass"
 
+        },
+        success : function(data) {
+
+        },
+        error:function(data,textsStatus) {
+            alert("Server error has occured");
+        }
+
+
+    });
 });
 
 /*
@@ -1310,6 +1420,23 @@ function addTicketWalletItem(ticketWalletItem) {
             $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
         }
     }
+
+    $("#" + "ticketWalletItemId" + ticketWalletItem.ticketId).click(function(){
+        /* Change all back to normal */
+        $(("#ticket-wallet-list li")).attr("data-theme","c");
+        $("#ticket-wallet-list li").removeClass("ui-btn-hover-g ui-btn-up-g");
+
+        /* Change selected one to green */
+        $(this).addClass("ui-btn-hover-g ui-btn-up-g");
+        $(this).attr("data-theme","g");
+
+        /* Ajax call */
+
+
+
+
+        
+    });
 }
 
 /*
@@ -1756,7 +1883,7 @@ $("#account-settings").on("pagecreate", function(event) {
 
 
 
-/* Called by update account form submit button */
+/* Called by update account form submit button 
 $("#update-account-form").on("submit", function(e) {
    
    var $form = $(this);
@@ -1769,7 +1896,7 @@ $("#update-account-form").on("submit", function(e) {
 	
    validateAccountUpdate();
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
-});
+});*/
 
 /* account delete button popup */
 $("#delete-account").on("click", function(e){
@@ -1888,8 +2015,11 @@ function validateAccountUpdate(){
                 pass_changed:pass_changed,
                 payment_changed:payment_changed,
                 email: email1,
-                pass: pass1,
-				stripeToken: stripeToken
+
+                pass: pass1
+
+
+				//stripeToken: stripeToken
                 /*
                 cc_cardholder: cc_cardholder
                 cc_num: cc_num,
@@ -2042,6 +2172,8 @@ function validate_billing_address(cc_street, cc_city, cc_state, cc_zip, error_ar
     }
 }
 
+
+
 // ========================================================================================================================
 // TICKET WALLET PAGE
 // ========================================================================================================================
@@ -2052,3 +2184,4 @@ $("#ticket-wallet-list li").click(function(){
         $(this).addClass("ui-btn-hover-g ui-btn-up-g");
         $(this).attr("data-theme","g");
 });
+

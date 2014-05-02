@@ -184,7 +184,7 @@
                         <fieldset data-role="controlgroup" data-type="horizontal">
                          <legend><b>Expiration Date:</b></legend>
                         
-                        <select name="update_cc_month" id="Select1" data-stripe ="exp-month">
+                        <select name="expiration-month" id="expiration-month" data-stripe ="exp-month">
                             <option value="01">January</option>
                             <option value="02">February</option>
                             <option value="03">March</option>
@@ -198,7 +198,7 @@
                             <option value="11">November</option>
                             <option value="12">December</option>
                         </select>
-                        <select name="expiration-year" id="Select2" data-stripe ="exp-year">
+                        <select name="expiration-year" id="expiration-year" data-stripe ="exp-year">
                             <option value="2014">2014</option>
                             <option value="2015">2015</option>
                             <option value="2016">2016</option>
@@ -552,6 +552,7 @@
             <div id="mytickets-list-container">
                 <ul data-role="listview" data-icon="false" data-theme="a" id="mytickets-list">
                 </ul>
+                </ul>
             </div>
         </div>
     </div>
@@ -576,6 +577,7 @@
                 <li><a href="#log-in" data-transition="slide">Log Out</a></li>
             </ul>
         </div><!-- /panel -->
+
 
         <div data-role="header" data-position="fixed" data-tap-toggle="false" id="tapHeader" data-id="tapHeader">
             <a href="#payment-settings-panel"><i aria-hidden="true" class = "icon-align-justify" ></i></a>

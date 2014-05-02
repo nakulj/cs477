@@ -34,12 +34,11 @@ var app = {
         app.scan();
     },
     scan: function () {
-      alert("scan");
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert(result.text);
                 process(result.text);
-            },
+            }, 
             function (error) {
                 alert("Scanning failed: " + error);
             }
