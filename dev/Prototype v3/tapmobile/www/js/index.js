@@ -324,33 +324,6 @@ $("#log-in-form").on("submit", function(e) {
                 $.mobile.changePage("#home", {transition: "slideup"});
             }
 
-<<<<<<< HEAD
-        },
-        error: function(data, textStatus) {
-            alert("Server error has occurred");
-
-        }
-    });
-    setTimeout(function() {
-    $.ajax({
-        type:'POST',
-        url:'http://tapmobile.co.nf/back_end/getTicketWallet.php',
-        data: {
-            user_name:userSession
-
-        },
-        success : function(data) {
-            /* Build the DOM */
-            var ticketInfo=$.parseJSON(data);
-            console.log(ticketInfo);
-
-        },
-        error: function(data, textStatus) {
-            alert("Server error has occurred");
-        }
-    });
-},3000);
-=======
             /* GET TICKET WALLET */
             $.ajax({
                 type:'POST',
@@ -364,13 +337,14 @@ $("#log-in-form").on("submit", function(e) {
                     clearTicketWallet();
                     var ticketInfo= $.parseJSON(data);
                     setTicketWallet(ticketInfo);
-                    console.log(ticketInfo);
+                    if ($("#ticket-wallet-list").hasClass("ui-listview")) {
+                        $("#ticket-wallet-list").listview('refresh');
+                    }
                 },
                 error: function(data, textStatus) {
                     alert("Server error has occurred");
                 }
             });
->>>>>>> FETCH_HEAD
 
             /* SET TICKET BALANCE */
             $.ajax({
@@ -398,6 +372,7 @@ $("#log-in-form").on("submit", function(e) {
 
         }
     });
+    
 
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
@@ -1638,7 +1613,6 @@ function sortByClosestDistance(a, b) {
     } else if (distA > distB) {
         return 1;
     }
-    console.log("same");
     return 0;
 }
 
