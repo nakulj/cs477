@@ -8,7 +8,12 @@ mysql_select_db("1616563_tap", $con)
 or die("Could not find database: " . mysql_error());
 
 $userName=trim($_POST["user_name"]);
-$query=mysql_query("SELECT * FROM ticketWallet WHERE user_name='$userName' ");
-$row = mysql_fetch_assoc($query);
-echo json_encode($row);
+$result=mysql_query("SELECT * FROM ticketWallet WHERE user_name='$userName' ");
 
+$data=array();
+while($row = mysql_fetch_array($result)) {
+	$ticketWalletItem = array("ticketId" => $row["pass_id"], "ticketActivated" => $row["pass_active"], "ticketSelected" => $row["pass_selected"], "ticketText" => $row["pass_description"]);
+	array_push($data, $ticketWalletItem);
+}
+
+echo json_encode($data);

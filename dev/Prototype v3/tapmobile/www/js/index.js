@@ -111,23 +111,6 @@ $(function() {
     //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 4.50, "Single Fare", "12/15/14", "11:55am"));
     //addBalanceHistoryItem(new BalanceHistoryItem("purchase", 1.50, "Single Fare", "12/15/14", "8:00am"));
 
-
-    clearPastTaps();
-    addPastTap(new PastTapItem("Single Fare", "Culver Station", "12/01/14", "9:15pm", 2));
-    addPastTap(new PastTapItem("Single Fare", "Jefferson Station", "12/03/14", "6:10pm", 0));
-
-
-
-
-
-
-
-
-    addTicketWalletItem(new TicketWalletItem(0, true, true, "3-Day Pass", 0, "12/10/14", "7:45pm"));
-    addTicketWalletItem(new TicketWalletItem(1, false, false, "5-Day Pass", 1, "", ""));
-    addTicketWalletItem(new TicketWalletItem(2, false, false, "Single Fare", 5, "", ""));
-
-
     // Hardcoded front QR caption value
     setFrontQRCaption(new FrontQRCaption("Metro Pass", "3/16/2014", 0));
 
@@ -176,14 +159,6 @@ var BalanceHistoryItem = function(transactionType, transactionAmount, descriptio
     this.descriptionText = descriptionText;
     this.transactionDate = transactionDate;
     this.transactionTime = transactionTime;
-}
-
-var PastTapItem = function(ticketText, stationDescription, tapDate, tapTime, numGuests) {
-    this.ticketText = ticketText;
-    this.stationDescription = stationDescription;
-    this.tapDate = tapDate;
-    this.tapTime = tapTime;
-    this.numGuests = numGuests;
 }
 
 var TicketWalletItem = function(ticketId, ticketActivated, ticketSelected, ticketText, ticketsRemaining, expirationDate, expirationTime) {
@@ -303,9 +278,6 @@ var nearestTransitStationIndex = 0;
 /* A list of all BalanceHistoryItem objects to be displayed in their balance history */
 var balanceHistoryList = [];
 
-/* A list of all PastTapItem objects to be displayed in their past taps. */
-var pastTapList = [];
-
 /* A list of all TicketWalletItem objects to be displayed in the "Ticket Wallet." */
 var ticketWalletList = [];
 
@@ -352,6 +324,7 @@ $("#log-in-form").on("submit", function(e) {
                 $.mobile.changePage("#home", {transition: "slideup"});
             }
 
+<<<<<<< HEAD
         },
         error: function(data, textStatus) {
             alert("Server error has occurred");
@@ -377,36 +350,54 @@ $("#log-in-form").on("submit", function(e) {
         }
     });
 },3000);
+=======
+            /* GET TICKET WALLET */
+            $.ajax({
+                type:'POST',
+                url:'http://tapmobile.co.nf/back_end/getTicketWallet.php',
+                data: {
+                    user_name:userSession
 
+                },
+                success : function(data) {
+                    /* Build the DOM */
+                    clearTicketWallet();
+                    var ticketInfo= $.parseJSON(data);
+                    setTicketWallet(ticketInfo);
+                    console.log(ticketInfo);
+                },
+                error: function(data, textStatus) {
+                    alert("Server error has occurred");
+                }
+            });
+>>>>>>> FETCH_HEAD
 
-//Set Tap Balance
-  setTimeout(function() {
-    $.ajax({
-        type:'POST',
-        url:'http://tapmobile.co.nf/back_end/getBalance.php',
-        data: {
-            email:userSession
+            /* SET TICKET BALANCE */
+            $.ajax({
+                type:'POST',
+                url:'http://tapmobile.co.nf/back_end/getBalance.php',
+                data: {
+                    email:userSession
 
-        },
-        success : function(data) {
+                },
+                success : function(data) {
 
-            var parsedbalance= $.parseJSON(data);
-            balance=parsedbalance;
-            //console.log(parsedbalance);
-            setTAPBalance(parsedbalance);
-            console.log(userSession);
+                    var parsedbalance= $.parseJSON(data);
+                    balance=parsedbalance;
+                    setTAPBalance(parsedbalance);
 
+                },
+                error: function(data, textStatus) {
+                    alert("Server error has occurred");
+
+                }
+            });
         },
         error: function(data, textStatus) {
             alert("Server error has occurred");
 
         }
     });
-    },3000);
-
-
-    // Bypass login for testing.
-    //$.mobile.changePage("#home", {transition: "slideup"});
 
     return false; // Prevent default form action (causes log-in page to be reloaded on submit if we don't return false here)
 });
@@ -1205,7 +1196,7 @@ function addAvailableTicket(ticket) {
         var ticketName = $(this).data("ticketName");
 
         $("#confirm-ticket-price").html(ticketPrice.toFixed(2));
-        console.log(ticketName);
+        $("#confirm-ticket-name").html(ticketName);
     });
 
 }
@@ -1214,7 +1205,9 @@ function addAvailableTicket(ticket) {
 $("#button-confirm-ticket").click(function() {
 
     var ticketPrice = parseInt($("#confirm-ticket-price").html(), 10);
+    var ticketName = $("#confirm-ticket-name").html();
     var ticketType=document.getElementById("mytickets-list").innerHTML;
+
     //console.log(ticketType);
     var today = new Date();
     var dd = today.getDate();
@@ -1248,8 +1241,7 @@ $("#button-confirm-ticket").click(function() {
         user_name:userSession,
         date:today,
         time:strTime,
-        ticketDescription:"Metro 3 Day Pass"
-
+        ticketDescription:ticketName
         },
         success : function(data) {
 
@@ -1257,8 +1249,6 @@ $("#button-confirm-ticket").click(function() {
         error:function(data,textsStatus) {
             alert("Server error has occured");
         }
-
-
     });
 });
 
@@ -1301,7 +1291,7 @@ function clearAvailableTickets() {
  * Error: N/A
  */
 function setBalanceHistory(balanceList) {
-    for (var i = 0; i < balanceHistoryList.length; i++) {
+    for (var i = 0; i < balanceList.length; i++) {
         addBalanceHistoryItem(balanceList[i]);
     }
 }
@@ -1339,48 +1329,6 @@ function clearBalanceHistory() {
     $(".balanceHistoryItem").remove();
 }
 
-/* Past Taps */
-
-/*
- * Description: Define a list of PastTap objects to make available in the "Past Taps" tab on the account balance screen.
- * Input: A list of PastTap objects.
- * Output: N/A
- * Error: N/A
- */
-function setPastTaps(tapList) {
-    for (var i = 0; i < pastTapList.length; i++) {
-        addPastTap(tapList[i]);
-    }
-}
-
-/*
- * Description: Append a past tap item to the "Past Taps" tab in account balance info.
- * Input: A PastTap object.
- * Output: N/A
- * Error: N/A
- */
-function addPastTap(pastTapItem) {
-    // Add to array to access later.
-    pastTapList.push(pastTapItem);
-
-    // Add to DOM.
-    $("#past-tap-list").append("<li><a href=\"#\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + pastTapItem.numGuests + " guests</strong></p><h2 class=\"ui-li-heading\">" + pastTapItem.ticketText + "</h2><p class=\"ui-li-desc\"><strong>" + pastTapItem.stationDescription + "</strong></p><p class=\"ui-li-desc\">" + pastTapItem.tapDate + " - " + pastTapItem.tapTime + "</p></a><a href=\"#\"></a></li>");
-}
-
-/*
- * Description: Clear past taps.
- * Input: N/A
- * Output: N/A
- * Error: N/A
- */
-function clearPastTaps() {
-    // Clear list.
-    pastTapList = [];
-
-    // Clear DOM.
-    $("#past-tap-list").empty();
-}
-
 /* Ticket Wallet */
 
 /*
@@ -1390,7 +1338,7 @@ function clearPastTaps() {
  * Error: N/A
  */
 function setTicketWallet(walletList) {
-    for (var i = 0; i < ticketWalletList.length; i++) {
+    for (var i = 0; i < walletList.length; i++) {
         addTicketWalletItem(walletList[i]);
     }
 }
@@ -1406,17 +1354,17 @@ function addTicketWalletItem(ticketWalletItem) {
     ticketWalletList.push(ticketWalletItem);
 
     // Add to DOM.
-    if (ticketWalletItem.ticketActivated) {
-        if (ticketWalletItem.ticketSelected) {
-            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Expires on " + ticketWalletItem.expirationDate + " at " + ticketWalletItem.expirationTime + "</p></li>");
+    if (parseInt(ticketWalletItem.ticketActivated), 10) {
+        if (parseInt(ticketWalletItem.ticketSelected), 10) {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2></li>");
         } else {
-            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Expires on " + ticketWalletItem.expirationDate + " at " + ticketWalletItem.expirationTime + "</p></li>");
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2></li>");
         }
     } else {
-        if (ticketWalletItem.ticketSelected) {
-            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
+        if (parseInt(ticketWalletItem.ticketSelected), 10) {
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"g\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
         } else {
-            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><p class=\"ui-li-aside ui-li-desc\"><strong>" + ticketWalletItem.ticketsRemaining + " Remaining</strong></p><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
+            $("#ticket-wallet-list").append("<li id=\"ticketWalletItemId" + ticketWalletItem.ticketId + "\" data-theme=\"c\" data-icon=\"false\"><h2 class=\"ui-li-heading\">" + ticketWalletItem.ticketText + "</h2><p class=\"ui-li-desc\">Not yet activated</p></li>");
         }
     }
 
@@ -1430,11 +1378,21 @@ function addTicketWalletItem(ticketWalletItem) {
         $(this).attr("data-theme","g");
 
         /* Ajax call */
+        $.ajax({
+        type:'GET',
+        url:'http://tapmobile.co.nf/back_end/selectTicket.php',
+        data: {
+                user_name: userSession,
+                ticketName:ticketWalletItem.ticketName
+        },
+        success : function(data) {
+            /* Build the DOM */
 
-
-
-
-        
+        },
+        error: function(data, textStatus) {
+            alert("Server error has occurred");
+        }
+    });
     });
 }
 

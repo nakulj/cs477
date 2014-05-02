@@ -131,7 +131,7 @@ function setOkBoxColor(color,backgroundColor) {
 }
 
 function testAndDeduct(uid, nguests) {
-    var cost= 1.5*(nguests+1);
+    var cost= 1.5*(parseInt(nguests)+1);
     $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/validateDeductBalance.php',
