@@ -865,7 +865,6 @@ $("#add-funds-form").on("submit", function(e) {
 
 /*Complete add funds transaction if user confirms purchase*/
 $("#dialog-confirm-purchase-funds").on("click", function (e) {
-    alert("HELLO");
     var fund_amount = determineFundAmount();
     purchaseFunds(fund_amount);
     
@@ -932,48 +931,44 @@ function addItemToBalanceHistory(charge_amount, card_number, time, date){
 }
 
 $(document).delegate('#purchase-history', 'pageshow', function () {
-    clearBalanceHistory();
-    //alert("user: " + userSession);
     var usernum = userSession;
-     $.ajax({
+    $.ajax({
         type:'POST',
         url:'http://tapmobile.co.nf/back_end/getBalanceHistory.php',
         //dataType:'json',
         data: {
-            usernum: usernum
-        },
-        success : function(balance_data) {
-            //redirect user to log-in
-            var balance = JSON.parse(balance_data);
+        usernum: usernum
+    },
+    success : function(balance_data) {
+        //redirect user to log-in
+        var balance = JSON.parse(balance_data);
 
-           for (var i = 0; i < (balance.length/5); i++){
-            var index = i * 5;
-            var date = balance[index];
-            var time = balance[index+1];
-            var fare_amount = balance[index+2];
-            var aux = balance[index+3];
-            var type = balance[index+4];
-                        
-            if (type == 0)
-                addBalanceHistoryItem(new BalanceHistoryItem("addfunds", fare_amount, "Card ending in " + aux, date, time));
-            else if (type == 1)
-                addBalanceHistoryItem(new BalanceHistoryItem("purchase", fare_amount, aux, date, time));
-            else alert("Error in balance history!");
-           }
+        clearBalanceHistory();
 
-            $("#balance_history_funds").listview('refresh');
-            $("#balance_history_purchases").listview('refresh');
-            
+        for (var i = 0; i < (balance.length/5); i++){
+        var index = i * 5;
+        var date = balance[index];
+        var time = balance[index+1];
+        var fare_amount = balance[index+2];
+        var aux = balance[index+3];
+        var type = balance[index+4];
 
 
 
+        if (type == 0)
+            addBalanceHistoryItem(new BalanceHistoryItem("addfunds", fare_amount, "Card ending in " + aux, date, time));
+        else if (type == 1)
+            addBalanceHistoryItem(new BalanceHistoryItem("purchase", fare_amount, aux, date, time));
+        else alert("Error in balance history!");
+        }
 
-        },
-        error: function(data, textStatus) {
-            alert("server error has occured" + data + textStatus);
+        $("#balance_history_funds").listview('refresh');
+        $("#balance_history_purchases").listview('refresh');
+    },
+    error: function(data, textStatus) {
+        alert("server error has occured" + data + textStatus);
         }
     });
-
 });
 
 // ========================================================================================================================
